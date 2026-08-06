@@ -1,0 +1,1502 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sejtszerviz.hu — Sejtszintű egyensúly, vérteszttel igazolva</title>
+<link rel="canonical" href="https://www.sejtszerviz.hu/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy: #123536;
+    --navy-deep: #0b2425;
+    --paper: #F5EFE3;
+    --paper-warm: #EFE6D3;
+    --berry: #A63446;
+    --berry-deep: #832634;
+    --gold: #C98A3E;
+    --ink: #1B1B1B;
+    --ink-soft: #4B524F;
+    --line: rgba(18,53,54,0.14);
+    --white: #FFFDF8;
+    --teal-mid: #3C6E71;
+    --teal-mid-deep: #2E5457;
+    --green: #4C8C4A;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{ background:var(--paper); color:var(--ink); font-family:'Work Sans', sans-serif; line-height:1.55; -webkit-font-smoothing:antialiased; padding-bottom:44px; }
+  p, li, .faq-a, .quiz-stat-label, .cookie-toggle-desc{ text-align:justify; text-justify:inter-word; }
+  h1,h2,h3{ font-family:'Fraunces', serif; color:var(--navy-deep); line-height:1.1; letter-spacing:-0.01em; }
+  .mono{ font-family:'IBM Plex Mono', monospace; }
+  a{ color:inherit; }
+  img,svg{ display:block; max-width:100%; }
+  .wrap{ max-width:1120px; margin:0 auto; padding:0 28px; }
+  section{ scroll-margin-top:84px; padding:76px 0; }
+
+  /* NAV */
+  header.nav{ position:sticky; top:0; z-index:50; background:rgba(245,239,227,0.9); backdrop-filter:blur(8px); border-bottom:1px solid var(--line); }
+  .nav-inner{ max-width:1120px; margin:0 auto; padding:14px 28px; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+  .brand{ display:flex; align-items:center; gap:10px; font-family:'Fraunces', serif; font-weight:600; font-size:1.05rem; color:var(--navy-deep); }
+  .brand-mark{ width:24px; height:24px; border-radius:50%; background:conic-gradient(from 200deg, var(--berry), var(--gold), var(--navy)); flex-shrink:0; }
+  .nav-links{ display:flex; gap:22px; list-style:none; font-size:0.92rem; }
+  .nav-links a{ text-decoration:none; color:var(--ink-soft); transition:color .15s; }
+  .nav-links a:hover{ color:var(--navy-deep); }
+  .nav-cta{ background:var(--berry); color:var(--white); padding:10px 20px; border-radius:999px; font-size:0.85rem; font-weight:600; text-decoration:none; white-space:nowrap; transition:transform .15s, background .15s; }
+  .nav-cta:hover{ background:var(--berry-deep); transform:translateY(-1px); }
+
+  /* HERO */
+  .hero{ padding:80px 0 60px; display:grid; grid-template-columns:1.1fr 0.9fr; gap:56px; align-items:start; }
+
+  /* HERO VIDEO */
+  .hero-video-wrap{
+    position:relative; overflow:hidden;
+    background-image:url('https://cdn.cms.zinzino.com/globalassets/media/half-width/products/decorated/balance-concept/balance-concept-olive-oil-omega3-1500x1000.jpg');
+    background-size:cover; background-position:center;
+  }
+  .hero-video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; }
+  @media (max-width:760px){
+    .hero-video{ display:none; }
+  }
+  .hero-video-overlay{
+    position:absolute; inset:0; z-index:1;
+    background:linear-gradient(115deg, rgba(11,36,37,0.94) 0%, rgba(11,36,37,0.88) 42%, rgba(18,53,54,0.55) 75%, rgba(18,53,54,0.3) 100%);
+  }
+
+  /* SOCIAL PROOF STRIP */
+  .proof-strip{ background:var(--navy-deep); padding:22px 0; }
+  .proof-strip-inner{ display:flex; justify-content:center; align-items:center; flex-wrap:wrap; gap:20px 48px; }
+  .proof-item:nth-child(2){ order:-1; }
+  .proof-item{ display:flex; flex-direction:column; align-items:center; text-align:center; flex:1; min-width:140px; }
+  .proof-item b{ font-family:'Fraunces', serif; color:var(--gold); font-size:1.3rem; }
+  .proof-item span{ color:rgba(245,239,227,0.72); font-size:0.78rem; margin-top:2px; }
+
+  /* GÖRGŐ SZALAG — mindig látható, alul rögzített csík */
+  .marquee-band{
+    position:fixed; left:0; right:0; bottom:0; z-index:120;
+    background:var(--paper-warm); border-top:1px solid var(--line);
+    overflow:hidden; padding:11px 0;
+    box-shadow:0 -6px 16px rgba(11,36,37,0.08);
+  }
+  .marquee-track{ display:flex; width:max-content; animation:marquee-scroll 32s linear infinite; }
+  .marquee-band:hover .marquee-track{ animation-play-state:paused; }
+  .marquee-content{ display:flex; align-items:center; flex-shrink:0; padding-right:0; }
+  .marquee-content span:not(.marquee-dot){
+    font-family:'IBM Plex Mono', monospace; font-size:0.76rem; letter-spacing:0.08em;
+    color:var(--navy-deep); font-weight:600; white-space:nowrap; padding:0 18px;
+  }
+  .marquee-dot{ color:var(--berry); font-size:0.9rem; }
+  @keyframes marquee-scroll{
+    0%{ transform:translateX(0); }
+    100%{ transform:translateX(-50%); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .marquee-track{ animation:none; overflow-x:auto; }
+  }
+
+  /* FELISMERÉS */
+  .recognition{ padding:76px 0; }
+  .recognition-grid{ display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:start; margin-bottom:36px; }
+  .recognition-text h2{ font-size:clamp(1.6rem, 3vw, 2.1rem); margin-bottom:14px; }
+  .symptom-list{ display:flex; flex-direction:column; gap:14px; }
+  .symptom-item{ display:flex; gap:14px; align-items:flex-start; background:var(--paper-warm); border:1px solid var(--line); border-radius:14px; padding:16px 18px; }
+  .symptom-icon{ color:var(--berry); font-size:0.6rem; margin-top:6px; flex-shrink:0; }
+  .symptom-item strong{ display:block; color:var(--navy-deep); font-size:0.98rem; margin-bottom:3px; }
+  .symptom-item p{ color:var(--ink-soft); font-size:0.88rem; }
+  .recognition-callout{
+    background:var(--navy-deep); color:var(--paper); border-radius:20px;
+    padding:36px 40px; max-width:900px;
+  }
+  .recognition-callout p{ color:rgba(245,239,227,0.88); font-size:1.02rem; line-height:1.6; }
+  .recognition-callout strong{ color:var(--white); }
+
+  /* INTERAKTÍV KVÍZ */
+  .quiz-widget{
+    margin-top:36px; background:var(--white); border:1px solid var(--line);
+    border-radius:20px; padding:32px 36px; max-width:900px;
+  }
+  .quiz-stat{ display:flex; align-items:center; gap:28px; margin-bottom:28px; padding-bottom:26px; border-bottom:1px solid var(--line); }
+  .quiz-stat-number{ font-family:'Fraunces', serif; font-weight:700; font-size:4.6rem; color:var(--berry); line-height:0.9; flex-shrink:0; }
+  .quiz-stat-divider{ width:1px; align-self:stretch; background:var(--line); flex-shrink:0; }
+  .quiz-stat-label{ color:var(--ink-soft); font-size:1rem; line-height:1.55; }
+  .quiz-stat-label strong{ color:var(--navy-deep); }
+  .quiz-question p{ font-family:'Fraunces', serif; font-size:1.1rem; color:var(--navy-deep); margin-bottom:16px; }
+  .quiz-buttons{ display:flex; gap:12px; flex-wrap:wrap; }
+  .quiz-btn{
+    font-family:'Work Sans', sans-serif; font-weight:600; font-size:0.9rem;
+    padding:12px 20px; border-radius:999px; border:1px solid var(--line);
+    background:var(--paper-warm); color:var(--navy-deep); cursor:pointer;
+    transition:background .15s, border-color .15s, transform .15s;
+  }
+  .quiz-btn:hover{ background:var(--berry); color:var(--white); border-color:var(--berry); transform:translateY(-1px); }
+  .quiz-btn.is-selected{ background:var(--navy-deep); color:var(--white); border-color:var(--navy-deep); }
+  .quiz-result{
+    margin-top:0; max-height:0; overflow:hidden; opacity:0;
+    transition:max-height .4s ease, opacity .3s ease, margin-top .4s ease;
+  }
+  .quiz-result.is-open{ margin-top:22px; max-height:400px; opacity:1; }
+  .quiz-result-inner{
+    background:var(--paper-warm); border-radius:14px; padding:20px 22px;
+    border-left:3px solid var(--berry);
+  }
+  .quiz-result-inner p{ color:var(--ink-soft); font-size:0.94rem; line-height:1.6; margin-bottom:14px; }
+  .quiz-result-inner p:last-child{ margin-bottom:0; }
+  .quiz-result-inner strong{ color:var(--navy-deep); }
+  .eyebrow{ display:inline-flex; align-items:center; gap:8px; font-family:'IBM Plex Mono', monospace; font-size:0.75rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--berry-deep); margin-bottom:18px; }
+  .eyebrow::before{ content:''; width:7px; height:7px; border-radius:50%; background:var(--berry); }
+  .hero h1{ font-size:clamp(2.1rem, 4vw, 3.2rem); margin-bottom:20px; }
+  .hero h1 em{ font-style:normal; color:var(--berry); }
+  .hero p.lead{ font-size:1.08rem; color:var(--ink-soft); max-width:48ch; margin-bottom:28px; }
+  .hero-ctas{ display:flex; align-items:center; gap:16px; flex-wrap:wrap; margin-bottom:32px; }
+  .btn-primary{ background:var(--navy-deep); color:var(--white); padding:15px 28px; border-radius:10px; font-weight:600; font-size:0.98rem; text-decoration:none; display:inline-block; box-shadow:0 10px 24px -10px rgba(11,36,37,0.5); transition:transform .15s, background .15s; }
+  .btn-primary:hover{ background:var(--navy); transform:translateY(-2px); }
+  .btn-secondary{ padding:15px 24px; border-radius:10px; font-weight:600; font-size:0.95rem; text-decoration:none; border:1px solid var(--line); color:var(--navy-deep); }
+  .hero-stats{ display:flex; gap:32px; flex-wrap:wrap; }
+  .hero-stats .stat b{ font-family:'Fraunces', serif; font-size:1.6rem; color:var(--navy-deep); display:block; }
+  .hero-stats .stat span{ font-size:0.82rem; color:var(--ink-soft); }
+
+  .gauge-card{ background:var(--white); border-radius:20px; padding:32px; border:1px solid var(--line); box-shadow:0 30px 60px -30px rgba(11,36,37,0.25); }
+  .gauge-label{ font-family:'IBM Plex Mono', monospace; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--ink-soft); display:flex; justify-content:space-between; margin-bottom:6px; }
+  .gauge-ratio{ font-family:'Fraunces', serif; font-weight:600; font-size:2.4rem; color:var(--navy-deep); text-align:center; margin:6px 0 2px; }
+  .gauge-ratio span{ color:var(--berry); }
+  .gauge-sub{ text-align:center; color:var(--ink-soft); font-size:0.83rem; margin-bottom:20px; }
+  .needle-wrap{ position:relative; width:100%; max-width:260px; margin:0 auto 14px; }
+  .needle{ position:absolute; left:50%; bottom:6px; width:3px; height:82px; background:var(--berry); transform-origin:bottom center; transform:translateX(-50%) rotate(-75deg); border-radius:3px; transition:transform 1.1s cubic-bezier(.4,0,.2,1), background .4s ease; }
+  .needle.is-final{ background:var(--green); }
+  .month-badge{
+    display:inline-block; background:var(--paper-warm); border:1px solid var(--line);
+    color:var(--navy-deep); font-family:'IBM Plex Mono', monospace; font-size:0.72rem;
+    letter-spacing:0.04em; padding:4px 12px; border-radius:999px; margin-bottom:10px;
+    transition:background .3s ease;
+  }
+  .month-badge.is-final{ background:var(--green); color:var(--white); border-color:var(--green); }
+  .needle::after{ content:''; position:absolute; bottom:-6px; left:50%; transform:translateX(-50%); width:12px; height:12px; border-radius:50%; background:var(--navy-deep); }
+  @media (prefers-reduced-motion: reduce){ .needle{ transition:none; transform:translateX(-50%) rotate(75deg); } }
+  .gauge-scale{ display:flex; justify-content:space-between; font-family:'IBM Plex Mono', monospace; font-size:0.7rem; color:var(--ink-soft); }
+
+  .section-head{ max-width:640px; margin-bottom:44px; }
+  .section-head h2{ font-size:clamp(1.6rem, 3vw, 2.2rem); margin-bottom:14px; }
+  .section-head p{ color:var(--ink-soft); font-size:1rem; }
+
+  /* ELŐNYÖK */
+  .elonyok{ background:var(--paper-warm); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .elonyok-top{ display:grid; grid-template-columns:1.2fr 0.8fr; gap:40px; align-items:center; margin-bottom:44px; }
+  .elonyok-product-img{ width:100%; max-width:280px; margin:0 auto; filter:drop-shadow(0 24px 40px rgba(11,36,37,0.25)); }
+  .trust-badges{ display:flex; flex-wrap:wrap; gap:10px; margin-top:22px; }
+  .trust-badges span{
+    background:var(--white); border:1px solid var(--line); border-radius:999px;
+    padding:7px 14px; font-size:0.78rem; color:var(--navy-deep); font-weight:600;
+  }
+  .benefit-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+  .benefit-card{ background:var(--white); border-radius:16px; padding:26px; border:1px solid var(--line); }
+  .benefit-icon{
+    width:44px; height:44px; border-radius:12px; margin-bottom:16px;
+    background:var(--paper-warm); color:var(--berry);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .benefit-icon svg{ width:22px; height:22px; }
+  .benefit-card h3{ font-size:1.05rem; margin-bottom:10px; }
+  .benefit-card p{ color:var(--ink-soft); font-size:0.92rem; }
+
+  /* HOGYAN */
+  .step-list{ display:flex; flex-direction:column; counter-reset:step; }
+  .step{ display:grid; grid-template-columns:60px 1fr; gap:22px; padding:24px 0; border-top:1px solid var(--line); }
+  .step:last-child{ border-bottom:1px solid var(--line); }
+  .step-num{ counter-increment:step; font-family:'Fraunces', serif; font-weight:600; font-size:1.25rem; color:var(--berry); }
+  .step-num::before{ content: counter(step, decimal-leading-zero); }
+  .step h3{ font-size:1.1rem; margin-bottom:6px; }
+  .step p{ color:var(--ink-soft); font-size:0.94rem; max-width:58ch; }
+  .target-strip{ margin-top:36px; background:var(--navy-deep); border-radius:16px; padding:28px 32px; display:flex; align-items:center; gap:22px; color:var(--paper); }
+  .target-strip .big{ font-family:'Fraunces', serif; font-size:2.2rem; color:var(--gold); }
+  .target-strip p{ color:rgba(245,239,227,0.82); font-size:0.92rem; max-width:52ch; }
+
+  /* TERMÉK (Egészségprotokoll) */
+  .product{ background:var(--navy-deep); border-radius:24px; margin:0 auto; }
+  .product-inner{ max-width:1120px; margin:0 auto; padding:64px 28px; display:grid; }
+
+  /* TUDOMÁNY */
+  .science-grid{ display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center; }
+  .science-list{ list-style:none; display:flex; flex-direction:column; gap:14px; }
+  .science-list li{ display:flex; gap:12px; color:var(--ink-soft); font-size:0.96rem; }
+  .science-list li::before{ content:'—'; color:var(--berry); flex-shrink:0; }
+  .quote-card{ background:var(--white); border:1px solid var(--line); border-radius:16px; padding:30px; }
+  .quote-card p{ font-family:'Fraunces', serif; font-style:normal; font-size:1.2rem; color:var(--navy-deep); margin-bottom:14px; }
+  .quote-card span{ color:var(--ink-soft); font-size:0.85rem; }
+
+  /* GYIK */
+  .faq-list{ display:flex; flex-direction:column; gap:0; max-width:760px; }
+  .faq-item{ border-top:1px solid var(--line); }
+  .faq-item:last-child{ border-bottom:1px solid var(--line); }
+  .faq-item summary{ cursor:pointer; padding:20px 4px; font-weight:600; font-family:'Fraunces', serif; font-size:1.05rem; color:var(--navy-deep); display:flex; justify-content:space-between; align-items:center; list-style:none; }
+  .faq-item summary::-webkit-details-marker{ display:none; }
+  .faq-item summary::after{ content:'+'; font-family:'Work Sans', sans-serif; font-weight:400; font-size:1.3rem; color:var(--berry); transition:transform .2s; }
+  .faq-item[open] summary::after{ transform:rotate(45deg); }
+  .faq-item .faq-a{ padding:0 4px 22px; color:var(--ink-soft); font-size:0.95rem; max-width:64ch; }
+
+  /* FINAL CTA */
+  .final-cta{ background:var(--paper-warm); border-radius:24px; overflow:hidden; }
+  .final-cta-split{ display:grid; grid-template-columns:1.1fr 0.9fr; align-items:stretch; }
+  .final-cta-text{ padding:68px 52px; display:flex; flex-direction:column; justify-content:center; }
+  .final-cta-text h2{ font-size:clamp(1.7rem,3.2vw,2.3rem); margin-bottom:16px; }
+  .final-cta-text p{ color:var(--ink-soft); max-width:420px; margin-bottom:28px; }
+  .final-cta-img{ width:100%; height:100%; min-height:320px; object-fit:cover; }
+
+  /* SEJT-MAGYARÁZÓ */
+  .cell-explainer{ padding:64px 0; background:var(--white); }
+  .cell-explainer-inner{ max-width:920px; }
+  .cell-explainer h2{ font-size:clamp(1.6rem,3vw,2.1rem); margin-bottom:24px; max-width:20ch; }
+  .cell-explainer-grid{ display:grid; grid-template-columns:1fr 1fr; gap:32px; }
+  .cell-explainer-grid p{ color:var(--ink-soft); font-size:0.98rem; line-height:1.65; }
+  .cell-explainer-grid strong{ color:var(--navy-deep); }
+
+  /* VIDEÓ BEÁGYAZÁSOK */
+  .lazy-video-wrap{ position:relative; width:100%; padding-top:56.25%; border-radius:16px; overflow:hidden; background:var(--navy-deep); }
+  .video-caption{
+    position:absolute; left:0; right:0; bottom:0; z-index:3;
+    padding:10px 16px; pointer-events:none;
+    background:linear-gradient(0deg, rgba(11,36,37,0.92) 0%, rgba(11,36,37,0.7) 60%, rgba(11,36,37,0) 100%);
+    display:flex; align-items:center; gap:8px;
+  }
+  .video-caption .dot{ width:6px; height:6px; border-radius:50%; background:var(--gold); flex-shrink:0; }
+  .video-caption span{
+    font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.04em;
+    color:rgba(245,239,227,0.92);
+  }
+  .gauge-video{ margin-top:16px; }
+  .product-video-block{ max-width:640px; margin:8px auto 0; }
+  .trend-video{ max-width:800px; margin:0 auto; box-shadow:0 30px 60px -30px rgba(11,36,37,0.3); padding-top:44% !important; }
+  .trend-video-section{ padding:72px 0; }
+
+  /* MINŐSÉG */
+  .quality{ background:var(--teal-mid); color:var(--white); }
+  .quality .section-head h2{ color:var(--white); }
+  .quality .section-head p{ color:rgba(255,253,248,0.82); }
+  .quality .eyebrow{ color:var(--gold); }
+  .quality .eyebrow::before{ background:var(--gold); }
+  .quality-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-bottom:40px; }
+  .quality-card{ background:rgba(255,253,248,0.08); border:1px solid rgba(255,253,248,0.18); border-radius:16px; padding:26px; }
+  .quality-card img{ width:100%; height:150px; object-fit:cover; border-radius:10px; margin-bottom:16px; }
+  .quality-card h3{ color:var(--white); font-size:1.05rem; margin-bottom:8px; }
+  .quality-card p{ color:rgba(255,253,248,0.78); font-size:0.9rem; }
+  .quality-quote{ background:rgba(255,253,248,0.1); border-radius:16px; padding:30px; border:1px solid rgba(255,253,248,0.18); max-width:760px; }
+  .quality-quote p{ font-family:'Fraunces', serif; font-size:1.15rem; margin-bottom:10px; }
+  .quality-quote span{ color:rgba(255,253,248,0.7); font-size:0.85rem; }
+  .cert-strip{ display:flex; flex-wrap:wrap; gap:18px; margin-top:20px; }
+  .cert-badge{
+    background:var(--white); border-radius:14px; padding:18px 16px;
+    display:flex; flex-direction:column; align-items:center; gap:8px;
+    width:180px; box-shadow:0 8px 20px -8px rgba(0,0,0,0.25);
+  }
+  .cert-badge img{ height:36px; width:auto; max-width:80px; object-fit:contain; }
+  .cert-badge span{ font-size:0.72rem; color:var(--navy-deep); text-align:center; line-height:1.25; font-weight:700; }
+  .cert-badge .cert-desc{ font-size:0.72rem; color:var(--ink-soft); text-align:center; line-height:1.4; font-weight:400; }
+
+  /* KONZULTÁCIÓ */
+  .consult{ background:var(--paper-warm); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .consult-grid{ display:grid; grid-template-columns:0.85fr 1.15fr; gap:52px; align-items:start; }
+  .consult-person{ display:flex; align-items:center; gap:14px; background:var(--white); border:1px solid var(--line); border-radius:14px; padding:14px 18px; }
+  .consult-avatar{
+    width:48px; height:48px; border-radius:50%; flex-shrink:0;
+    object-fit:cover; object-position:center 15%;
+    background:conic-gradient(from 200deg, var(--berry), var(--gold), var(--navy));
+  }
+  .consult-booking{ background:var(--white); border:1px solid var(--line); border-radius:20px; padding:18px; box-shadow:0 30px 60px -30px rgba(11,36,37,0.2); }
+
+  footer{ border-top:1px solid var(--line); padding:36px 0 56px; color:var(--ink-soft); font-size:0.82rem; text-align:center; }
+  footer .disclaimer{ max-width:760px; margin:0 auto 16px; text-align:justify; }
+  footer .foot-links{ display:flex; gap:18px; list-style:none; margin-top:14px; flex-wrap:wrap; justify-content:center; }
+  footer .foot-links a{ text-decoration:none; color:var(--ink-soft); }
+  footer .foot-links a:hover{ color:var(--navy-deep); }
+  footer .foot-links-legal{ margin-top:10px; opacity:0.8; font-size:0.78rem; }
+
+  /* MODÁLIS ABLAKOK (jogi dokumentumok) */
+  .modal-overlay{
+    display:none; position:fixed; inset:0; z-index:200;
+    background:rgba(11,36,37,0.6); backdrop-filter:blur(2px);
+    align-items:center; justify-content:center; padding:20px;
+  }
+  .modal-overlay.is-open{ display:flex; }
+  .modal-box{
+    background:var(--white); border-radius:20px; max-width:760px; width:100%;
+    max-height:85vh; overflow-y:auto; padding:36px 40px; position:relative;
+    box-shadow:0 40px 80px -20px rgba(11,36,37,0.4);
+  }
+  .modal-box h2{ font-size:1.5rem; margin-bottom:6px; }
+  .modal-box .modal-updated{ font-family:'IBM Plex Mono', monospace; font-size:0.72rem; color:var(--ink-soft); margin-bottom:24px; display:block; }
+  .modal-box h3{ font-family:'Fraunces', serif; font-size:1.05rem; color:var(--navy-deep); margin:26px 0 8px; }
+  .modal-box p, .modal-box li{ color:var(--ink-soft); font-size:0.92rem; line-height:1.65; }
+  .modal-box ul{ padding-left:20px; margin-bottom:10px; }
+  .modal-box li{ margin-bottom:6px; }
+  .modal-box strong{ color:var(--navy-deep); }
+  .modal-box .placeholder{ background:rgba(166,52,70,0.12); color:var(--berry-deep); padding:1px 6px; border-radius:4px; font-weight:600; }
+  .modal-close{
+    position:absolute; top:20px; right:20px; width:36px; height:36px; border-radius:50%;
+    border:1px solid var(--line); background:var(--paper-warm); cursor:pointer;
+    font-size:1.1rem; color:var(--navy-deep); line-height:1;
+  }
+  .modal-close:hover{ background:var(--berry); color:var(--white); border-color:var(--berry); }
+
+  .cookie-btn{ font-family:'Work Sans', sans-serif; font-weight:600; font-size:0.85rem; padding:11px 18px; border-radius:999px; cursor:pointer; white-space:nowrap; }
+  .cookie-btn-accept{ background:var(--berry); color:var(--white); border:1px solid var(--berry); }
+  .cookie-btn-accept:hover{ background:var(--berry-deep); }
+  .cookie-btn-reject{ background:transparent; color:var(--paper); border:1px solid rgba(245,239,227,0.4); }
+  .cookie-btn-reject:hover{ border-color:var(--paper); }
+  .cookie-btn-settings{ background:transparent; color:rgba(245,239,227,0.75); border:none; text-decoration:underline; font-weight:400; padding:11px 6px; }
+
+  /* SÜTI FELUGRÓ ABLAK (popup) */
+  .cookie-popup-overlay{ z-index:250; }
+  .cookie-popup-box{ max-width:640px; }
+  .cookie-popup-box .cookie-toggle-row{ padding:16px 0; }
+  .cookie-popup-actions{ display:flex; gap:10px; flex-wrap:wrap; margin-top:24px; }
+  .cookie-popup-actions .cookie-btn{ border-radius:10px; padding:13px 20px; }
+  .cookie-popup-actions .cookie-btn-accept{ background:var(--berry); color:var(--white); border:1px solid var(--berry); }
+  .cookie-popup-actions .cookie-btn-accept:hover{ background:var(--berry-deep); }
+  .cookie-popup-actions .cookie-btn-reject{ background:var(--white); color:var(--navy-deep); border:1px solid var(--line); }
+  .cookie-popup-actions .cookie-btn-reject:hover{ background:var(--paper-warm); }
+  .cookie-btn-save{ background:transparent; color:var(--ink-soft); border:1px solid var(--line); }
+  .cookie-btn-save:hover{ background:var(--paper-warm); }
+  @media (max-width:600px){
+    .cookie-popup-actions{ flex-direction:column; }
+    .cookie-popup-actions .cookie-btn{ width:100%; text-align:center; }
+  }
+
+  /* Sütibeállítások kapcsolók */
+  .cookie-toggle-row{ display:flex; justify-content:space-between; align-items:flex-start; gap:16px; padding:16px 0; border-top:1px solid var(--line); }
+  .cookie-toggle-row:last-of-type{ border-bottom:1px solid var(--line); margin-bottom:20px; }
+  .cookie-toggle-label{ font-weight:600; color:var(--navy-deep); font-size:0.92rem; margin-bottom:4px; }
+  .cookie-toggle-desc{ color:var(--ink-soft); font-size:0.85rem; }
+  .switch{ position:relative; width:44px; height:24px; flex-shrink:0; }
+  .switch input{ opacity:0; width:0; height:0; }
+  .switch-track{ position:absolute; inset:0; background:var(--line); border-radius:999px; cursor:pointer; transition:background .2s; }
+  .switch-track::before{ content:''; position:absolute; width:18px; height:18px; left:3px; top:3px; background:var(--white); border-radius:50%; transition:transform .2s; }
+  .switch input:checked + .switch-track{ background:var(--green); }
+  .switch input:checked + .switch-track::before{ transform:translateX(20px); }
+  .switch input:disabled + .switch-track{ opacity:0.6; cursor:not-allowed; }
+
+  /* HÍRLEVÉL */
+  .newsletter{ background:var(--paper-warm); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .newsletter-box{ max-width:640px; margin:0 auto; text-align:center; }
+  .newsletter-form{ display:flex; gap:10px; margin-top:22px; flex-wrap:wrap; justify-content:center; }
+  .newsletter-form input[type="email"]{
+    flex:1; min-width:220px; padding:13px 18px; border-radius:999px;
+    border:1px solid var(--line); font-family:'Work Sans', sans-serif; font-size:0.92rem;
+  }
+  .newsletter-consent{ display:flex; align-items:flex-start; gap:8px; max-width:440px; margin:14px auto 0; text-align:left; }
+  .newsletter-consent input{ margin-top:4px; }
+  .newsletter-consent label{ color:var(--ink-soft); font-size:0.8rem; line-height:1.5; }
+  .newsletter-msg{ margin-top:14px; font-size:0.88rem; font-weight:600; }
+  .newsletter-msg.success{ color:var(--green); }
+  .newsletter-msg.error{ color:var(--berry); }
+
+  @media (max-width:860px){
+    .hero{ grid-template-columns:1fr; padding-top:52px; }
+    .nav-links{ display:none; }
+    .benefit-grid{ grid-template-columns:1fr; }
+    .elonyok-top{ grid-template-columns:1fr; text-align:center; }
+    .trust-badges{ justify-content:center; }
+    .science-grid{ grid-template-columns:1fr; }
+    .target-strip{ flex-direction:column; text-align:center; }
+    .quality-grid{ grid-template-columns:1fr; }
+    .consult-grid{ grid-template-columns:1fr; }
+    .proof-strip-inner{ justify-content:center; text-align:center; }
+    .final-cta-split{ grid-template-columns:1fr; }
+    .final-cta-text{ padding:44px 28px; text-align:center; align-items:center; }
+    .final-cta-img{ min-height:220px; order:-1; }
+    .cell-explainer-grid{ grid-template-columns:1fr; }
+    .quiz-widget{ padding:26px 22px; }
+    .quiz-stat{ flex-direction:column; align-items:flex-start; gap:14px; }
+    .quiz-stat-divider{ display:none; }
+    .quiz-stat-number{ font-size:3.4rem; }
+    .quiz-buttons{ flex-direction:column; }
+    .quiz-btn{ width:100%; text-align:center; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="brand">
+      <span class="brand-mark"></span>
+      <span>Sejtszerviz<span style="color:var(--berry);">.hu</span></span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#elonyok">Előnyök</a></li>
+      <li><a href="#hogyan">Hogyan működik</a></li>
+      <li><a href="#tudomany">Tudomány</a></li>
+      <li><a href="#minoseg">Minőség</a></li>
+      <li><a href="#konzultacio">Ingyenes konzultáció</a></li>
+      <li><a href="#gyik">GYIK</a></li>
+    </ul>
+    <a class="nav-cta" href="#konzultacio">Foglalj időpontot</a>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO — AIDA: ATTENTION -->
+  <div class="hero-video-wrap">
+    <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="https://cdn.cms.zinzino.com/globalassets/media/half-width/products/decorated/balance-concept/balance-concept-olive-oil-omega3-1500x1000.jpg">
+      <source src="https://cdn.cms.zinzino.com/globalassets/media/videos/startpage-balance-concept-hero-banner-260304-2.mp4" type="video/mp4">
+    </video>
+    <div class="hero-video-overlay"></div>
+    <div class="wrap">
+      <section class="hero" style="padding-bottom:0; position:relative; z-index:2;">
+        <div>
+          <div class="eyebrow" style="color:var(--gold);">Sejtszerviz.hu · Zinzino tesztalapú program</div>
+          <h1 style="color:var(--white);">A sejtjeid már ma üzennek. <em>A kérdés csak az, hogy mit?</em></h1>
+          <p class="lead" style="color:rgba(255,253,248,0.86);">Teszt alapú, személyre szabott tápanyag-visszapótlás — ne találgass, mérj! Egy egyszerű vérteszttel megmérem az Omega-6:3 egyensúlyodat, felállítok neked egy személyre szabott 120 napos programot, majd újra megmérem — fekete-fehéren látod az eredményt.</p>
+          <div class="hero-ctas">
+            <a class="btn-primary" href="#konzultacio">Ingyenes konzultáció velem</a>
+          </div>
+        </div>
+
+        <div class="gauge-card">
+          <img src="https://cdn.cms.zinzino.com/contentassets/171c6a5ed1b844fd92a0d2435a013930/1-blood-drop.jpg" alt="Zinzino BalanceTest vércsepp minta" style="width:100%; border-radius:12px; margin-bottom:18px; aspect-ratio:16/10; object-fit:cover;">
+          <div class="gauge-label"><span>Omega-6</span><span>Omega-3</span></div>
+          <div class="month-badge" id="monthBadge">Kiindulás</div>
+          <div class="gauge-ratio" id="ratioDisplay">25<span>:1</span></div>
+          <div class="gauge-sub">a hazai átlag → havi előrehaladás a 3:1 ideális arányig</div>
+          <div class="needle-wrap">
+            <svg viewBox="0 0 260 130" style="width:100%;">
+              <path d="M18,120 A112,112 0 0 1 242,120" fill="none" stroke="var(--line)" stroke-width="13" stroke-linecap="round"/>
+              <path d="M18,120 A112,112 0 0 1 130,8" fill="none" stroke="var(--berry)" stroke-width="13" stroke-linecap="round" opacity="0.9"/>
+              <path d="M130,8 A112,112 0 0 1 242,120" fill="none" stroke="var(--green)" stroke-width="13" stroke-linecap="round" opacity="0.85"/>
+            </svg>
+            <div class="needle"></div>
+          </div>
+          <div class="gauge-scale"><span>25:1</span><span>elmozdulás</span><span>3:1</span></div>
+
+          <div class="gauge-video lazy-video-wrap">
+            <iframe
+              class="lazy-video"
+              data-src="https://www.zinzinoplay.com/embedded/assets/1416?language=hu&autoplay=1"
+              title="A BalanceTest eredményeinek értelmezése"
+              allow="autoplay; fullscreen"
+              loading="lazy"
+              style="position:absolute; top:0; left:0; width:100%; height:100%; border:0;">
+            </iframe>
+            <div class="video-caption"><span class="dot"></span><span>Sejtszerviz.hu · A BalanceTest eredményeinek értelmezése</span></div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- SEJTEK — miért számít a sejtszintű egyensúly -->
+  <section class="cell-explainer">
+    <div class="wrap cell-explainer-inner">
+      <div class="eyebrow">Miért pont a sejtjeid?</div>
+      <h2>A sejtjeid az építőkövek — minden más ezen múlik</h2>
+      <div class="cell-explainer-grid">
+        <p>Minden szöveted és minden szerved — a szíved, az agyad, az immunrendszered is — <strong>sejtekből épül fel</strong>. Ha a sejtjeid megkapják, amire szükségük van, jól működnek. Ha nem, a működésük fokozatosan akadozni kezd — és ebből lesz a csendes, elhúzódó, <strong>krónikus gyulladás</strong>, amit napi szinten nem is veszel észre, mégis közvetlen összefüggésben áll a XXI. század legjellemzőbb, úgynevezett civilizációs betegségeivel.</p>
+        <p>Te sem szeretnél idő előtt beteg lenni. <strong>Lassan és méltósággal</strong> szeretnél megöregedni — aktívan, tiszta fejjel, energikusan. Ehhez az első lépés, hogy tudd: a sejtjeid valóban megkapják-e, amire szükségük van. A Zinzino saját adatbázisa szerint Európában az átlagos Omega-6:3 arány 15:1 a javasolt 3:1 helyett — ez az egyensúlyhiány megnehezíti, hogy a szervezeted hasznosítani tudja azokat a tápanyagokat, amelyek a szíved, az agyad és az immunrendszered egészségéhez szükségesek.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOCIAL PROOF STRIP -->
+  <div class="proof-strip">
+    <div class="wrap proof-strip-inner">
+      <div class="proof-item"><b id="liveTestCount">1 862 087+</b><span>kiértékelt BalanceTest világszerte</span></div>
+      <div class="proof-item"><b style="color:var(--berry);">97%</b><span>nem volt egyensúlyban az első teszten</span></div>
+      <div class="proof-item"><b>2005</b><span>óta a tesztalapú táplálkozás úttörője</span></div>
+      <div class="proof-item"><b>ISO 9001</b><span>tanúsított gyártás</span></div>
+    </div>
+  </div>
+
+  <!-- GÖRGŐ SZALAG (marquee) -->
+  <div class="marquee-band" aria-hidden="false">
+    <div class="marquee-track">
+      <div class="marquee-content">
+        <span>NORVÉG EREDETŰ HALOLAJ</span><span class="marquee-dot">•</span>
+        <span>TERMÉSZETES D3-VITAMIN</span><span class="marquee-dot">•</span>
+        <span>NON-GMO, ALLERGÉNMENTES</span><span class="marquee-dot">•</span>
+        <span>KLINIKAILAG VIZSGÁLT ÖSSZETEVŐK</span><span class="marquee-dot">•</span>
+        <span>ISO 9001 TANÚSÍTOTT GYÁRTÁS</span><span class="marquee-dot">•</span>
+        <span>MSC FENNTARTHATÓ HALÁSZAT</span><span class="marquee-dot">•</span>
+        <span>2005 ÓTA A PIACON</span><span class="marquee-dot">•</span>
+      </div>
+      <div class="marquee-content" aria-hidden="true">
+        <span>NORVÉG EREDETŰ HALOLAJ</span><span class="marquee-dot">•</span>
+        <span>TERMÉSZETES D3-VITAMIN</span><span class="marquee-dot">•</span>
+        <span>NON-GMO, ALLERGÉNMENTES</span><span class="marquee-dot">•</span>
+        <span>KLINIKAILAG VIZSGÁLT ÖSSZETEVŐK</span><span class="marquee-dot">•</span>
+        <span>ISO 9001 TANÚSÍTOTT GYÁRTÁS</span><span class="marquee-dot">•</span>
+        <span>MSC FENNTARTHATÓ HALÁSZAT</span><span class="marquee-dot">•</span>
+        <span>2005 ÓTA A PIACON</span><span class="marquee-dot">•</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- FELISMERÉS — AIDA: INTEREST (probléma-tudatosítás) -->
+  <section id="felismeres" class="recognition">
+    <div class="wrap">
+      <div class="recognition-grid">
+        <div class="recognition-text">
+          <div class="eyebrow">Ismerős?</div>
+          <h2>A szervezeted valószínűleg már most jelez — csak nem ismered fel rajta a tüneteket</h2>
+          <p style="color:var(--ink-soft); margin-bottom:8px;">A modern étrend — a feldolgozott ételek, a növényi olajok, a ritka halfogyasztás — <strong>a legtöbb embernél felborítja</strong> az Omega-6 és Omega-3 zsírsavak egyensúlyát. A tünetei gyakran nem úgy néznek ki, mint egy "betegség" — inkább csak olyan, mintha ez lenne a normális.</p>
+        </div>
+        <div class="symptom-list">
+          <div class="symptom-item">
+            <span class="symptom-icon">●</span>
+            <div><strong>Folyamatos fáradtság</strong><p>Alszol eleget, mégis nehezen indul be a napod.</p></div>
+          </div>
+          <div class="symptom-item">
+            <span class="symptom-icon">●</span>
+            <div><strong>Koncentrációs nehézségek</strong><p>Nehezebben tartod a fókuszt, mint pár éve.</p></div>
+          </div>
+          <div class="symptom-item">
+            <span class="symptom-icon">●</span>
+            <div><strong>Ízületi merevség</strong><p>Reggelente vagy hosszabb ülés után "berozsdásodva" érzed magad.</p></div>
+          </div>
+          <div class="symptom-item">
+            <span class="symptom-icon">●</span>
+            <div><strong>Makacs bőrproblémák</strong><p>Semmilyen krém nem old meg semmit tartósan.</p></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="recognition-callout">
+        <p><strong>A gyulladás nem mindig fáj — ettől lehet igazán alattomos.</strong> Sokan azt gondolják, hogy amíg nem fáj semmi, addig nincs is mivel foglalkozni. A valóság az, hogy ezek a tünetek gyakran ugyanabból az egy gyökérből erednek: a zsírsav-egyensúly felborulásából — és ez egy vérteszttel pontosan kimutatható, majd 120 nap alatt <strong>mérhetően helyreállítható.</strong></p>
+        <a class="btn-primary" href="#konzultacio" style="margin-top:20px; display:inline-block;">Megmutatom, nálad mi áll emögött</a>
+      </div>
+
+      <!-- INTERAKTÍV 97%-OS MINI-KVÍZ -->
+      <div class="quiz-widget" id="balanceQuiz">
+        <div class="quiz-stat">
+          <span class="quiz-stat-number">97%</span>
+          <span class="quiz-stat-divider"></span>
+          <span class="quiz-stat-label">A világ minden tájáról eddig <strong id="quizTestCount">1 862 087+</strong> zsírsavtesztet elemeztek — az elsőt teszteltek <strong>97%-a</strong> nem volt egyensúlyban.</span>
+        </div>
+        <div class="quiz-question">
+          <p>Te szerinted a szervezeted egyensúlyban van?</p>
+          <div class="quiz-buttons">
+            <button type="button" class="quiz-btn" data-answer="igen">Igen, biztosan</button>
+            <button type="button" class="quiz-btn" data-answer="nemtudom">Nem tudom</button>
+            <button type="button" class="quiz-btn" data-answer="nem">Valószínűleg nem</button>
+          </div>
+        </div>
+        <div class="quiz-result" id="quizResult"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ELŐNYÖK -->
+  <section id="elonyok" class="elonyok">
+    <div class="wrap">
+      <div class="elonyok-top">
+        <div>
+          <div class="eyebrow">Előnyök</div>
+          <h2>Mit ad a szervezetednek a napi adag</h2>
+          <p style="color:var(--ink-soft); max-width:52ch;">A BalanceOil+ napi adagja EPA-t, DHA-t, D3-vitamint és olívabogyó-polifenolokat juttat a szervezetedbe egy jól bevizsgált arányban — nem véletlenszerűen, hanem a teszteredményed alapján adagolva.</p>
+          <div class="trust-badges">
+            <span>Norvég eredetű halolaj</span>
+            <span>Természetes D3-vitamin</span>
+            <span>Non-GMO, allergénmentes</span>
+            <span>Klinikailag vizsgált összetevők</span>
+          </div>
+        </div>
+        <img class="elonyok-product-img" src="https://zinzinowebstorage.blob.core.windows.net/productimages/small/910331.png" alt="Zinzino BalanceOil+ csomag vérteszttel" loading="lazy">
+      </div>
+
+      <div class="benefit-grid">
+        <div class="benefit-card">
+          <div class="benefit-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7.5-4.6-10-9.3C.5 8.2 2.4 5 6 5c2 0 3.5 1.1 4.5 2.4C11.5 6.1 13 5 15 5c3.6 0 5.5 3.2 4 6.7C19.5 16.4 12 21 12 21z"/></svg></div>
+          <h3>Szív & érrendszer</h3><p>Az EPA és DHA hozzájárul a szív normál működéséhez, valamint a normál vérnyomás és trigliceridszint fenntartásához.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9.5 3a3.5 3.5 0 0 0-3.5 3.5v.6A3 3 0 0 0 4 9.9v1.2a3 3 0 0 0-.5 5.6 3 3 0 0 0 3 3.3h1v-16A2 2 0 0 1 9.5 3Z"/><path d="M14.5 3A3.5 3.5 0 0 1 18 6.5v.6A3 3 0 0 1 20 9.9v1.2a3 3 0 0 1 .5 5.6 3 3 0 0 1-3 3.3h-1v-16A2 2 0 0 0 14.5 3Z"/></svg></div>
+          <h3>Agyi működés & fókusz</h3><p>A DHA hozzájárul az agy normál működésének fenntartásához, ami a mindennapi koncentrációban is érezhető.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2 4 5v6c0 5 3.4 8.7 8 11 4.6-2.3 8-6 8-11V5l-8-3Z"/></svg></div>
+          <h3>Immunrendszer & D3</h3><p>A D3-vitamin hozzájárul az immunrendszer és a csontozat normál működéséhez, a napi adag ezt is tartalmazza.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v18M5 8l-3 5a3 3 0 0 0 6 0l-3-5Zm14 0l-3 5a3 3 0 0 0 6 0l-3-5ZM5 8h14M8 21h8"/></svg></div>
+          <h3>Omega-6:3 egyensúly</h3><p>A cél az Omega-6 és Omega-3 zsírsavak arányának normál szintre hozása, amit a teszttel is nyomon követhetsz.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2c3 4 6 7.4 6 11.5a6 6 0 0 1-12 0C6 9.4 9 6 12 2Z"/></svg></div>
+          <h3>Polifenol-védelem</h3><p>Az olívabogyóból származó polifenolok segítenek védeni a vérzsírokat az oxidatív stressz ellen.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1.5 12S5 5 12 5s10.5 7 10.5 7-3.5 7-10.5 7S1.5 12 1.5 12Z"/><circle cx="12" cy="12" r="3"/></svg></div>
+          <h3>Koleszterin & szem</h3><p>Az olajsav hozzájárul a normál koleszterinszint fenntartásához, ami a szív-érrendszer egészségének is fontos része.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOGYAN MŰKÖDIK -->
+  <section id="hogyan">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Hogyan működik</div>
+        <h2>A Zinzino tesztalapú táplálkozási módszere — négy lépésben</h2>
+        <p>Tesztelj, ne találgass. Minden lépés méréssel indul és méréssel zárul, hogy lásd, működik-e a programod.</p>
+      </div>
+      <div class="step-list" style="counter-reset:step;">
+        <div class="step">
+          <div class="step-num"></div>
+          <div>
+            <h3>Végezd el a tesztet</h3>
+            <p>Indulj az alapadatok megismerésével — az életkorod, a testsúlyod, az életmódod és az étrended omega-3 tartalma mind befolyásolja a kiindulási állapotodat.</p>
+            <img src="https://cdn.cms.zinzino.com/contentassets/171c6a5ed1b844fd92a0d2435a013930/1-blood-drop.jpg" alt="BalanceTest vércsepp minta" style="margin-top:16px; border-radius:14px; width:100%; max-width:420px; aspect-ratio:16/10; object-fit:cover;" loading="lazy">
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num"></div>
+          <div>
+            <h3>Indítsd el a személyre szabott programod</h3>
+            <p>Tartsd fenn az esszenciális zsírsavak egyensúlyát a teszteredményed és a céljaid alapján meghatározott napi adaggal.</p>
+            <img src="https://cdn.cms.zinzino.com/contentassets/7a361dd3a15841328e79f11e7799609e/2-balance-oil-dosage.jpg" alt="BalanceOil+ napi adagolás" style="margin-top:16px; border-radius:14px; width:100%; max-width:420px; aspect-ratio:16/10; object-fit:cover;" loading="lazy">
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num"></div>
+          <div>
+            <h3>Kövesd nyomon, hogyan reagál a szervezeted</h3>
+            <p>Négyhavonta egy kontrollteszttel láthatod fekete-fehéren, hogyan változik az arányod, és mennyire hatékony a programod.</p>
+            <img src="https://cdn.cms.zinzino.com/contentassets/eceae12b271e437f825e4b513ec93363/3-results.jpg" alt="BalanceTest eredmények" style="margin-top:16px; border-radius:14px; width:100%; max-width:420px; aspect-ratio:16/10; object-fit:cover;" loading="lazy">
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num"></div>
+          <div>
+            <h3>Maradj egyensúlyban</h3>
+            <p>Élvezd a mindennapjaidat abban a tudatban, hogy megadod a szervezetednek, amire valóban szüksége van.</p>
+            <img src="https://cdn.cms.zinzino.com/contentassets/1006fdc516da485a9757a762fe999a4e/4-mountains.jpg" alt="Egyensúlyban élni" style="margin-top:16px; border-radius:14px; width:100%; max-width:420px; aspect-ratio:16/10; object-fit:cover;" loading="lazy">
+          </div>
+        </div>
+      </div>
+      <div class="target-strip">
+        <div class="big">3:1</div>
+        <p>A kedvezőnek tartott Omega-6:3 arány, amelynek elérését a 120 napos program célozza — 120 nap alatt mérhető eredménnyel.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCT: HEALTH PROTOCOL -->
+  <section style="padding-top:28px;">
+    <div class="wrap">
+      <div class="product">
+        <div class="product-inner" style="grid-template-columns:1fr; gap:36px; padding:56px 32px;">
+          <div>
+            <div class="eyebrow" style="color:var(--gold);">Az Egészségprotokoll csomag</div>
+            <h2 style="color:var(--white);">Három lépés, ami a sejtjeidtől az immunrendszeredig dolgozik</h2>
+            <p style="max-width:70ch; color:rgba(245,239,227,0.82);">A Health Protocol Kit a Zinzino három egymásra épülő termékét fogja össze egy csomagba, a BalanceTest vérteszttel kiegészítve — így nemcsak elkezded a programot, hanem méred is a hatását.</p>
+          </div>
+          <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:28px;">
+            <div>
+              <img src="https://cdn.zinzino.com/images/HealthProtocol/zzStart-BalanceOil.png" alt="BalanceOil" style="width:100%; border-radius:14px; margin-bottom:16px; background:rgba(255,255,255,0.06); padding:10px;" loading="lazy">
+              <h3 style="color:var(--white); font-size:1.05rem; margin-bottom:8px;">1. Egyensúlyba hozás</h3>
+              <p style="color:rgba(245,239,227,0.78); font-size:0.9rem;">A BalanceOil segít elérni az egészséges Omega-6:3 arányt, védve a sejtjeidet az oxidatív stressztől.</p>
+            </div>
+            <div>
+              <img src="https://cdn.zinzino.com/images/HealthProtocol/zzStart-ZinoBiotic.png" alt="ZinoBiotic" style="width:100%; border-radius:14px; margin-bottom:16px; background:rgba(255,255,255,0.06); padding:10px;" loading="lazy">
+              <h3 style="color:var(--white); font-size:1.05rem; margin-bottom:8px;">2. Visszaállítás</h3>
+              <p style="color:rgba(245,239,227,0.78); font-size:0.9rem;">A ZinoBiotic természetes élelmi rostok komplex keveréke, amely az egészséges bélflórát támogatja.</p>
+            </div>
+            <div>
+              <img src="https://cdn.zinzino.com/images/HealthProtocol/Xtend_NewDesign_733x515.png" alt="Xtend" style="width:100%; border-radius:14px; margin-bottom:16px; background:rgba(255,255,255,0.06); padding:10px;" loading="lazy">
+              <h3 style="color:var(--white); font-size:1.05rem; margin-bottom:8px;">3. Teljesítőképesség fokozása</h3>
+              <p style="color:rgba(245,239,227,0.78); font-size:0.9rem;">Az Xtend vitaminokkal, ásványi anyagokkal és béta-glükánnal támogatja a normál immunműködést.</p>
+            </div>
+          </div>
+
+          <div class="product-video-block">
+            <h3 style="color:var(--white); font-size:1.1rem; margin-bottom:14px; text-align:center;">Ismerd meg a Balance koncepciót</h3>
+            <div class="lazy-video-wrap product-video">
+              <iframe
+                class="lazy-video"
+                data-src="https://www.zinzinoplay.com/embedded/assets/1499?language=hu&autoplay=1"
+                title="Ismerd meg a Balance koncepciót"
+                allow="autoplay; fullscreen"
+                loading="lazy"
+                style="position:absolute; top:0; left:0; width:100%; height:100%; border:0;">
+              </iframe>
+              <div class="video-caption"><span class="dot"></span><span>Sejtszerviz.hu · Balance koncepció bemutatása</span></div>
+            </div>
+          </div>
+
+          <div style="text-align:center;">
+            <a class="btn-primary" href="https://www.zinzino.com/shop/2004358267/hu/hu-hu/products/premier-kits/health-protocol-kit" target="_blank" rel="noopener">Csomag megtekintése és megrendelése</a>
+            <p style="color:rgba(245,239,227,0.6); font-size:0.82rem; margin-top:12px;">Az aktuális ár, kiszerelés és csomagtartalom a rendelési oldalon tekinthető meg.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TUDOMÁNY -->
+  <section id="tudomany" class="elonyok">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">A tudomány mögötte</div>
+        <h2>Nem ígéret — mérhető adat</h2>
+        <p>A BalanceOil+ egyedisége, hogy a halolaj polifenolokkal együtt jut a szervezetbe, ami segít védeni az érzékeny Omega-3 zsírsavakat.</p>
+      </div>
+      <div class="science-grid">
+        <ul class="science-list">
+          <li>Kis testű, vad halakból (pl. szardínia, ajóka) nyert halolaj</li>
+          <li>Extraszűz olívabogyó-polifenolok az oxidáció ellen</li>
+          <li>Természetes forrásból származó D3-vitamin</li>
+          <li>Független laboratóriumi BalanceTest a kiindulási és a záró mérésre</li>
+        </ul>
+        <div class="quote-card">
+          <p>„A tudományt közvetlenül a mindennapi döntésekbe ültetjük át.”</p>
+          <span>Colin Robertson, PhD — Zinzino termékfejlesztési igazgató</span>
+        </div>
+      </div>
+
+      <div style="margin-top:44px; max-width:760px; margin-left:auto; margin-right:auto; text-align:center;">
+        <h3 style="font-size:1.15rem; margin-bottom:14px;">Mi az a tesztalapú táplálkozás?</h3>
+        <div class="lazy-video-wrap" style="text-align:left;">
+          <iframe
+            class="lazy-video"
+            data-src="https://www.zinzinoplay.com/embedded/assets/349?language=hu&autoplay=1"
+            title="Zinzino — tesztalapú táplálkozás"
+            allow="autoplay; fullscreen"
+            loading="lazy"
+            style="position:absolute; top:0; left:0; width:100%; height:100%; border:0;">
+          </iframe>
+          <div class="video-caption"><span class="dot"></span><span>Sejtszerviz.hu · Mi az a tesztalapú táplálkozás?</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MINŐSÉG -->
+  <section id="minoseg" class="quality">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Minőség</div>
+        <h2>A minőség bizonyítéka</h2>
+        <p>Teljes átláthatóság, független tesztelés és nemzetközi tanúsítványok állnak minden Zinzino termék mögött — nem csak ígéret, hanem ellenőrizhető tény.</p>
+      </div>
+
+      <div class="quality-grid">
+        <div class="quality-card">
+          <img src="https://cdn.cms.zinzino.com/globalassets/media/half-width/science/lysi.jpg" alt="Halolaj finomítás" loading="lazy">
+          <h3>Halolaj forrás</h3>
+          <p>Vadon fogott szardíniából, makrélából és ajókából nyert, fenntartható forrásból származó halolaj, amelyet az izlandi Lysi finomít a lehető legszigorúbb uniós előírások szerint.</p>
+        </div>
+        <div class="quality-card">
+          <img src="https://cdn.cms.zinzino.com/globalassets/media/half-width/nature/man-smelling-olives-square.jpg" alt="Olívaolaj forrás" loading="lazy">
+          <h3>Olívaolaj forrás</h3>
+          <p>Korán szüretelt olívabogyókból sajtolt extraszűz olívaolaj, amely kiemelkedően magas polifenol-tartalmat biztosít a jobb felszívódásért.</p>
+        </div>
+        <div class="quality-card">
+          <img src="https://cdn.cms.zinzino.com/globalassets/media/half-width/science/faun-production.jpg" alt="Gyártási folyamat" loading="lazy">
+          <h3>Gyártás</h3>
+          <p>A termékek egy része a norvég Faun Pharma ISO 9001 tanúsítvánnyal rendelkező üzemében készül, mesterséges színezék és tartósítószer nélkül.</p>
+        </div>
+      </div>
+
+      <div class="quality-quote">
+        <p>„Elsőként dolgoztunk ki egy független laborral igazolt, mérhető hatású formulát.”</p>
+        <span>Ørjan Sæle — a Zinzino társalapítója</span>
+      </div>
+
+      <p style="color:rgba(255,253,248,0.85); font-size:0.92rem; max-width:640px; margin-top:36px;">Ezek nem saját, hanem független, nemzetközi szervezetek által kiadott tanúsítványok — vagyis nem a Zinzino állítja magáról, hogy fenntartható vagy tiszta a termék, hanem külső szervezetek ellenőrzik és igazolják ezt rendszeresen.</p>
+
+      <div class="cert-strip">
+        <div class="cert-badge">
+          <img src="https://cdn.cms.zinzino.com/globalassets/media/illustrations/credentials/friend-of-the-sea-logo-125px.png" alt="Friend of the Sea tanúsítvány" loading="lazy">
+          <span>Friend of the Sea</span>
+          <p class="cert-desc">A halászat nem károsítja a tengeri ökoszisztémát és a veszélyeztetett fajokat.</p>
+        </div>
+        <div class="cert-badge">
+          <img src="https://cdn.cms.zinzino.com/globalassets/media/illustrations/credentials/msc-logo-125px.png" alt="MSC tanúsítvány" loading="lazy">
+          <span>MSC fenntartható halászat</span>
+          <p class="cert-desc">A halállomány nem merül ki — a jövő generációi is találnak még halat a tengerben.</p>
+        </div>
+        <div class="cert-badge">
+          <img src="https://cdn.cms.zinzino.com/globalassets/media/illustrations/credentials/informed-sport-logo-125px.png" alt="Informed Sport tanúsítvány" loading="lazy">
+          <span>Informed Sport</span>
+          <p class="cert-desc">Minden gyártási tétel tiltott, doppinglistás anyagokra vizsgálva — versenysportolók is bátran szedhetik.</p>
+        </div>
+        <div class="cert-badge">
+          <img src="https://cdn.cms.zinzino.com/globalassets/media/illustrations/credentials/vegan-society-logo-125px.png" alt="Vegan Society tanúsítvány" loading="lazy">
+          <span>Vegan Society</span>
+          <p class="cert-desc">Az adott termék garantáltan semmilyen állati eredetű összetevőt nem tartalmaz.</p>
+        </div>
+        <div class="cert-badge">
+          <img src="https://cdn.cms.zinzino.com/globalassets/media/illustrations/credentials/cologne-list-logo-125px.png" alt="Cologne List tanúsítvány" loading="lazy">
+          <span>Cologne List</span>
+          <p class="cert-desc">Rendszeresen tesztelve tiltott teljesítményfokozó szerekre — biztonságos sportolóknak is.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KONZULTÁCIÓ — AIDA: ACTION -->
+  <section id="konzultacio" class="consult">
+    <div class="wrap">
+      <div class="consult-grid">
+        <div class="consult-intro">
+          <div class="eyebrow">Ingyenes, kötelezettség nélküli</div>
+          <h2>Beszélgetnék veled 30 percet — mielőtt bármit is rendelnél</h2>
+          <p style="color:var(--ink-soft); margin-bottom:24px; max-width:52ch;">Szia, Éva vagyok, a Sejtszerviz.hu wellness-tanácsadója. Segítek eligazodni a tesztek és csomagok között, és összeállítom veled, mi illik pontosan a te céljaidhoz és élethelyzetedhez. Nincs eladási nyomás — csak válaszok.</p>
+          <ul class="feature-list" style="margin-top:0; margin-bottom:28px;">
+            <li>Átbeszélem veled, melyik teszt és program illik hozzád</li>
+            <li>Választ kapsz minden kérdésedre a program menetéről</li>
+            <li>Átnézem veled az adagolást és az árazást</li>
+          </ul>
+          <div class="consult-person">
+            <img class="consult-avatar" src="data:image/jpeg;base64,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" alt="Éva — Sejtszerviz.hu wellness-tanácsadó">
+            <div>
+              <strong style="display:block; color:var(--navy-deep); font-family:'Fraunces', serif;">Éva</strong>
+              <span style="color:var(--ink-soft); font-size:0.88rem;">Sejtszerviz.hu · Zinzino wellness-tanácsadó</span>
+            </div>
+          </div>
+        </div>
+        <div class="consult-booking">
+          <!--
+            CAL.COM BEÁGYAZÁS
+            Éva saját Cal.com fiókjának eseménytípusa (eva-szeplabi-hdj7sk) van
+            bekötve — ugyanaz a naptár, amit más oldalakon is használ.
+            A forrás- és időtartam-paraméterek (utm_source, utm_campaign) automatikusan
+            hozzáadódnak, hogy Éva naptárában megkülönböztethető legyen, honnan jött
+            a foglalás, és hogy ez a 30 perces beszélgetés.
+          -->
+          <iframe
+            id="calComFrame"
+            src=""
+            style="width:100%; min-height:560px; border:none; border-radius:16px;"
+            title="Időpontfoglalás Évával — 30 perces konzultáció">
+          </iframe>
+          <p style="text-align:center; font-size:0.8rem; color:var(--ink-soft); margin-top:10px;">
+            Nem töltődik be a naptár? <a id="calComFallbackLink" href="#" target="_blank" rel="noopener" style="color:var(--berry); text-decoration:underline;">Nyisd meg új lapon</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MIÉRT MOST — trend videó -->
+  <section class="trend-video-section">
+    <div class="wrap">
+      <div class="section-head" style="margin-bottom:20px;">
+        <div class="eyebrow">A nagy kép</div>
+        <h2>Miért most, és miért egyre többen?</h2>
+        <p>Egy rövid összefoglaló arról, hogyan alakult ki a tesztalapú táplálkozás iránti globális igény — és hova tart ez a folyamat.</p>
+      </div>
+      <div class="lazy-video-wrap trend-video">
+        <iframe
+          class="lazy-video"
+          data-src="https://www.zinzinoplay.com/embedded/assets/1411?language=hu&autoplay=1"
+          title="Miért most, és miért egyre többen?"
+          allow="autoplay; fullscreen"
+          loading="lazy"
+          style="position:absolute; top:0; left:0; width:100%; height:100%; border:0;">
+        </iframe>
+        <div class="video-caption"><span class="dot"></span><span>Sejtszerviz.hu · Miért most, és miért egyre többen?</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GYIK -->
+  <section id="gyik">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">GYIK</div>
+        <h2>Amit a legtöbben kérdeznek</h2>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item" open>
+          <summary>Mennyi idő alatt látok eredményt?</summary>
+          <div class="faq-a">A program 120 napra épül: ennyi idő alatt éri el a legtöbb felhasználó a normál Omega-6:3 arányt a rendszeres napi adaggal.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Hogyan kell szedni a BalanceOil+-t?</summary>
+          <div class="faq-a">A napi adagodat a testsúlyod alapján határozom meg veled, és étkezéssel együtt érdemes bevenni a jobb felszívódásért.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Terhesség vagy gyógyszerszedés mellett is szedhető?</summary>
+          <div class="faq-a">Speciális élethelyzetben, krónikus betegség vagy rendszeres gyógyszerszedés esetén mindig egyeztess kezelőorvosoddal a szedés megkezdése előtt.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Mi történik a BalanceTesttel a mintavétel után?</summary>
+          <div class="faq-a">A vérmintát független laboratórium elemzi, az eredmény megmutatja a pontos Omega-6:3 arányodat, amit a program végén egy második teszttel újra megmérek veled.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Hogyan indíthatok előfizetést?</summary>
+          <div class="faq-a">Válaszd ki az egyik Premier csomagot a rendelési oldalon — ezzel elindul egy havonta ismétlődő rendelés, így sosem fogysz ki az étrend-kiegészítőkből.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Rendelhetek előfizetés nélkül, egyszeri vásárlással is?</summary>
+          <div class="faq-a">Igen, minden termék megrendelhető egyszeri vásárlással is. A kedvezményes Premier árak viszont csak az előfizetéses rendeléseknél érvényesek.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Miért kéthavonta érkezik az utánpótlás, ha havonta fizetek?</summary>
+          <div class="faq-a">A csomagolási és szállítási költség — és ezzel a környezeti terhelés — csökkentése érdekében kéthavonta érkezik hozzád a két hónapra elegendő mennyiség, miközben a fizetés havi ütemben történik.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Hogyan tudom lemondani vagy szüneteltetni az előfizetésem?</summary>
+          <div class="faq-a">Az előfizetés 30 napos felmondási idővel bármikor lemondható, vagy legfeljebb 90 napra szüneteltethető a fiókodba belépve vagy az ügyfélszolgálaton keresztül.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Mik a pénzvisszatérítés feltételei?</summary>
+          <div class="faq-a">A kezdőcsomag vagy egyszeri rendelés kézbesítésétől számított 30 napon belül élhetsz az elállási joggal; a fel nem használt termékek árát visszakapod, a szállítási költség kivételével.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <div class="wrap">
+    <section>
+      <div class="final-cta final-cta-split">
+        <div class="final-cta-text">
+          <h2>Ne találgass tovább — mérd meg, és szívesen beszélgetnék veled róla</h2>
+          <p>Foglalj egy ingyenes konzultációt velem, vagy vágj bele egyből az Egészségprotokoll csomaggal.</p>
+          <div class="hero-ctas">
+            <a class="btn-primary" href="#konzultacio">Ingyenes konzultáció</a>
+            <a class="btn-secondary" href="https://www.zinzino.com/shop/2004358267/hu/hu-hu/products/premier-kits/health-protocol-kit" target="_blank" rel="noopener">Csomag megrendelése</a>
+          </div>
+        </div>
+        <img class="final-cta-img" src="https://cdn.cms.zinzino.com/globalassets/media/half-width/products/decorated/balance-concept/hands-with-balancetestbalanceoil-1500x1000px-gray.jpg" alt="BalanceTest és BalanceOil+ együtt a kézben" loading="lazy">
+      </div>
+    </section>
+  </div>
+
+  <!-- HÍRLEVÉL -->
+  <section class="newsletter">
+    <div class="wrap">
+      <div class="newsletter-box">
+        <div class="eyebrow" style="justify-content:center;">Heti egészség-morzsák</div>
+        <h2 style="font-size:1.6rem; margin-bottom:12px;">Iratkozz fel a heti hírlevélre</h2>
+        <p style="color:var(--ink-soft);">Hetente egyszer küldök egy válogatást a Zinzino <a href="https://www.zinzino.com/2004358267/hu/hu-hu/blog" target="_blank" rel="noopener" style="color:var(--berry); text-decoration:underline;">tudományos blogjának</a> legjobb írásaiból, közérthetően összefoglalva.</p>
+        <form class="newsletter-form" id="newsletterForm">
+          <input type="email" id="newsletterEmail" placeholder="legjobb@emailcimed.hu" required autocomplete="email">
+          <button type="submit" class="btn-primary" style="border-radius:999px;">Feliratkozom</button>
+        </form>
+        <div class="newsletter-consent">
+          <input type="checkbox" id="newsletterConsent" required>
+          <label for="newsletterConsent">Hozzájárulok, hogy a Sejtszerviz.hu (tetested.hu Kft.) heti hírlevelet küldjön a megadott e-mail címemre, az <a href="#" data-open-modal="privacyModal" style="color:var(--berry);">Adatkezelési tájékoztatóban</a> foglaltak szerint. A leiratkozás bármikor, egy kattintással lehetséges.</label>
+        </div>
+        <div class="newsletter-msg" id="newsletterMsg"></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="disclaimer">A Sejtszerviz.hu független Zinzino Partneri oldal. A megrendelés a Zinzino hivatalos, biztonságos felületén történik. Az étrend-kiegészítők nem helyettesítik a kiegyensúlyozott étrendet és az egészséges életmódot; a tartalom tájékoztató jellegű, nem minősül orvosi javaslatnak vagy diagnózisnak.</p>
+    <p style="text-align:center;">© <span id="year"></span> Sejtszerviz.hu · Független Zinzino Partner 2018 január óta.</p>
+    <ul class="foot-links">
+      <li><a href="#elonyok">Előnyök</a></li>
+      <li><a href="#hogyan">Hogyan működik</a></li>
+      <li><a href="#tudomany">Tudomány</a></li>
+      <li><a href="#minoseg">Minőség</a></li>
+      <li><a href="#konzultacio">Ingyenes konzultáció</a></li>
+      <li><a href="#gyik">GYIK</a></li>
+    </ul>
+    <ul class="foot-links foot-links-legal">
+      <li><a href="#" data-open-modal="privacyModal">Adatkezelési tájékoztató</a></li>
+      <li><a href="#" data-open-modal="termsModal">ÁSZF</a></li>
+      <li><a href="#" id="footerCookieSettingsLink">Sütibeállítások</a></li>
+    </ul>
+  </div>
+</footer>
+
+<!-- SÜTI-ELFOGADÓ FELUGRÓ ABLAK -->
+<div class="modal-overlay cookie-popup-overlay" id="cookiePopup">
+  <div class="modal-box cookie-popup-box">
+    <button type="button" class="modal-close" id="cookiePopupClose">×</button>
+    <h2>Ez a weboldal sütiket használ</h2>
+    <p style="margin-bottom:22px;">Sütiket (cookie-kat) használunk a weboldal alapműködéséhez, valamint — hozzájárulásod esetén — a videók és az időpontfoglaló beágyazott megjelenítéséhez, illetve a látogatottság méréséhez. Bővebben az <a href="#" data-open-modal="privacyModal" style="color:var(--berry);">Adatkezelési tájékoztatóban</a> olvashatsz.</p>
+
+    <div class="cookie-toggle-row" style="border-top:1px solid var(--line);">
+      <div>
+        <div class="cookie-toggle-label">Elengedhetetlenül szükséges</div>
+        <div class="cookie-toggle-desc">A weboldal alapműködéséhez (pl. menü, süti-beállítás megjegyzése) szükségesek. Nem kapcsolhatók ki.</div>
+      </div>
+      <label class="switch"><input type="checkbox" checked disabled><span class="switch-track"></span></label>
+    </div>
+
+    <div class="cookie-toggle-row">
+      <div>
+        <div class="cookie-toggle-label">Beágyazott tartalmak</div>
+        <div class="cookie-toggle-desc">A Cal.com időpontfoglaló és a Zinzino videók megjelenítéséhez szükséges harmadik féltől származó sütik.</div>
+      </div>
+      <label class="switch"><input type="checkbox" id="popupToggleEmbeds" checked><span class="switch-track"></span></label>
+    </div>
+
+    <div class="cookie-toggle-row" style="border-bottom:1px solid var(--line); margin-bottom:24px;">
+      <div>
+        <div class="cookie-toggle-label">Statisztikai</div>
+        <div class="cookie-toggle-desc">Anonim látogatottsági adatok gyűjtése a weboldal fejlesztéséhez.</div>
+      </div>
+      <label class="switch"><input type="checkbox" id="popupToggleStats"><span class="switch-track"></span></label>
+    </div>
+
+    <div class="cookie-popup-actions">
+      <button type="button" class="cookie-btn cookie-btn-accept" id="popupAcceptAll">Összes elfogadása</button>
+      <button type="button" class="cookie-btn cookie-btn-reject" id="popupRejectAll">Összes elutasítása</button>
+      <button type="button" class="cookie-btn cookie-btn-save" id="popupSaveSelection">Kiválasztottak mentése</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- MODÁLIS: ADATKEZELÉSI TÁJÉKOZTATÓ -->
+<div class="modal-overlay" id="privacyModal">
+  <div class="modal-box">
+    <button type="button" class="modal-close" data-close-modal>×</button>
+    <h2>Adatkezelési tájékoztató</h2>
+    <span class="modal-updated">Hatályos: <span class="placeholder">[KIADÁS DÁTUMA]</span> — utolsó módosítás: <span class="placeholder">[DÁTUM]</span></span>
+
+    <h3>1. Az adatkezelő adatai</h3>
+    <p>
+      Név: <strong>tetested.hu Kereskedelmi és Szolgáltató Korlátolt Felelősségű Társaság</strong> (rövidített név: tetested.hu Kft.)<br>
+      Székhely: 8445 Csehbánya, Újtelep utca 41.<br>
+      Cégjegyzékszám: 19-09-518584<br>
+      Adószám: 25590010-2-19<br>
+      Képviseli: <span class="placeholder">[NÉV, TISZTSÉG]</span><br>
+      E-mail: <span class="placeholder">[KAPCSOLATI E-MAIL CÍM]</span><br>
+      Telefon: <span class="placeholder">[KAPCSOLATI TELEFONSZÁM]</span>
+    </p>
+    <p>A tetested.hu Kft. (a továbbiakban: <strong>Adatkezelő</strong>) üzemelteti a Sejtszerviz.hu weboldalt, mint a Zinzino International AB (illetve annak magyarországi tevékenységét ellátó Zinzino Operations Kft. / Zinzino disztribúciós hálózat) független Partnere.</p>
+
+    <h3>2. Milyen adatokat kezelünk, és milyen célból?</h3>
+    <ul>
+      <li><strong>Ingyenes konzultációra jelentkezés (időpontfoglalás):</strong> név, e-mail cím, a foglaláskor megadott egyéb adatok. Cél: az időpontfoglalás lebonyolítása, a konzultáció megtartása. Ez az adatkezelés a Cal.com Inc. időpontfoglaló rendszerén keresztül történik — lásd a 4. pontot.</li>
+      <li><strong>Hírlevél-feliratkozás:</strong> e-mail cím. Cél: heti rendszerességű hírlevél küldése egészséggel és táplálkozással kapcsolatos tartalmakról, valamint az ingyenes konzultációs lehetőség rendszeres felajánlása. Jogalap: az Ön önkéntes hozzájárulása (GDPR 6. cikk (1) bekezdés a) pont).</li>
+      <li><strong>Sütik (cookie-k):</strong> a weboldal működéséhez szükséges, illetve — hozzájárulás esetén — a látogatottság méréséhez és a beágyazott tartalmak (videók, időpontfoglaló) megjelenítéséhez szükséges technikai adatok. Lásd a Sütikezelési tájékoztatót.</li>
+    </ul>
+
+    <h3>3. Az adatkezelés jogalapja</h3>
+    <p>Az adatkezelés jogalapja minden esetben az Ön önkéntes hozzájárulása (GDPR 6. cikk (1) bekezdés a) pont), amelyet a vonatkozó űrlap kitöltésével és a jelölőnégyzet bejelölésével ad meg. A hozzájárulás bármikor, indoklás nélkül visszavonható, a visszavonás a visszavonás előtti adatkezelés jogszerűségét nem érinti.</p>
+
+    <h3>4. Adattovábbítás, adatfeldolgozók</h3>
+    <p><strong>Harmadik fél részére, saját üzleti céllal, adatot nem adunk el és nem továbbítunk.</strong> Az alábbi, a szolgáltatás technikai lebonyolításához szükséges adatfeldolgozókat (technikai közreműködőket) vesszük igénybe, akik az Ön adatait kizárólag a megjelölt cél érdekében, a mi utasításaink szerint kezelik:</p>
+    <ul>
+      <li><strong>Cal.com Inc.</strong> — az időpontfoglaló rendszer üzemeltetője (foglalási adatok tárolása és a naptáregyeztetés lebonyolítása céljából).</li>
+      <li><strong>[HÍRLEVÉL-SZOLGÁLTATÓ NEVE — pl. Mailchimp / MailerLite]</strong> — a hírlevél kiküldésének technikai lebonyolítása céljából.</li>
+      <li><strong>Zinzino International AB</strong> és kapcsolt vállalkozásai — kizárólag akkor, ha Ön a Zinzino saját webshopjában megrendelést ad le; ebben az esetben a Zinzino saját adatkezelése (Zinzino Adatvédelmi Szabályzata) az irányadó, mivel a megrendelés a Zinzino saját, hivatalos felületén, nem a Sejtszerviz.hu-n keresztül történik.</li>
+    </ul>
+    <p>Ezeken felül személyes adatait harmadik személynek, hirdetési vagy egyéb kereskedelmi céllal nem adjuk át.</p>
+
+    <h3>5. Az adatkezelés időtartama</h3>
+    <p>Hírlevél-feliratkozás esetén a leiratkozásig, de legkésőbb a hozzájárulás visszavonásáig. Konzultációs időpontfoglalás esetén a Cal.com rendszerében meghatározott, illetve a konzultáció lebonyolításához szükséges ideig, de legfeljebb <span class="placeholder">[MEGŐRZÉSI IDŐ, pl. 2 év]</span>.</p>
+
+    <h3>6. Az Ön jogai</h3>
+    <ul>
+      <li>Tájékoztatást kérhet a kezelt adatairól.</li>
+      <li>Kérheti adatai helyesbítését, törlését vagy kezelésének korlátozását.</li>
+      <li>Tiltakozhat az adatkezelés ellen.</li>
+      <li>Élhet adathordozhatósághoz való jogával.</li>
+      <li>Hozzájárulását bármikor, ingyenesen visszavonhatja (pl. hírlevél esetén a levél alján található leiratkozási linkkel).</li>
+    </ul>
+    <p>Kérelmét a fenti elérhetőségeken nyújthatja be, amelyre 30 napon belül válaszolunk.</p>
+
+    <h3>7. Jogorvoslati lehetőség</h3>
+    <p>Amennyiben úgy érzi, hogy adatkezelésünk jogsértő, panasszal fordulhat a <strong>Nemzeti Adatvédelmi és Információszabadság Hatósághoz</strong> (NAIH): 1055 Budapest, Falk Miksa utca 9–11.; postacím: 1363 Budapest, Pf. 9.; e-mail: ugyfelszolgalat@naih.hu; weboldal: naih.hu. Ezen felül bírósághoz is fordulhat.</p>
+
+    <p style="margin-top:24px; font-size:0.8rem; opacity:0.75;">Ez a tájékoztató sablon jelleggel készült, és a benne szereplő <span class="placeholder">[szögletes zárójeles]</span> adatok kitöltése, valamint jogi szakértővel történő átvizsgálása szükséges a közzététel előtt.</p>
+  </div>
+</div>
+
+<!-- MODÁLIS: ÁSZF -->
+<div class="modal-overlay" id="termsModal">
+  <div class="modal-box">
+    <button type="button" class="modal-close" data-close-modal>×</button>
+    <h2>Általános Szerződési Feltételek</h2>
+    <span class="modal-updated">Hatályos: <span class="placeholder">[KIADÁS DÁTUMA]</span></span>
+
+    <h3>1. Szolgáltató adatai</h3>
+    <p>
+      Név: <strong>tetested.hu Kereskedelmi és Szolgáltató Korlátolt Felelősségű Társaság</strong> (rövidített név: tetested.hu Kft.)<br>
+      Székhely: 8445 Csehbánya, Újtelep utca 41.<br>
+      Cégjegyzékszám: 19-09-518584<br>
+      Adószám: 25590010-2-19<br>
+      E-mail: <span class="placeholder">[KAPCSOLATI E-MAIL CÍM]</span>
+    </p>
+
+    <h3>2. A szolgáltatás tárgya</h3>
+    <p>A Sejtszerviz.hu weboldal (a továbbiakban: <strong>Weboldal</strong>) egy tájékoztató jellegű, ismeretterjesztő és tanácsadást közvetítő oldal, amelyet a tetested.hu Kft., mint a Zinzino hivatalos, független Partnere üzemeltet. A Weboldal az alábbi szolgáltatásokat nyújtja díjmentesen:</p>
+    <ul>
+      <li>tájékoztatás a Zinzino tesztalapú táplálkozási programjáról és termékeiről;</li>
+      <li>ingyenes, kötelezettségmentes időpontfoglalás személyes konzultációra;</li>
+      <li>hírlevél-szolgáltatás.</li>
+    </ul>
+
+    <h3>3. Vásárlás — fontos tudnivaló</h3>
+    <p><strong>A Weboldalon keresztül közvetlenül nem történik termékértékesítés, és a Weboldal nem üzemeltet saját webáruházat.</strong> A Weboldalon szereplő "Megrendelem" és hasonló gombok a Zinzino International AB hivatalos, saját webáruházába (zinzino.com) irányítják át Önt, ahol a vásárlásra a <strong>Zinzino saját Általános Szerződési Feltételei és Elállási tájékoztatója</strong> az irányadó. A tetested.hu Kft. ebben a vásárlási folyamatban kizárólag közvetítő (Zinzino Partner) szerepet tölt be, a termékek értékesítője, a fizetés és a szállítás lebonyolítója a Zinzino.</p>
+
+    <h3>4. Konzultációs időpontfoglalás</h3>
+    <p>Az időpontfoglalás a Cal.com időpontfoglaló rendszerén keresztül, ingyenesen és kötelezettségmentesen történik. A foglalás nem minősül szerződéskötésnek vagy vásárlási kötelezettségvállalásnak. A foglalt időpont a foglalási visszaigazolásban jelzett módon, díjmentesen lemondható vagy módosítható.</p>
+
+    <h3>5. Szellemi tulajdon</h3>
+    <p>A Weboldalon szereplő Zinzino márkanevek, logók és egyes termékfotók a Zinzino International AB szellemi tulajdonát képezik, és a tetested.hu Kft. mint hivatalos Partner jogosultan, a Zinzino Partneri szabályzata szerint használja azokat.</p>
+
+    <h3>6. Felelősség korlátozása</h3>
+    <p>A Weboldalon található tartalom kizárólag tájékoztató jellegű, nem minősül orvosi tanácsadásnak vagy diagnózisnak. Egészségügyi probléma esetén mindig forduljon kezelőorvosához. Az étrend-kiegészítők nem helyettesítik a kiegyensúlyozott, változatos étrendet és az egészséges életmódot.</p>
+
+    <h3>7. Panaszkezelés</h3>
+    <p>A Weboldal szolgáltatásával kapcsolatos panaszát a <span class="placeholder">[KAPCSOLATI E-MAIL CÍM]</span> címen jelezheti. A Zinzino termékek vásárlásával kapcsolatos panaszokat a Zinzino saját ügyfélszolgálatához kell benyújtani.</p>
+
+    <p style="margin-top:24px; font-size:0.8rem; opacity:0.75;">Ez az ÁSZF sablon jelleggel készült, és a benne szereplő <span class="placeholder">[szögletes zárójeles]</span> adatok kitöltése, valamint jogi szakértővel történő átvizsgálása szükséges a közzététel előtt.</p>
+  </div>
+</div>
+
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // --- ÉLŐ ADATFORRÁS: zinzinotest.com/hu/balancetest ---
+  // Statikus HTML oldal lévén nem tudunk automatikusan, böngészőből átvenni
+  // élő adatot a zinzinotest.com oldalról (böngésző-biztonsági korlátozás,
+  // CORS). Ezért ezt az egy számot kézzel kell frissíteni — kb. 10 másodperc
+  // hetente: nyisd meg a https://www.zinzinotest.com/hu/balancetest oldalt,
+  // másold ki az aktuális számot, és írd be ide a TESZT_SZAM változóba.
+  // Az oldalon minden helyre automatikusan ez a szám kerül.
+  const TESZT_SZAM_UTOLSO_FRISSITES = "2026-08-06";
+  const TESZT_SZAM = "1 862 087+";
+  document.querySelectorAll('#liveTestCount, #quizTestCount').forEach(el => {
+    el.textContent = TESZT_SZAM;
+  });
+
+  // Havi előrehaladás animáció — hurkolt szimuláció a gauge-en
+  const ratioEl = document.getElementById('ratioDisplay');
+  const monthEl = document.getElementById('monthBadge');
+  const needleEl = document.querySelector('.needle');
+
+  if (ratioEl && monthEl && needleEl) {
+    const stages = [
+      { month: "Kiindulás", ratio: 25, angle: -75 },
+      { month: "40. nap",  ratio: 14, angle: -25 },
+      { month: "80. nap",  ratio: 7,  angle: 25 },
+      { month: "120 nap alatt — cél elérve", ratio: 3, angle: 75 }
+    ];
+    const stepDuration = 1400;   // egy állomás közti átmenet ideje
+    const holdFinal = 2600;      // mennyi ideig marad kint a végeredmény
+    const holdStart = 900;       // szünet induláskor, mielőtt elindul
+
+    let stageIndex = 0;
+    let stageStartTime = null;
+    let mode = 'wait-start';
+    let waitStart = performance.now();
+
+    function easeInOutCubic(t){ return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2,3)/2; }
+
+    function render(now){
+      if (mode === 'wait-start') {
+        if (now - waitStart >= holdStart) { mode = 'animating'; stageStartTime = now; }
+        requestAnimationFrame(render);
+        return;
+      }
+      if (mode === 'holding') {
+        if (now - stageStartTime >= holdFinal) {
+          stageIndex = 0; mode = 'animating'; stageStartTime = now;
+        }
+        requestAnimationFrame(render);
+        return;
+      }
+
+      const from = stages[stageIndex];
+      const to = stages[stageIndex + 1] || stages[stageIndex];
+      const t = Math.min((now - stageStartTime) / stepDuration, 1);
+      const eased = easeInOutCubic(t);
+
+      const ratioVal = Math.round(from.ratio - (from.ratio - to.ratio) * eased);
+      const angleVal = from.angle - (from.angle - to.angle) * eased;
+
+      ratioEl.innerHTML = ratioVal + '<span>:1</span>';
+      needleEl.style.transform = `translateX(-50%) rotate(${angleVal}deg)`;
+      monthEl.textContent = t < 1 ? from.month : to.month;
+      const isFinal = (t >= 1 && stageIndex === stages.length - 2);
+      monthEl.classList.toggle('is-final', isFinal);
+      needleEl.classList.toggle('is-final', isFinal);
+
+      if (t >= 1) {
+        if (stageIndex < stages.length - 2) {
+          stageIndex++; stageStartTime = now;
+        } else {
+          mode = 'holding'; stageStartTime = now;
+        }
+      }
+      requestAnimationFrame(render);
+    }
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const last = stages[stages.length - 1];
+      ratioEl.innerHTML = last.ratio + '<span>:1</span>';
+      needleEl.style.transform = `translateX(-50%) rotate(${last.angle}deg)`;
+      monthEl.textContent = last.month;
+      monthEl.classList.add('is-final');
+      needleEl.classList.add('is-final');
+    } else {
+      requestAnimationFrame(render);
+    }
+  }
+
+  // --- CAL.COM KONFIGURÁCIÓ ---
+  // Éva saját Cal.com fiókjának eseménytípusa (bármely oldalon szabadon
+  // felhasználható, nincs domainhez kötve).
+  const ERTHETOBB_EGESZSEG_CALCOM_SLUG = "eva-szeplabi-hdj7sk/15min";
+
+  function loadCalCom() {
+    if (ERTHETOBB_EGESZSEG_CALCOM_SLUG) {
+      const params = new URLSearchParams({
+        embed: "true",
+        theme: "light",
+        utm_source: "sejtszerviz-hu",
+        utm_medium: "landing_page",
+        utm_campaign: "ingyenes_konzultacio_30perc"
+      });
+      const fullUrl = `https://cal.com/${ERTHETOBB_EGESZSEG_CALCOM_SLUG}?${params.toString()}`;
+      const fallbackUrl = `https://cal.com/${ERTHETOBB_EGESZSEG_CALCOM_SLUG}?utm_source=sejtszerviz-hu&utm_medium=landing_page&utm_campaign=ingyenes_konzultacio_30perc`;
+      const frameEl = document.getElementById('calComFrame');
+      if (frameEl) frameEl.src = fullUrl;
+      const fallbackEl = document.getElementById('calComFallbackLink');
+      if (fallbackEl) fallbackEl.href = fallbackUrl;
+    } else {
+      const frame = document.getElementById('calComFrame');
+      if (frame) {
+        frame.outerHTML = '<div style="min-height:560px; display:flex; align-items:center; justify-content:center; text-align:center; padding:20px; color:var(--ink-soft); border:1px dashed var(--line); border-radius:16px; font-size:0.9rem;">A naptár hamarosan aktiválódik — add meg Éva Cal.com linkjét a beállításban.</div>';
+      }
+      const fallbackEl = document.getElementById('calComFallbackLink');
+      if (fallbackEl) fallbackEl.style.display = 'none';
+    }
+  }
+
+  // --- INTERAKTÍV KVÍZ: 97%-os egyensúly-teszt ---
+  const quizButtons = document.querySelectorAll('.quiz-btn');
+  const quizResult = document.getElementById('quizResult');
+  const quizAnswers = {
+    igen: {
+      title: 'Ez remek jel — de érdemes megerősíteni.',
+      body: 'Az első teszteket végzők 97%-a is azt hitte, hogy rendben van, mielőtt megmérte magát — sokuknál a tünetek évekig nem is jelentkeztek. A jó hír: ha tényleg egyensúlyban vagy, a BalanceTest ezt fekete-fehéren igazolja, és attól kezdve csak a fenntartásra kell figyelned.'
+    },
+    nemtudom: {
+      title: 'Ez a leggyakoribb és legőszintébb válasz.',
+      body: 'A legtöbben nem tudják — mert a krónikus gyulladás nem mindig fáj, és a szokásos éves vérkép sem mutatja ki. Ez pontosan az a bizonytalanság, amit egy 5 perces otthoni vérteszttel meg lehet szüntetni: nem kell találgatnod tovább.'
+    },
+    nem: {
+      title: 'Az őszinteséged az első lépés a változáshoz.',
+      body: 'Ha úgy érzed, valami nincs rendben — fáradtság, ízületi merevség, koncentrációs nehézség —, jó eséllyel nem tévedsz: ez pontosan az a 97%, amiről a statisztika szól. A különbség csak annyi, hogy most már tudod, mit érdemes tenned: megmérni, majd 120 nap alatt helyreállítani.'
+    }
+  };
+
+  if (quizButtons.length && quizResult) {
+    quizButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        quizButtons.forEach(b => b.classList.remove('is-selected'));
+        btn.classList.add('is-selected');
+        const answer = quizAnswers[btn.dataset.answer];
+        quizResult.innerHTML = `<div class="quiz-result-inner"><p><strong>${answer.title}</strong></p><p>${answer.body}</p><a class="btn-primary" href="#konzultacio" style="display:inline-block;">Beszéljük át ingyenesen</a></div>`;
+        quizResult.classList.add('is-open');
+      });
+    });
+  }
+
+  // --- VIDEÓK: automatikus indítás, amikor a látogató odagörget ---
+  function loadLazyVideos() {
+    const lazyVideos = document.querySelectorAll('iframe.lazy-video');
+    if (lazyVideos.length) {
+      const videoObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const frame = entry.target;
+            if (frame.dataset.src && !frame.src) {
+              frame.src = frame.dataset.src;
+            }
+            videoObserver.unobserve(frame);
+          }
+        });
+      }, { threshold: 0.4, rootMargin: '0px 0px -10% 0px' });
+
+      lazyVideos.forEach(frame => videoObserver.observe(frame));
+    }
+  }
+
+  // --- SÜTIKEZELÉS ÉS HOZZÁJÁRULÁS-KEZELÉS ---
+  const COOKIE_CONSENT_KEY = 'sejtszerviz_cookie_consent';
+
+  function getConsent() {
+    try {
+      const raw = localStorage.getItem(COOKIE_CONSENT_KEY);
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) { return null; }
+  }
+
+  function setConsent(consent) {
+    try {
+      localStorage.setItem(COOKIE_CONSENT_KEY, JSON.stringify(consent));
+    } catch (e) { /* localStorage nem elérhető, a döntés csak erre a munkamenetre vonatkozik */ }
+    applyConsent(consent);
+  }
+
+  function applyConsent(consent) {
+    if (consent && consent.embeds) {
+      loadCalCom();
+      loadLazyVideos();
+    } else {
+      // Beágyazott tartalmak (Cal.com, videók) helyett engedélyező felület
+      const frame = document.getElementById('calComFrame');
+      if (frame) {
+        frame.outerHTML = '<div style="min-height:400px; display:flex; flex-direction:column; gap:14px; align-items:center; justify-content:center; text-align:center; padding:20px; color:var(--ink-soft); border:1px dashed var(--line); border-radius:16px; font-size:0.9rem;"><span>A naptár egy harmadik féltől (Cal.com) származó beágyazott tartalom — az időpontfoglaló megjelenítéséhez engedélyezned kell a beágyazott tartalmakat.</span><button type="button" class="btn-secondary" id="enableEmbedsBtn" style="cursor:pointer;">Beágyazott tartalmak engedélyezése</button></div>';
+        const enableBtn = document.getElementById('enableEmbedsBtn');
+        if (enableBtn) enableBtn.addEventListener('click', () => {
+          const c = getConsent() || { essential: true };
+          c.embeds = true;
+          setConsent(c);
+          location.reload();
+        });
+      }
+      document.querySelectorAll('.lazy-video-wrap').forEach(wrap => {
+        wrap.innerHTML = '<div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:center; padding:16px; color:rgba(245,239,227,0.8); font-size:0.85rem;">Videó tartalom — engedélyezd a beágyazott tartalmakat a megjelenítéshez.</div>';
+      });
+    }
+  }
+
+  const cookiePopup = document.getElementById('cookiePopup');
+  const existingConsent = getConsent();
+
+  function showCookiePopup() {
+    if (cookiePopup) cookiePopup.classList.add('is-open');
+  }
+  function hideCookiePopup() {
+    if (cookiePopup) cookiePopup.classList.remove('is-open');
+  }
+
+  if (existingConsent) {
+    applyConsent(existingConsent);
+  } else {
+    showCookiePopup();
+  }
+
+  const popupAcceptAllBtn = document.getElementById('popupAcceptAll');
+  const popupRejectAllBtn = document.getElementById('popupRejectAll');
+  const popupSaveBtn = document.getElementById('popupSaveSelection');
+  const popupCloseBtn = document.getElementById('cookiePopupClose');
+  const popupToggleEmbeds = document.getElementById('popupToggleEmbeds');
+  const popupToggleStats = document.getElementById('popupToggleStats');
+  const footerCookieSettingsLink = document.getElementById('footerCookieSettingsLink');
+
+  if (popupAcceptAllBtn) popupAcceptAllBtn.addEventListener('click', () => {
+    setConsent({ essential: true, embeds: true, stats: true });
+    hideCookiePopup();
+  });
+
+  if (popupRejectAllBtn) popupRejectAllBtn.addEventListener('click', () => {
+    setConsent({ essential: true, embeds: false, stats: false });
+    hideCookiePopup();
+  });
+
+  if (popupSaveBtn) popupSaveBtn.addEventListener('click', () => {
+    setConsent({
+      essential: true,
+      embeds: popupToggleEmbeds ? popupToggleEmbeds.checked : true,
+      stats: popupToggleStats ? popupToggleStats.checked : false
+    });
+    hideCookiePopup();
+  });
+
+  // A bezárás (×) gomb óvatosságból csak a nem-szükséges kategóriákat utasítja el —
+  // GDPR szerint a bezárás nem tekinthető aktív hozzájárulásnak.
+  if (popupCloseBtn) popupCloseBtn.addEventListener('click', () => {
+    setConsent({ essential: true, embeds: false, stats: false });
+    hideCookiePopup();
+  });
+
+  // Lábléc "Sütibeállítások" link: a mentett állapot betöltésével újra megnyitja a popupot
+  if (footerCookieSettingsLink) footerCookieSettingsLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    const c = getConsent();
+    if (popupToggleEmbeds) popupToggleEmbeds.checked = c ? !!c.embeds : true;
+    if (popupToggleStats) popupToggleStats.checked = c ? !!c.stats : false;
+    showCookiePopup();
+  });
+
+  // --- MODÁLIS ABLAKOK: általános nyitás/zárás ---
+  function openModal(id) {
+    const el = document.getElementById(id);
+    if (el) el.classList.add('is-open');
+  }
+  function closeModal(id) {
+    const el = document.getElementById(id);
+    if (el) el.classList.remove('is-open');
+  }
+  document.querySelectorAll('[data-open-modal]').forEach(el => {
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      openModal(el.dataset.openModal);
+    });
+  });
+  document.querySelectorAll('[data-close-modal]').forEach(el => {
+    el.addEventListener('click', () => {
+      el.closest('.modal-overlay').classList.remove('is-open');
+    });
+  });
+  document.querySelectorAll('.modal-overlay').forEach(overlay => {
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) overlay.classList.remove('is-open');
+    });
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal-overlay.is-open').forEach(m => m.classList.remove('is-open'));
+    }
+  });
+
+  // --- HÍRLEVÉL FELIRATKOZÁS ---
+  // Ez egy statikus HTML oldal, ezért a tényleges kiküldéshez egy valódi
+  // hírlevél-szolgáltató (pl. Mailchimp, MailerLite, Brevo) végpontját kell
+  // ide bekötni. Addig is a form validál és visszajelzést ad, de a feliratkozás
+  // ténylegesen nem kerül elmentésre — NEWSLETTER_ENDPOINT kitöltése szükséges.
+  const NEWSLETTER_ENDPOINT = "";
+  const newsletterForm = document.getElementById('newsletterForm');
+  const newsletterMsg = document.getElementById('newsletterMsg');
+
+  if (newsletterForm) {
+    newsletterForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('newsletterEmail').value;
+      const consent = document.getElementById('newsletterConsent').checked;
+
+      if (!consent) {
+        newsletterMsg.textContent = 'A feliratkozáshoz el kell fogadnod az adatkezelési tájékoztatót.';
+        newsletterMsg.className = 'newsletter-msg error';
+        return;
+      }
+
+      if (!NEWSLETTER_ENDPOINT) {
+        newsletterMsg.textContent = 'A hírlevél-feliratkozás hamarosan aktiválódik — a fejlesztő még beköti a hírlevél-szolgáltatót.';
+        newsletterMsg.className = 'newsletter-msg error';
+        return;
+      }
+
+      try {
+        newsletterMsg.textContent = 'Feliratkozás folyamatban...';
+        newsletterMsg.className = 'newsletter-msg';
+        const res = await fetch(NEWSLETTER_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, source: 'sejtszerviz-hu' })
+        });
+        if (!res.ok) throw new Error('Sikertelen feliratkozás');
+        newsletterMsg.textContent = 'Sikeres feliratkozás! Nézd meg a postaládád (és a spam mappát is) a megerősítésért.';
+        newsletterMsg.className = 'newsletter-msg success';
+        newsletterForm.reset();
+      } catch (err) {
+        newsletterMsg.textContent = 'Hiba történt a feliratkozás során. Próbáld újra, vagy írj nekünk közvetlenül.';
+        newsletterMsg.className = 'newsletter-msg error';
+      }
+    });
+  }
+</script>
+
+
+</body>
+</html>
