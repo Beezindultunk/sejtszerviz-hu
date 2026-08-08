@@ -379,8 +379,8 @@
   .newsletter{ background:var(--paper-warm); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
   .newsletter-box{ max-width:640px; margin:0 auto; text-align:center; }
   .newsletter-form{ display:flex; gap:10px; margin-top:22px; flex-wrap:wrap; justify-content:center; }
-  .newsletter-form input[type="email"]{
-    flex:1; min-width:220px; padding:13px 18px; border-radius:999px;
+  .newsletter-form input[type="email"], .newsletter-form input[type="text"]{
+    flex:1; min-width:180px; padding:13px 18px; border-radius:999px;
     border:1px solid var(--line); font-family:'Work Sans', sans-serif; font-size:0.92rem;
   }
   .newsletter-consent{ display:flex; align-items:flex-start; gap:8px; max-width:440px; margin:14px auto 0; text-align:left; }
@@ -974,12 +974,13 @@
         <h2 style="font-size:1.6rem; margin-bottom:12px;">Iratkozz fel a heti hírlevélre</h2>
         <p style="color:var(--ink-soft);">Hetente egyszer küldök egy válogatást a Zinzino <a href="https://www.zinzino.com/2004358267/hu/hu-hu/blog" target="_blank" rel="noopener" style="color:var(--berry); text-decoration:underline;">tudományos blogjának</a> legjobb írásaiból, közérthetően összefoglalva.</p>
         <form class="newsletter-form" id="newsletterForm">
+          <input type="text" id="newsletterName" placeholder="Keresztneved" autocomplete="given-name">
           <input type="email" id="newsletterEmail" placeholder="legjobb@emailcimed.hu" required autocomplete="email">
           <button type="submit" class="btn-primary" style="border-radius:999px;">Feliratkozom</button>
         </form>
         <div class="newsletter-consent">
           <input type="checkbox" id="newsletterConsent" required>
-          <label for="newsletterConsent">Hozzájárulok, hogy a Sejtszerviz.hu (tetested.hu Kft.) heti hírlevelet küldjön a megadott e-mail címemre, az <a href="#" data-open-modal="privacyModal" style="color:var(--berry);">Adatkezelési tájékoztatóban</a> foglaltak szerint. A leiratkozás bármikor, egy kattintással lehetséges.</label>
+          <label for="newsletterConsent">Hozzájárulok, hogy a Sejtszerviz.hu (tetested.hu Kft.) heti hírlevelet küldjön a megadott keresztnevemre (ha megadtam) és e-mail címemre, az <a href="#" data-open-modal="privacyModal" style="color:var(--berry);">Adatkezelési tájékoztatóban</a> foglaltak szerint. A leiratkozás bármikor, egy kattintással lehetséges.</label>
         </div>
         <div class="newsletter-msg" id="newsletterMsg"></div>
       </div>
@@ -1072,7 +1073,7 @@
     <h3>2. Milyen adatokat kezelünk, és milyen célból?</h3>
     <ul>
       <li><strong>Ingyenes konzultációra jelentkezés (időpontfoglalás):</strong> név, e-mail cím, a foglaláskor megadott egyéb adatok. Cél: az időpontfoglalás lebonyolítása, a konzultáció megtartása. Ez az adatkezelés a Cal.com Inc. időpontfoglaló rendszerén keresztül történik — lásd a 4. pontot.</li>
-      <li><strong>Hírlevél-feliratkozás:</strong> e-mail cím. Cél: heti rendszerességű hírlevél küldése egészséggel és táplálkozással kapcsolatos tartalmakról, valamint az ingyenes konzultációs lehetőség rendszeres felajánlása. Jogalap: az Ön önkéntes hozzájárulása (GDPR 6. cikk (1) bekezdés a) pont), közvetlen üzletszerzési célú megkereséshez pedig a gazdasági reklámtevékenység alapvető feltételeiről és egyes korlátairól szóló 2008. évi XLVIII. törvény (Grtv.) 6. §-a szerinti előzetes hozzájárulása, amelyet a feliratkozási űrlapon ad meg.</li>
+      <li><strong>Hírlevél-feliratkozás:</strong> e-mail cím, valamint — ha Ön megadja — a keresztneve a személyesebb megszólítás érdekében. Cél: heti rendszerességű hírlevél küldése egészséggel és táplálkozással kapcsolatos tartalmakról, valamint az ingyenes konzultációs lehetőség rendszeres felajánlása. Jogalap: az Ön önkéntes hozzájárulása (GDPR 6. cikk (1) bekezdés a) pont), közvetlen üzletszerzési célú megkereséshez pedig a gazdasági reklámtevékenység alapvető feltételeiről és egyes korlátairól szóló 2008. évi XLVIII. törvény (Grtv.) 6. §-a szerinti előzetes hozzájárulása, amelyet a feliratkozási űrlapon ad meg.</li>
       <li><strong>Sütik (cookie-k):</strong> a weboldal működéséhez szükséges, illetve — hozzájárulás esetén — a látogatottság méréséhez és a beágyazott tartalmak (videók, időpontfoglaló) megjelenítéséhez szükséges technikai adatok. Lásd a Sütikezelési tájékoztatót.</li>
     </ul>
 
@@ -1528,6 +1529,7 @@
   if (newsletterForm) {
     newsletterForm.addEventListener('submit', async (e) => {
       e.preventDefault();
+      const firstName = document.getElementById('newsletterName').value.trim();
       const email = document.getElementById('newsletterEmail').value;
       const consent = document.getElementById('newsletterConsent').checked;
 
@@ -1549,7 +1551,7 @@
         const res = await fetch(NEWSLETTER_ENDPOINT, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, source: 'sejtszerviz-hu' })
+          body: JSON.stringify({ firstName, email, source: 'sejtszerviz-hu' })
         });
         if (!res.ok) throw new Error('Sikertelen feliratkozás');
         newsletterMsg.textContent = 'Sikeres feliratkozás! Nézd meg a postaládád (és a spam mappát is) a megerősítésért.';
