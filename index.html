@@ -1518,11 +1518,11 @@
   });
 
   // --- HÍRLEVÉL FELIRATKOZÁS ---
-  // Ez egy statikus HTML oldal, ezért a tényleges kiküldéshez egy valódi
-  // hírlevél-szolgáltató (pl. Mailchimp, MailerLite, Brevo) végpontját kell
-  // ide bekötni. Addig is a form validál és visszajelzést ad, de a feliratkozás
-  // ténylegesen nem kerül elmentésre — NEWSLETTER_ENDPOINT kitöltése szükséges.
-  const NEWSLETTER_ENDPOINT = "";
+  // A feliratkozás egy Netlify Function-ön (netlify/functions/subscribe.js)
+  // keresztül a Resend kontakt-adatbázisába kerül. A Resend API-kulcs
+  // kizárólag a Netlify Environment Variables között (RESEND_API_KEY) van
+  // tárolva, a böngészőből soha nem érhető el.
+  const NEWSLETTER_ENDPOINT = "/.netlify/functions/subscribe";
   const newsletterForm = document.getElementById('newsletterForm');
   const newsletterMsg = document.getElementById('newsletterMsg');
 
