@@ -1207,7 +1207,9 @@
     </ul>
 
     <h3>3. Látogatottságmérés (csak hozzájárulás esetén)</h3>
-    <p>Jelenleg nincs aktív, harmadik féltől származó látogatottságmérő (analitikai) eszköz beépítve a Weboldalba. Ez a hozzájárulási kategória egy jövőbeli, GDPR-kompatibilis megoldás számára van fenntartva; bevezetése esetén jelen tájékoztatót frissítjük.</p>
+    <ul>
+      <li><strong>Plausible Analytics</strong> — adatvédelem-központú, cookie-mentes látogatottságmérés. Nem helyez el sütit, nem gyűjt személyes adatot és nem követi Önt oldalak vagy eszközök között; kizárólag anonim, összesített statisztikákat (pl. látogatók száma, megtekintett oldalak) készít. Szolgáltató: Plausible Insights OÜ (Észtország).</li>
+    </ul>
 
     <h3>4. Betűtípusok</h3>
     <p>A Weboldal a Google Fonts szolgáltatáson keresztül tölti be a megjelenített betűtípusokat (Fraunces, Work Sans, IBM Plex Mono). Ez a betöltés a megjelenítéshez technikailag szükséges, sütit nem helyez el, azonban a kéréssel az Ön böngészőjének IP-címe eljut a Google szervereihez.</p>
@@ -1387,6 +1389,19 @@
     }
   }
 
+  // Plausible Analytics — cookie-mentes, adatvédelem-központú látogatottságmérés.
+  // Csak akkor töltődik be, ha a látogató a "Látogatottságmérés" kategóriát
+  // elfogadta a sütibeállításokban (lásd applyConsent()).
+  function loadPlausible() {
+    if (document.getElementById('plausible-script')) return;
+    const s = document.createElement('script');
+    s.id = 'plausible-script';
+    s.defer = true;
+    s.setAttribute('data-domain', 'sejtszerviz.hu');
+    s.src = 'https://plausible.io/js/script.js';
+    document.head.appendChild(s);
+  }
+
   // --- SÜTIKEZELÉS ÉS HOZZÁJÁRULÁS-KEZELÉS ---
   const COOKIE_CONSENT_KEY = 'sejtszerviz_cookie_consent';
 
@@ -1405,6 +1420,9 @@
   }
 
   function applyConsent(consent) {
+    if (consent && consent.stats) {
+      loadPlausible();
+    }
     if (consent && consent.embeds) {
       loadCalCom();
       loadLazyVideos();
