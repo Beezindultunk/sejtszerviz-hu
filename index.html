@@ -485,18 +485,17 @@
           </div>
           <div class="gauge-scale"><span>25:1</span><span>elmozdulás</span><span>3:1</span></div>
 
-          <div class="gauge-video lazy-video-wrap">
-            <iframe
-              class="lazy-video"
-              data-src="https://www.zinzinoplay.com/embedded/assets/1416?language=hu&autoplay=1&muted=0&sound=1"
-              title="A BalanceTest eredményeinek értelmezése"
-              allow="autoplay; fullscreen"
-              loading="lazy"
-              style="position:absolute; top:0; left:0; width:100%; height:100%; border:0;">
-            </iframe>
+          <div class="gauge-video self-video-wrap">
+            <video
+              class="self-video"
+              playsinline
+              preload="none"
+              style="position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; border:0; background:#0b2425;">
+              <source src="assets/videos/balancetest-ertelmezese.mp4" type="video/mp4">
+            </video>
             <button type="button" class="video-play-overlay" aria-label="Videó lejátszása hanggal">
               <span class="video-play-icon">&#9658;</span>
-              <span class="video-play-text">Koppints a videó betöltéséhez, majd indítsd a lejátszóban — így biztosan hanggal indul</span>
+              <span class="video-play-text">Koppints a lejátszáshoz — azonnal hanggal indul</span>
             </button>
             <div class="video-caption"><span class="dot"></span><span>Sejtszerviz.hu · A BalanceTest eredményeinek értelmezése</span></div>
           </div>
@@ -1484,6 +1483,25 @@
   function hideCookiePopup() {
     if (cookiePopup) cookiePopup.classList.remove('is-open');
   }
+
+  // Saját szerverünkről (nem harmadik féltől) szolgáltatott videók —
+  // nincs cookie/harmadik fél, ezért nem consent-köteles, és a lejátszás
+  // gombra kattintva garantáltan, azonnal hanggal indul (valódi user gesture
+  // + same-origin <video> elem = a böngésző nem korlátozza a hangot).
+  function loadSelfVideos() {
+    document.querySelectorAll('.self-video-wrap').forEach(wrap => {
+      const video = wrap.querySelector('video.self-video');
+      const overlay = wrap.querySelector('.video-play-overlay');
+      if (!video || !overlay) return;
+      overlay.addEventListener('click', () => {
+        video.muted = false;
+        video.setAttribute('controls', '');
+        video.play();
+        overlay.remove();
+      });
+    });
+  }
+  loadSelfVideos();
 
   loadPlausible(); // cookie-mentes mérés — nem igényel hozzájárulást, mindig fut
 
