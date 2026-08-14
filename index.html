@@ -1016,7 +1016,7 @@
   <div class="modal-box cookie-popup-box">
     <button type="button" class="modal-close" id="cookiePopupClose">×</button>
     <h2>Ez a weboldal sütiket használ</h2>
-    <p style="margin-bottom:22px;">Sütiket (cookie-kat) használunk a weboldal alapműködéséhez, valamint — hozzájárulásod esetén — a videók és az időpontfoglaló beágyazott megjelenítéséhez, illetve a látogatottság méréséhez. Bővebben az <a href="#" data-open-modal="privacyModal" style="color:var(--berry);">Adatkezelési tájékoztatóban</a> olvashatsz.</p>
+    <p style="margin-bottom:22px;">Sütiket (cookie-kat) használunk a weboldal alapműködéséhez, valamint — hozzájárulásod esetén — a videók és az időpontfoglaló beágyazott megjelenítéséhez. A cookie-mentes, anonim látogatottságmérés (Plausible Analytics) ettől függetlenül, mindig aktív. Bővebben az <a href="#" data-open-modal="privacyModal" style="color:var(--berry);">Adatkezelési tájékoztatóban</a> olvashatsz.</p>
 
     <div class="cookie-toggle-row" style="border-top:1px solid var(--line);">
       <div>
@@ -1036,10 +1036,10 @@
 
     <div class="cookie-toggle-row" style="border-bottom:1px solid var(--line); margin-bottom:24px;">
       <div>
-        <div class="cookie-toggle-label">Statisztikai</div>
-        <div class="cookie-toggle-desc">Anonim látogatottsági adatok gyűjtése a weboldal fejlesztéséhez.</div>
+        <div class="cookie-toggle-label">Statisztikai (Plausible Analytics)</div>
+        <div class="cookie-toggle-desc">Cookie-mentes, anonim látogatottságmérés — mivel nem tesz le sütit és nem tárol adatot az eszközödön, nem igényel hozzájárulást.</div>
       </div>
-      <label class="switch"><input type="checkbox" id="popupToggleStats"><span class="switch-track"></span></label>
+      <label class="switch"><input type="checkbox" checked disabled><span class="switch-track"></span></label>
     </div>
 
     <div class="cookie-popup-actions">
@@ -1206,7 +1206,8 @@
       <li><strong>Cal.com időpontfoglaló widget</strong> — a beágyazott naptár működéséhez szükséges munkamenet- és foglalásazonosító sütiket helyez el. Szolgáltató: Cal.com, Inc. Élettartam: a szolgáltató mindenkori szabályzata szerint.</li>
     </ul>
 
-    <h3>3. Látogatottságmérés (csak hozzájárulás esetén)</h3>
+    <h3>3. Látogatottságmérés (nem igényel hozzájárulást)</h3>
+    <p>Az alábbi mérés cookie-mentes — nem tesz le sütit és nem tárol adatot az Ön eszközén, ezért nem tartozik hozzájárulás-köteles kategóriába, mindig aktív.</p>
     <ul>
       <li><strong>Plausible Analytics</strong> — adatvédelem-központú, cookie-mentes látogatottságmérés. Nem helyez el sütit, nem gyűjt személyes adatot és nem követi Önt oldalak vagy eszközök között; kizárólag anonim, összesített statisztikákat (pl. látogatók száma, megtekintett oldalak) készít. Szolgáltató: Plausible Insights OÜ (Észtország).</li>
     </ul>
@@ -1390,8 +1391,9 @@
   }
 
   // Plausible Analytics — cookie-mentes, adatvédelem-központú látogatottságmérés.
-  // Csak akkor töltődik be, ha a látogató a "Látogatottságmérés" kategóriát
-  // elfogadta a sütibeállításokban (lásd applyConsent()).
+  // Cookie-mentes: nem tesz le sütit, nem tárol adatot az eszközön, ezért
+  // az ePrivacy irányelv 5(3) cikke szerint nem igényel előzetes hozzájárulást
+  // — a betöltés feltétel nélküli (lásd lentebb).
   function loadPlausible() {
     if (document.getElementById('plausible-script')) return;
     const s = document.createElement('script');
@@ -1420,9 +1422,6 @@
   }
 
   function applyConsent(consent) {
-    if (consent && consent.stats) {
-      loadPlausible();
-    }
     if (consent && consent.embeds) {
       loadCalCom();
       loadLazyVideos();
@@ -1455,6 +1454,8 @@
     if (cookiePopup) cookiePopup.classList.remove('is-open');
   }
 
+  loadPlausible(); // cookie-mentes mérés — nem igényel hozzájárulást, mindig fut
+
   if (existingConsent) {
     applyConsent(existingConsent);
   } else {
@@ -1466,24 +1467,22 @@
   const popupSaveBtn = document.getElementById('popupSaveSelection');
   const popupCloseBtn = document.getElementById('cookiePopupClose');
   const popupToggleEmbeds = document.getElementById('popupToggleEmbeds');
-  const popupToggleStats = document.getElementById('popupToggleStats');
   const footerCookieSettingsLink = document.getElementById('footerCookieSettingsLink');
 
   if (popupAcceptAllBtn) popupAcceptAllBtn.addEventListener('click', () => {
-    setConsent({ essential: true, embeds: true, stats: true });
+    setConsent({ essential: true, embeds: true });
     hideCookiePopup();
   });
 
   if (popupRejectAllBtn) popupRejectAllBtn.addEventListener('click', () => {
-    setConsent({ essential: true, embeds: false, stats: false });
+    setConsent({ essential: true, embeds: false });
     hideCookiePopup();
   });
 
   if (popupSaveBtn) popupSaveBtn.addEventListener('click', () => {
     setConsent({
       essential: true,
-      embeds: popupToggleEmbeds ? popupToggleEmbeds.checked : true,
-      stats: popupToggleStats ? popupToggleStats.checked : false
+      embeds: popupToggleEmbeds ? popupToggleEmbeds.checked : true
     });
     hideCookiePopup();
   });
@@ -1491,7 +1490,7 @@
   // A bezárás (×) gomb óvatosságból csak a nem-szükséges kategóriákat utasítja el —
   // GDPR szerint a bezárás nem tekinthető aktív hozzájárulásnak.
   if (popupCloseBtn) popupCloseBtn.addEventListener('click', () => {
-    setConsent({ essential: true, embeds: false, stats: false });
+    setConsent({ essential: true, embeds: false });
     hideCookiePopup();
   });
 
@@ -1500,7 +1499,6 @@
     e.preventDefault();
     const c = getConsent();
     if (popupToggleEmbeds) popupToggleEmbeds.checked = c ? !!c.embeds : true;
-    if (popupToggleStats) popupToggleStats.checked = c ? !!c.stats : false;
     showCookiePopup();
   });
 
