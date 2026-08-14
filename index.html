@@ -260,6 +260,22 @@
     display:flex; align-items:center; gap:8px;
   }
   .video-caption .dot{ width:6px; height:6px; border-radius:50%; background:var(--gold); flex-shrink:0; }
+  .video-play-overlay{
+    position:absolute; inset:0; z-index:3; width:100%; height:100%;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px;
+    background:rgba(11,36,37,0.55); border:0; padding:0; cursor:pointer;
+    transition:background .15s;
+  }
+  .video-play-overlay:hover{ background:rgba(11,36,37,0.7); }
+  .video-play-icon{
+    width:64px; height:64px; border-radius:50%; background:var(--berry); color:var(--white);
+    display:flex; align-items:center; justify-content:center; font-size:1.3rem; flex-shrink:0;
+    box-shadow:0 8px 20px rgba(11,36,37,0.35);
+  }
+  .video-play-text{
+    font-family:'Work Sans', sans-serif; font-weight:600; font-size:0.85rem; color:var(--white);
+    text-align:center; max-width:80%;
+  }
   .video-caption span{
     font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.04em;
     color:rgba(245,239,227,0.92);
@@ -478,6 +494,10 @@
               loading="lazy"
               style="position:absolute; top:0; left:0; width:100%; height:100%; border:0;">
             </iframe>
+            <button type="button" class="video-play-overlay" aria-label="Videó lejátszása hanggal">
+              <span class="video-play-icon">&#9658;</span>
+              <span class="video-play-text">Koppints a lejátszáshoz — azonnal hanggal indul</span>
+            </button>
             <div class="video-caption"><span class="dot"></span><span>Sejtszerviz.hu · A BalanceTest eredményeinek értelmezése</span></div>
           </div>
         </div>
@@ -720,6 +740,10 @@
                 loading="lazy"
                 style="position:absolute; top:0; left:0; width:100%; height:100%; border:0;">
               </iframe>
+              <button type="button" class="video-play-overlay" aria-label="Videó lejátszása hanggal">
+                <span class="video-play-icon">&#9658;</span>
+                <span class="video-play-text">Koppints a lejátszáshoz — azonnal hanggal indul</span>
+              </button>
               <div class="video-caption"><span class="dot"></span><span>Sejtszerviz.hu · Balance koncepció bemutatása</span></div>
             </div>
           </div>
@@ -765,6 +789,10 @@
             loading="lazy"
             style="position:absolute; top:0; left:0; width:100%; height:100%; border:0;">
           </iframe>
+          <button type="button" class="video-play-overlay" aria-label="Videó lejátszása hanggal">
+            <span class="video-play-icon">&#9658;</span>
+            <span class="video-play-text">Koppints a lejátszáshoz — azonnal hanggal indul</span>
+          </button>
           <div class="video-caption"><span class="dot"></span><span>Sejtszerviz.hu · Mi az a tesztalapú táplálkozás?</span></div>
         </div>
       </div>
@@ -896,6 +924,10 @@
           loading="lazy"
           style="position:absolute; top:0; left:0; width:100%; height:100%; border:0;">
         </iframe>
+        <button type="button" class="video-play-overlay" aria-label="Videó lejátszása hanggal">
+          <span class="video-play-icon">&#9658;</span>
+          <span class="video-play-text">Koppints a lejátszáshoz — azonnal hanggal indul</span>
+        </button>
         <div class="video-caption"><span class="dot"></span><span>Sejtszerviz.hu · Miért most, és miért egyre többen?</span></div>
       </div>
     </div>
@@ -1372,22 +1404,21 @@
 
   // --- VIDEÓK: automatikus indítás, amikor a látogató odagörget ---
   function loadLazyVideos() {
-    const lazyVideos = document.querySelectorAll('iframe.lazy-video');
-    if (lazyVideos.length) {
-      const videoObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const frame = entry.target;
-            if (frame.dataset.src && !frame.src) {
-              frame.src = frame.dataset.src;
-            }
-            videoObserver.unobserve(frame);
-          }
-        });
-      }, { threshold: 0.4, rootMargin: '0px 0px -10% 0px' });
-
-      lazyVideos.forEach(frame => videoObserver.observe(frame));
-    }
+    // Kattintásra töltjük be a videót (nem automatikusan görgetéskor) —
+    // így a forrás beállítása valódi felhasználói interakción belül történik,
+    // amit a böngészők engednek hanggal (nem néma) autoplay-elni. Ezzel nincs
+    // szükség a beágyazott lejátszó apró hangszóró-ikonjának megkeresésére.
+    document.querySelectorAll('.lazy-video-wrap').forEach(wrap => {
+      const frame = wrap.querySelector('iframe.lazy-video');
+      const overlay = wrap.querySelector('.video-play-overlay');
+      if (!frame || !overlay) return;
+      overlay.addEventListener('click', () => {
+        if (frame.dataset.src && !frame.src) {
+          frame.src = frame.dataset.src;
+        }
+        overlay.remove();
+      });
+    });
   }
 
   // Plausible Analytics — cookie-mentes, adatvédelem-központú látogatottságmérés.
