@@ -153,16 +153,41 @@
   .quiz-stat-label{ color:var(--ink-soft); font-size:1.02rem; line-height:1.6; text-align:center; max-width:46ch; }
   .quiz-stat-label strong{ color:var(--navy-deep); }
   @media (prefers-reduced-motion: reduce){ .quiz-stat-number.is-live{ animation:none; } }
-  .quiz-question p{ font-family:'Fraunces', serif; font-size:1.1rem; color:var(--navy-deep); margin-bottom:16px; }
-  .quiz-buttons{ display:flex; gap:12px; flex-wrap:wrap; }
+  .quiz-question{ text-align:center; }
+  .quiz-question p{ font-family:'Fraunces', serif; font-size:1.15rem; color:var(--navy-deep); margin-bottom:20px; text-align:center; }
+  .quiz-buttons{ display:flex; gap:12px; flex-wrap:wrap; justify-content:center; }
   .quiz-btn{
+    position:relative; overflow:hidden; isolation:isolate;
     font-family:'Work Sans', sans-serif; font-weight:600; font-size:0.9rem;
-    padding:12px 20px; border-radius:999px; border:1px solid var(--line);
-    background:var(--paper-warm); color:var(--navy-deep); cursor:pointer;
-    transition:background .15s, border-color .15s, transform .15s;
+    padding:13px 24px; border-radius:999px; cursor:pointer; color:var(--navy-deep);
+    border:1px solid rgba(18,53,54,0.18);
+    background:linear-gradient(180deg, rgba(255,255,255,0.88) 0%, rgba(239,230,211,0.6) 55%, rgba(239,230,211,0.4) 100%);
+    -webkit-backdrop-filter:blur(10px) saturate(140%); backdrop-filter:blur(10px) saturate(140%);
+    box-shadow:0 1px 0 0 rgba(255,255,255,0.95) inset, 0 6px 16px -10px rgba(11,36,37,0.3);
+    transition:transform .2s cubic-bezier(.2,.8,.3,1), box-shadow .2s ease, border-color .2s ease, color .2s ease, background .2s ease;
   }
-  .quiz-btn:hover{ background:var(--berry); color:var(--white); border-color:var(--berry); transform:translateY(-1px); }
-  .quiz-btn.is-selected{ background:var(--navy-deep); color:var(--white); border-color:var(--navy-deep); }
+  .quiz-btn::before{
+    content:''; position:absolute; top:0; bottom:0; left:-70%; width:48%; z-index:0; pointer-events:none;
+    transform:skewX(-18deg); opacity:0; transition:opacity .2s ease;
+    background:linear-gradient(100deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.85) 50%, rgba(255,255,255,0) 100%);
+  }
+  .quiz-btn:hover::before{ opacity:1; animation:btnSheen .75s ease-out; }
+  .quiz-btn:hover{
+    transform:translateY(-2px); color:var(--white); border-color:rgba(255,255,255,0.3);
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.05) 48%, rgba(255,255,255,0) 66%),
+      linear-gradient(135deg, rgba(166,52,70,0.94) 0%, rgba(131,38,52,0.92) 100%);
+    box-shadow:0 1px 0 0 rgba(255,255,255,0.34) inset, 0 12px 26px -12px rgba(166,52,70,0.7);
+  }
+  .quiz-btn:active{ transform:translateY(0) scale(0.97); transition-duration:.08s; }
+  .quiz-btn:focus-visible{ outline:3px solid rgba(18,53,54,0.45); outline-offset:3px; }
+  .quiz-btn.is-selected{
+    color:var(--white); border-color:rgba(255,255,255,0.22);
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.20) 0%, rgba(255,255,255,0.04) 46%, rgba(255,255,255,0) 64%),
+      linear-gradient(135deg, rgba(18,53,54,0.96) 0%, rgba(11,36,37,0.94) 100%);
+    box-shadow:0 1px 0 0 rgba(255,255,255,0.26) inset, 0 12px 26px -12px rgba(11,36,37,0.6);
+  }
   .quiz-result{
     margin-top:0; max-height:0; overflow:hidden; opacity:0;
     transition:max-height .4s ease, opacity .3s ease, margin-top .4s ease;
@@ -1527,23 +1552,35 @@
     if (!statEl || !('IntersectionObserver' in window)) return;
     const TARGET = 97;
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let counted = false;
+    function runCount(el){
+      if (counted) return; counted = true;
+      el.classList.add('is-live');
+      const DUR = 1500, start = performance.now();
+      function tick(now){
+        const p = Math.min((now - start) / DUR, 1);
+        const eased = 1 - Math.pow(1 - p, 3); // lassuló vég
+        el.textContent = Math.round(eased * TARGET) + '%';
+        if (p < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
     const obs = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (!entry.isIntersecting) return;
         obs.unobserve(entry.target);
         if (reduceMotion) { entry.target.textContent = TARGET + '%'; return; }
-        entry.target.classList.add('is-live');
-        const DUR = 1500, start = performance.now();
-        function tick(now){
-          const p = Math.min((now - start) / DUR, 1);
-          const eased = 1 - Math.pow(1 - p, 3); // lassuló vég
-          entry.target.textContent = Math.round(eased * TARGET) + '%';
-          if (p < 1) requestAnimationFrame(tick);
-        }
-        requestAnimationFrame(tick);
+        runCount(entry.target);
       });
-    }, { threshold: 0.6 });
+    }, { threshold: 0.35, rootMargin: '0px 0px -8% 0px' });
     obs.observe(statEl);
+    // Ha már betöltéskor látszik (pl. közvetlen link/frissítés), induljon rögtön
+    const r = statEl.getBoundingClientRect();
+    if (r.top < window.innerHeight && r.bottom > 0) {
+      obs.unobserve(statEl);
+      if (reduceMotion) { statEl.textContent = TARGET + '%'; }
+      else { runCount(statEl); }
+    }
   })();
 
   // --- INTERAKTÍV KVÍZ: 97%-os egyensúly-teszt ---
