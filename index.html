@@ -44,8 +44,20 @@
   .nav-links{ display:flex; gap:22px; list-style:none; font-size:0.92rem; }
   .nav-links a{ text-decoration:none; color:var(--ink-soft); transition:color .15s; }
   .nav-links a:hover{ color:var(--navy-deep); }
-  .nav-cta{ background:var(--berry); color:var(--white); padding:10px 20px; border-radius:999px; font-size:0.85rem; font-weight:600; text-decoration:none; white-space:nowrap; transition:transform .15s, background .15s; }
-  .nav-cta:hover{ background:var(--berry-deep); transform:translateY(-1px); }
+  .nav-cta{
+    position:relative; overflow:hidden; isolation:isolate;
+    color:var(--white); padding:10px 22px; border-radius:999px; font-size:0.85rem; font-weight:600;
+    text-decoration:none; white-space:nowrap; display:inline-flex; align-items:center; justify-content:center;
+    border:1px solid rgba(255,255,255,0.26);
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.24) 0%, rgba(255,255,255,0.05) 48%, rgba(255,255,255,0) 66%),
+      linear-gradient(135deg, rgba(166,52,70,0.94) 0%, rgba(131,38,52,0.92) 100%);
+    -webkit-backdrop-filter:blur(10px) saturate(150%); backdrop-filter:blur(10px) saturate(150%);
+    box-shadow:0 1px 0 0 rgba(255,255,255,0.3) inset, 0 -6px 14px -10px rgba(0,0,0,0.5) inset, 0 8px 18px -10px rgba(166,52,70,0.55);
+    transition:transform .2s cubic-bezier(.2,.8,.3,1), box-shadow .2s ease, border-color .2s ease;
+  }
+  .nav-cta:hover{ transform:translateY(-1px); border-color:rgba(255,255,255,0.42); box-shadow:0 1px 0 0 rgba(255,255,255,0.42) inset, 0 -6px 14px -10px rgba(0,0,0,0.45) inset, 0 12px 24px -10px rgba(166,52,70,0.72); }
+  .nav-cta:active{ transform:translateY(0) scale(0.97); transition-duration:.08s; }
 
   /* HERO */
   .hero{ padding:80px 0 60px; display:grid; grid-template-columns:1.1fr 0.9fr; gap:56px; align-items:start; }
@@ -150,9 +162,59 @@
   .hero h1 em{ font-style:normal; color:var(--berry); }
   .hero p.lead{ font-size:1.08rem; color:var(--ink-soft); max-width:48ch; margin-bottom:28px; }
   .hero-ctas{ display:flex; align-items:center; gap:16px; flex-wrap:wrap; margin-bottom:32px; }
-  .btn-primary{ background:var(--navy-deep); color:var(--white); padding:15px 28px; border-radius:10px; font-weight:600; font-size:0.98rem; text-decoration:none; display:inline-block; box-shadow:0 10px 24px -10px rgba(11,36,37,0.5); transition:transform .15s, background .15s; }
-  .btn-primary:hover{ background:var(--navy); transform:translateY(-2px); }
-  .btn-secondary{ padding:15px 24px; border-radius:10px; font-weight:600; font-size:0.95rem; text-decoration:none; border:1px solid var(--line); color:var(--navy-deep); }
+  /* ---------- EGYSÉGES LIQUID GLASS GOMBRENDSZER ---------- */
+  .btn-primary, .btn-secondary{
+    position:relative; overflow:hidden; isolation:isolate; cursor:pointer;
+    display:inline-flex; align-items:center; justify-content:center; gap:9px;
+    border-radius:999px; text-decoration:none; font-family:'Work Sans', sans-serif;
+    transition:transform .2s cubic-bezier(.2,.8,.3,1), box-shadow .2s ease, border-color .2s ease;
+  }
+  /* elsődleges: mély zöld üveg */
+  .btn-primary{
+    padding:15px 30px; font-weight:600; font-size:0.98rem; color:var(--white);
+    border:1px solid rgba(255,255,255,0.18);
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.20) 0%, rgba(255,255,255,0.04) 46%, rgba(255,255,255,0) 64%),
+      linear-gradient(135deg, rgba(18,53,54,0.95) 0%, rgba(11,36,37,0.92) 100%);
+    -webkit-backdrop-filter:blur(12px) saturate(150%); backdrop-filter:blur(12px) saturate(150%);
+    box-shadow:
+      0 1px 0 0 rgba(255,255,255,0.24) inset,
+      0 -8px 18px -12px rgba(0,0,0,0.6) inset,
+      0 12px 28px -12px rgba(11,36,37,0.55);
+  }
+  .btn-primary:hover{
+    transform:translateY(-2px); border-color:rgba(255,255,255,0.34);
+    box-shadow:0 1px 0 0 rgba(255,255,255,0.36) inset, 0 -8px 18px -12px rgba(0,0,0,0.55) inset, 0 18px 38px -12px rgba(11,36,37,0.68);
+  }
+  /* másodlagos: világos, áttetsző üveg */
+  .btn-secondary{
+    padding:15px 28px; font-weight:600; font-size:0.95rem; color:var(--navy-deep);
+    border:1px solid rgba(18,53,54,0.20);
+    background:linear-gradient(180deg, rgba(255,255,255,0.78) 0%, rgba(255,255,255,0.38) 55%, rgba(255,255,255,0.20) 100%);
+    -webkit-backdrop-filter:blur(12px) saturate(140%); backdrop-filter:blur(12px) saturate(140%);
+    box-shadow:0 1px 0 0 rgba(255,255,255,0.9) inset, 0 8px 20px -12px rgba(11,36,37,0.32);
+  }
+  .btn-secondary:hover{
+    transform:translateY(-2px); border-color:rgba(18,53,54,0.34);
+    box-shadow:0 1px 0 0 rgba(255,255,255,1) inset, 0 14px 30px -12px rgba(11,36,37,0.42);
+  }
+  .btn-primary:active, .btn-secondary:active{ transform:translateY(0) scale(0.975); transition-duration:.08s; }
+  .btn-primary:focus-visible{ outline:3px solid rgba(255,255,255,0.7); outline-offset:3px; }
+  .btn-secondary:focus-visible{ outline:3px solid rgba(18,53,54,0.45); outline-offset:3px; }
+  /* fénycsík — hoverre söpör végig, mint valódi üveglapon */
+  .btn-primary::before, .btn-secondary::before{
+    content:''; position:absolute; top:0; bottom:0; left:-70%; width:48%; z-index:0; pointer-events:none;
+    transform:skewX(-18deg); opacity:0; transition:opacity .2s ease;
+    background:linear-gradient(100deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.42) 50%, rgba(255,255,255,0) 100%);
+  }
+  .btn-secondary::before{ background:linear-gradient(100deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.85) 50%, rgba(255,255,255,0) 100%); }
+  .btn-primary:hover::before, .btn-secondary:hover::before{ opacity:1; animation:btnSheen .75s ease-out; }
+  .btn-primary > *, .btn-secondary > *{ position:relative; z-index:1; }
+  @keyframes btnSheen{ from{ left:-70%; } to{ left:120%; } }
+  @media (prefers-reduced-motion: reduce){
+    .btn-primary, .btn-secondary, .nav-cta{ transition:none; }
+    .btn-primary:hover::before, .btn-secondary:hover::before{ animation:none; opacity:0; }
+  }
 
   /* --- LIQUID GLASS CTA (sötét háttérre) --- */
   .btn-glass{
@@ -491,6 +553,7 @@
     .proof-strip-inner{ justify-content:center; text-align:center; }
     .final-cta-split{ grid-template-columns:1fr; }
     .final-cta-text{ padding:44px 28px; text-align:center; align-items:center; }
+    .final-cta-text .hero-ctas{ justify-content:center; width:100%; }
     .final-cta-img{ min-height:220px; order:-1; }
     .cell-explainer-grid{ grid-template-columns:1fr; }
     .quiz-widget{ padding:26px 22px; }
@@ -653,7 +716,7 @@
 
       <div class="recognition-callout">
         <p><strong>A gyulladás nem mindig fáj — ettől lehet igazán alattomos.</strong> Sokan azt gondolják, hogy amíg nem fáj semmi, addig nincs is mivel foglalkozni. A valóság az, hogy ezek a tünetek gyakran ugyanabból az egy gyökérből erednek: a zsírsav-egyensúly felborulásából — és ez egy vérteszttel pontosan kimutatható, majd 120 nap alatt <strong>mérhetően helyreállítható.</strong></p>
-        <a class="btn-primary" href="#konzultacio" style="margin-top:20px; display:inline-block;">Megmutatom, nálad mi áll emögött</a>
+        <a class="btn-primary" href="#konzultacio" style="margin-top:20px;">Megmutatom, nálad mi áll emögött</a>
       </div>
 
       <!-- INTERAKTÍV 97%-OS MINI-KVÍZ -->
@@ -1464,7 +1527,7 @@
         quizButtons.forEach(b => b.classList.remove('is-selected'));
         btn.classList.add('is-selected');
         const answer = quizAnswers[btn.dataset.answer];
-        quizResult.innerHTML = `<div class="quiz-result-inner"><p><strong>${answer.title}</strong></p><p>${answer.body}</p><a class="btn-primary" href="#konzultacio" style="display:inline-block;">Beszéljük át ingyenesen</a></div>`;
+        quizResult.innerHTML = `<div class="quiz-result-inner"><p><strong>${answer.title}</strong></p><p>${answer.body}</p><a class="btn-primary" href="#konzultacio" >Beszéljük át ingyenesen</a></div>`;
         quizResult.classList.add('is-open');
       });
     });
