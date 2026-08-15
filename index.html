@@ -89,16 +89,26 @@
   .marquee-band{
     position:fixed; left:0; right:0; bottom:0; z-index:120;
     background:var(--paper-warm); border-top:1px solid var(--line);
-    overflow:hidden; padding:11px 0;
+    overflow:hidden; padding:13px 0;
     box-shadow:0 -6px 16px rgba(11,36,37,0.08);
+    -webkit-mask-image:linear-gradient(90deg, transparent 0, #000 40px, #000 calc(100% - 40px), transparent 100%);
+    mask-image:linear-gradient(90deg, transparent 0, #000 40px, #000 calc(100% - 40px), transparent 100%);
   }
-  .marquee-track{ display:flex; width:max-content; animation:marquee-scroll 32s linear infinite; }
-  .marquee-band:hover .marquee-track{ animation-play-state:paused; }
+  .marquee-track{ display:flex; width:max-content; animation:marquee-scroll 96s linear infinite; }
+  .marquee-band:hover .marquee-track,
+  .marquee-band:focus-within .marquee-track{ animation-play-state:paused; }
   .marquee-content{ display:flex; align-items:center; flex-shrink:0; padding-right:0; }
-  .marquee-content span:not(.marquee-dot){
-    font-family:'IBM Plex Mono', monospace; font-size:0.76rem; letter-spacing:0.08em;
-    color:var(--navy-deep); font-weight:600; white-space:nowrap; padding:0 18px;
+  /* rövid, "pecsét" jellegű hitelesítő elemek */
+  .marquee-tag{
+    font-family:'IBM Plex Mono', monospace; font-size:0.74rem; letter-spacing:0.08em;
+    color:var(--navy-deep); font-weight:600; white-space:nowrap; padding:0 18px; text-transform:uppercase;
   }
+  /* engedélyezett egészségállítások — jól olvasható, folyó szöveg */
+  .marquee-claim{
+    font-family:'Work Sans', sans-serif; font-size:0.87rem; letter-spacing:0.005em;
+    color:var(--navy-deep); font-weight:500; white-space:nowrap; padding:0 18px;
+  }
+  .marquee-claim .mq-cond{ color:var(--ink-soft); font-weight:400; font-size:0.92em; }
   .marquee-dot{ color:var(--berry); font-size:0.9rem; }
   @keyframes marquee-scroll{
     0%{ transform:translateX(0); }
@@ -704,26 +714,44 @@
     </div>
   </div>
 
-  <!-- GÖRGŐ SZALAG (marquee) -->
+  <!-- GÖRGŐ SZALAG (marquee) — engedélyezett EU egészségállítások + hitelesítések -->
   <div class="marquee-band" aria-hidden="false">
     <div class="marquee-track">
       <div class="marquee-content">
-        <span>NORVÉG EREDETŰ HALOLAJ</span><span class="marquee-dot">•</span>
-        <span>TERMÉSZETES D3-VITAMIN</span><span class="marquee-dot">•</span>
-        <span>NON-GMO, ALLERGÉNMENTES</span><span class="marquee-dot">•</span>
-        <span>KLINIKAILAG VIZSGÁLT ÖSSZETEVŐK</span><span class="marquee-dot">•</span>
-        <span>ISO 9001 TANÚSÍTOTT GYÁRTÁS</span><span class="marquee-dot">•</span>
-        <span>MSC FENNTARTHATÓ HALÁSZAT</span><span class="marquee-dot">•</span>
-        <span>2005 ÓTA A PIACON</span><span class="marquee-dot">•</span>
+        <span class="marquee-tag">NORVÉG EREDETŰ HALOLAJ</span><span class="marquee-dot">•</span>
+        <span class="marquee-claim">Az EPA és DHA hozzájárul a szív normál működéséhez <span class="mq-cond">(napi 250 mg EPA+DHA mellett)</span></span><span class="marquee-dot">•</span>
+        <span class="marquee-tag">MSC FENNTARTHATÓ HALÁSZAT</span><span class="marquee-dot">•</span>
+        <span class="marquee-claim">A DHA hozzájárul a normál agyműködés és látás fenntartásához <span class="mq-cond">(napi 250 mg DHA mellett)</span></span><span class="marquee-dot">•</span>
+        <span class="marquee-tag">TERMÉSZETES D3-VITAMIN</span><span class="marquee-dot">•</span>
+        <span class="marquee-claim">A D-vitamin hozzájárul az immunrendszer normál működéséhez</span><span class="marquee-dot">•</span>
+        <span class="marquee-claim">A D-vitamin hozzájárul a normál izomműködéshez és a csontozat fenntartásához</span><span class="marquee-dot">•</span>
+        <span class="marquee-tag">ISO 9001 TANÚSÍTOTT GYÁRTÁS</span><span class="marquee-dot">•</span>
+        <span class="marquee-claim">Az olívaolaj polifenoljai hozzájárulnak a vér lipidjeinek oxidatív stresszel szembeni védelméhez <span class="mq-cond">(napi 20 g olívaolaj mellett)</span></span><span class="marquee-dot">•</span>
+        <span class="marquee-claim">A magnézium, a vas, a B6- és B12-vitamin hozzájárul a normál energiatermelő anyagcseréhez</span><span class="marquee-dot">•</span>
+        <span class="marquee-tag">NON-GMO, ALLERGÉNMENTES</span><span class="marquee-dot">•</span>
+        <span class="marquee-claim">A cink hozzájárul az immunrendszer normál működéséhez és a normál csontozat fenntartásához</span><span class="marquee-dot">•</span>
+        <span class="marquee-claim">A zab béta-glükán hozzájárul a normál koleszterinszint fenntartásához <span class="mq-cond">(napi 3 g béta-glükán mellett)</span></span><span class="marquee-dot">•</span>
+        <span class="marquee-claim">A zabrost hozzájárul a széklet tömegének növekedéséhez</span><span class="marquee-dot">•</span>
+        <span class="marquee-tag">2005 ÓTA A PIACON</span><span class="marquee-dot">•</span>
+        <span class="marquee-claim">A BalanceTest 11 zsírsavat mér, és megmutatja az Omega-6:3 arányodat</span><span class="marquee-dot">•</span>
       </div>
       <div class="marquee-content" aria-hidden="true">
-        <span>NORVÉG EREDETŰ HALOLAJ</span><span class="marquee-dot">•</span>
-        <span>TERMÉSZETES D3-VITAMIN</span><span class="marquee-dot">•</span>
-        <span>NON-GMO, ALLERGÉNMENTES</span><span class="marquee-dot">•</span>
-        <span>KLINIKAILAG VIZSGÁLT ÖSSZETEVŐK</span><span class="marquee-dot">•</span>
-        <span>ISO 9001 TANÚSÍTOTT GYÁRTÁS</span><span class="marquee-dot">•</span>
-        <span>MSC FENNTARTHATÓ HALÁSZAT</span><span class="marquee-dot">•</span>
-        <span>2005 ÓTA A PIACON</span><span class="marquee-dot">•</span>
+        <span class="marquee-tag">NORVÉG EREDETŰ HALOLAJ</span><span class="marquee-dot">•</span>
+        <span class="marquee-claim">Az EPA és DHA hozzájárul a szív normál működéséhez <span class="mq-cond">(napi 250 mg EPA+DHA mellett)</span></span><span class="marquee-dot">•</span>
+        <span class="marquee-tag">MSC FENNTARTHATÓ HALÁSZAT</span><span class="marquee-dot">•</span>
+        <span class="marquee-claim">A DHA hozzájárul a normál agyműködés és látás fenntartásához <span class="mq-cond">(napi 250 mg DHA mellett)</span></span><span class="marquee-dot">•</span>
+        <span class="marquee-tag">TERMÉSZETES D3-VITAMIN</span><span class="marquee-dot">•</span>
+        <span class="marquee-claim">A D-vitamin hozzájárul az immunrendszer normál működéséhez</span><span class="marquee-dot">•</span>
+        <span class="marquee-claim">A D-vitamin hozzájárul a normál izomműködéshez és a csontozat fenntartásához</span><span class="marquee-dot">•</span>
+        <span class="marquee-tag">ISO 9001 TANÚSÍTOTT GYÁRTÁS</span><span class="marquee-dot">•</span>
+        <span class="marquee-claim">Az olívaolaj polifenoljai hozzájárulnak a vér lipidjeinek oxidatív stresszel szembeni védelméhez <span class="mq-cond">(napi 20 g olívaolaj mellett)</span></span><span class="marquee-dot">•</span>
+        <span class="marquee-claim">A magnézium, a vas, a B6- és B12-vitamin hozzájárul a normál energiatermelő anyagcseréhez</span><span class="marquee-dot">•</span>
+        <span class="marquee-tag">NON-GMO, ALLERGÉNMENTES</span><span class="marquee-dot">•</span>
+        <span class="marquee-claim">A cink hozzájárul az immunrendszer normál működéséhez és a normál csontozat fenntartásához</span><span class="marquee-dot">•</span>
+        <span class="marquee-claim">A zab béta-glükán hozzájárul a normál koleszterinszint fenntartásához <span class="mq-cond">(napi 3 g béta-glükán mellett)</span></span><span class="marquee-dot">•</span>
+        <span class="marquee-claim">A zabrost hozzájárul a széklet tömegének növekedéséhez</span><span class="marquee-dot">•</span>
+        <span class="marquee-tag">2005 ÓTA A PIACON</span><span class="marquee-dot">•</span>
+        <span class="marquee-claim">A BalanceTest 11 zsírsavat mér, és megmutatja az Omega-6:3 arányodat</span><span class="marquee-dot">•</span>
       </div>
     </div>
   </div>
