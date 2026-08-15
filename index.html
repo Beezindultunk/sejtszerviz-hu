@@ -58,6 +58,21 @@
   }
   .nav-cta:hover{ transform:translateY(-1px); border-color:rgba(255,255,255,0.42); box-shadow:0 1px 0 0 rgba(255,255,255,0.42) inset, 0 -6px 14px -10px rgba(0,0,0,0.45) inset, 0 12px 24px -10px rgba(166,52,70,0.72); }
   .nav-cta:active{ transform:translateY(0) scale(0.97); transition-duration:.08s; }
+  .nav-cta:focus-visible{ outline:3px solid rgba(255,255,255,0.75); outline-offset:2px; }
+  /* magától végigfutó fénycsík — mint a nagy CTA gombon */
+  .nav-cta::before{
+    content:''; position:absolute; top:0; bottom:0; left:-60%; width:42%; z-index:0; pointer-events:none;
+    transform:skewX(-18deg);
+    background:linear-gradient(100deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.45) 50%, rgba(255,255,255,0) 100%);
+    animation:navSheen 5.5s ease-in-out infinite;
+  }
+  .nav-cta > span{ position:relative; z-index:1; }
+  .nav-cta:hover::before{ animation-play-state:paused; }
+  @keyframes navSheen{
+    0%, 70% { left:-60%; }
+    93%, 100% { left:120%; }
+  }
+  @media (prefers-reduced-motion: reduce){ .nav-cta::before{ animation:none; opacity:0; } }
 
   /* HERO */
   .hero{ padding:80px 0 60px; display:grid; grid-template-columns:1.1fr 0.9fr; gap:56px; align-items:start; }
@@ -658,7 +673,7 @@
       <li><a href="#konzultacio">Ingyenes konzultáció</a></li>
       <li><a href="#gyik">GYIK</a></li>
     </ul>
-    <a class="nav-cta" href="#konzultacio">Foglalj időpontot</a>
+    <a class="nav-cta" href="#konzultacio"><span>Foglalj időpontot</span></a>
   </div>
 </header>
 
