@@ -88,15 +88,33 @@
   /* GÖRGŐ SZALAG — mindig látható, alul rögzített csík */
   .marquee-band{
     position:fixed; left:0; right:0; bottom:0; z-index:120;
-    background:var(--paper-warm); border-top:1px solid var(--line);
-    overflow:hidden; padding:13px 0;
-    box-shadow:0 -6px 16px rgba(11,36,37,0.08);
+    padding:13px 0; cursor:pointer; -webkit-user-select:none; user-select:none;
+    /* áttetsző, matt üveg — a mögötte görgő tartalom finoman átszűrődik */
+    background:linear-gradient(180deg, rgba(245,239,227,0.72) 0%, rgba(239,230,211,0.86) 100%);
+    -webkit-backdrop-filter:blur(18px) saturate(170%);
+    backdrop-filter:blur(18px) saturate(170%);
+    border-top:1px solid rgba(255,255,255,0.55);
+    box-shadow:0 1px 0 0 rgba(255,255,255,0.6) inset, 0 -8px 24px rgba(11,36,37,0.10);
+  }
+  .marquee-viewport{
+    overflow:hidden;
     -webkit-mask-image:linear-gradient(90deg, transparent 0, #000 40px, #000 calc(100% - 40px), transparent 100%);
     mask-image:linear-gradient(90deg, transparent 0, #000 40px, #000 calc(100% - 40px), transparent 100%);
   }
   .marquee-track{ display:flex; width:max-content; animation:marquee-scroll 96s linear infinite; }
   .marquee-band:hover .marquee-track,
-  .marquee-band:focus-within .marquee-track{ animation-play-state:paused; }
+  .marquee-band:focus-visible .marquee-track,
+  .marquee-band.is-paused .marquee-track{ animation-play-state:paused; }
+  .marquee-band:focus-visible{ outline:3px solid rgba(18,53,54,0.4); outline-offset:-3px; }
+  /* rövid visszajelzés koppintásra */
+  .marquee-hint{
+    position:absolute; right:12px; top:50%; transform:translateY(-50%);
+    font-family:'Work Sans', sans-serif; font-size:0.66rem; font-weight:600; letter-spacing:0.04em;
+    color:var(--ink-soft); background:rgba(255,255,255,0.75); border:1px solid rgba(18,53,54,0.12);
+    padding:3px 9px; border-radius:999px; pointer-events:none;
+    opacity:0; transition:opacity .25s ease; z-index:2;
+  }
+  .marquee-band.is-paused .marquee-hint{ opacity:1; }
   .marquee-content{ display:flex; align-items:center; flex-shrink:0; padding-right:0; }
   /* rövid, "pecsét" jellegű hitelesítő elemek */
   .marquee-tag{
@@ -114,8 +132,14 @@
     0%{ transform:translateX(0); }
     100%{ transform:translateX(-50%); }
   }
+  @media (max-width:760px){
+    .marquee-track{ animation-duration:110s; } /* ~15%-kal lassabb mobilon */
+    .marquee-claim{ font-size:0.83rem; padding:0 15px; }
+    .marquee-tag{ font-size:0.7rem; padding:0 15px; }
+  }
   @media (prefers-reduced-motion: reduce){
-    .marquee-track{ animation:none; overflow-x:auto; }
+    .marquee-track{ animation:none; }
+    .marquee-viewport{ overflow-x:auto; }
   }
 
   /* FELISMERÉS */
@@ -715,7 +739,9 @@
   </div>
 
   <!-- GÖRGŐ SZALAG (marquee) — engedélyezett EU egészségállítások + hitelesítések -->
-  <div class="marquee-band" aria-hidden="false">
+  <div class="marquee-band" aria-hidden="false" tabindex="0" role="button" aria-label="Termékinformációs szalag — koppints a megállításához">
+    <span class="marquee-hint">Megállítva — koppints újra</span>
+    <div class="marquee-viewport">
     <div class="marquee-track">
       <div class="marquee-content">
         <span class="marquee-tag">NORVÉG EREDETŰ HALOLAJ</span><span class="marquee-dot">•</span>
@@ -753,6 +779,7 @@
         <span class="marquee-tag">2005 ÓTA A PIACON</span><span class="marquee-dot">•</span>
         <span class="marquee-claim">A BalanceTest 11 zsírsavat mér, és megmutatja az Omega-6:3 arányodat</span><span class="marquee-dot">•</span>
       </div>
+    </div>
     </div>
   </div>
 
@@ -1573,6 +1600,17 @@
       if (fallbackEl) fallbackEl.style.display = 'none';
     }
   }
+
+  // --- Futó szalag: koppintásra/kattintásra megáll, újra koppintásra indul ---
+  (function(){
+    const band = document.querySelector('.marquee-band');
+    if (!band) return;
+    function toggle(){ band.classList.toggle('is-paused'); }
+    band.addEventListener('click', toggle);
+    band.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+    });
+  })();
 
   // --- 97%: felszámláló animáció, amikor görgetéskor a képernyőre ér ---
   (function(){
