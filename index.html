@@ -129,11 +129,30 @@
     margin-top:36px; background:var(--white); border:1px solid var(--line);
     border-radius:20px; padding:32px 36px; max-width:900px;
   }
-  .quiz-stat{ display:flex; align-items:center; gap:28px; margin-bottom:28px; padding-bottom:26px; border-bottom:1px solid var(--line); }
-  .quiz-stat-number{ font-family:'Fraunces', serif; font-weight:700; font-size:4.6rem; color:var(--berry); line-height:0.9; flex-shrink:0; }
-  .quiz-stat-divider{ width:1px; align-self:stretch; background:var(--line); flex-shrink:0; }
-  .quiz-stat-label{ color:var(--ink-soft); font-size:1rem; line-height:1.55; }
+  .quiz-stat{
+    display:flex; flex-direction:column; align-items:center; text-align:center;
+    gap:16px; margin-bottom:28px; padding-bottom:28px; border-bottom:1px solid var(--line);
+  }
+  .quiz-stat-number{
+    font-family:'Fraunces', serif; font-weight:700;
+    font-size:clamp(5.2rem, 19vw, 9.5rem);
+    color:var(--berry); line-height:0.82; letter-spacing:-0.03em;
+    display:inline-block; font-variant-numeric:tabular-nums;
+    text-shadow:0 10px 34px rgba(166,52,70,0.22);
+  }
+  .quiz-stat-number.is-live{ animation:statPop .75s cubic-bezier(.2,.9,.3,1.25); }
+  @keyframes statPop{
+    0%{ transform:scale(0.8); opacity:0.3; }
+    60%{ transform:scale(1.05); opacity:1; }
+    100%{ transform:scale(1); opacity:1; }
+  }
+  .quiz-stat-divider{
+    width:72px; height:2px; flex-shrink:0; border-radius:2px; opacity:0.55;
+    background:linear-gradient(90deg, rgba(166,52,70,0) 0%, var(--berry) 50%, rgba(166,52,70,0) 100%);
+  }
+  .quiz-stat-label{ color:var(--ink-soft); font-size:1.02rem; line-height:1.6; text-align:center; max-width:46ch; }
   .quiz-stat-label strong{ color:var(--navy-deep); }
+  @media (prefers-reduced-motion: reduce){ .quiz-stat-number.is-live{ animation:none; } }
   .quiz-question p{ font-family:'Fraunces', serif; font-size:1.1rem; color:var(--navy-deep); margin-bottom:16px; }
   .quiz-buttons{ display:flex; gap:12px; flex-wrap:wrap; }
   .quiz-btn{
@@ -558,9 +577,7 @@
     .final-cta-img{ min-height:220px; order:-1; }
     .cell-explainer-grid{ grid-template-columns:1fr; }
     .quiz-widget{ padding:26px 22px; }
-    .quiz-stat{ flex-direction:column; align-items:flex-start; gap:14px; }
-    .quiz-stat-divider{ display:none; }
-    .quiz-stat-number{ font-size:3.4rem; }
+    .quiz-stat{ gap:12px; }
     .quiz-buttons{ flex-direction:column; }
     .quiz-btn{ width:100%; text-align:center; }
   }
@@ -1503,6 +1520,31 @@
       if (fallbackEl) fallbackEl.style.display = 'none';
     }
   }
+
+  // --- 97%: felszámláló animáció, amikor görgetéskor a képernyőre ér ---
+  (function(){
+    const statEl = document.querySelector('.quiz-stat-number');
+    if (!statEl || !('IntersectionObserver' in window)) return;
+    const TARGET = 97;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        obs.unobserve(entry.target);
+        if (reduceMotion) { entry.target.textContent = TARGET + '%'; return; }
+        entry.target.classList.add('is-live');
+        const DUR = 1500, start = performance.now();
+        function tick(now){
+          const p = Math.min((now - start) / DUR, 1);
+          const eased = 1 - Math.pow(1 - p, 3); // lassuló vég
+          entry.target.textContent = Math.round(eased * TARGET) + '%';
+          if (p < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      });
+    }, { threshold: 0.6 });
+    obs.observe(statEl);
+  })();
 
   // --- INTERAKTÍV KVÍZ: 97%-os egyensúly-teszt ---
   const quizButtons = document.querySelectorAll('.quiz-btn');
