@@ -1717,15 +1717,83 @@
   // Cookie-mentes: nem tesz le sütit, nem tárol adatot az eszközön, ezért
   // az ePrivacy irányelv 5(3) cikke szerint nem igényel előzetes hozzájárulást
   // — a betöltés feltétel nélküli (lásd lentebb).
+  // Eseménysor: ha a script még nem töltött be, a hívások itt várakoznak
+  window.plausible = window.plausible || function(){ (window.plausible.q = window.plausible.q || []).push(arguments); };
+  function track(name, props){
+    try { window.plausible(name, props ? { props: props } : undefined); } catch(e){}
+  }
+
   function loadPlausible() {
     if (document.getElementById('plausible-script')) return;
     const s = document.createElement('script');
     s.id = 'plausible-script';
     s.defer = true;
     s.setAttribute('data-domain', 'sejtszerviz.hu');
-    s.src = 'https://plausible.io/js/script.js';
+    // manual: egyedi konverziós események küldéséhez
+    s.src = 'https://plausible.io/js/script.manual.outbound-links.js';
+    s.onload = function(){ try { window.plausible('pageview'); } catch(e){} };
     document.head.appendChild(s);
   }
+
+  // --- KONVERZIÓ-KÖVETÉS ---
+  (function(){
+    // a) Konzultációra mutató CTA-k
+    document.querySelectorAll('a[href="#konzultacio"]').forEach(function(a){
+      a.addEventListener('click', function(){
+        const where = a.closest('nav') ? 'fejléc'
+                    : a.closest('.quiz-result') ? 'kvíz-eredmény'
+                    : a.closest('.final-cta') ? 'záró-CTA'
+                    : a.closest('.hero') ? 'hero' : 'egyéb';
+        track('CTA: Konzultáció', { hely: where });
+      });
+    });
+
+    // b) Zinzino shop (vásárlási szándék) — a legfontosabb kimenő kattintás
+    document.querySelectorAll('a[href*="zinzino.com/shop"]').forEach(function(a){
+      a.addEventListener('click', function(){
+        const where = a.closest('.final-cta') ? 'záró-CTA' : 'termék-szekció';
+        track('CTA: Csomag megrendelése', { hely: where });
+      });
+    });
+
+    // c) Kvíz-válaszok — megmutatja, milyen tudatossággal érkeznek
+    document.querySelectorAll('.quiz-btn').forEach(function(b){
+      b.addEventListener('click', function(){
+        track('Kvíz válasz', { valasz: b.dataset.answer || 'ismeretlen' });
+      });
+    });
+
+    // d) Videó-indítás — melyik tartalom fogja meg őket
+    document.querySelectorAll('.self-video-wrap .video-play-overlay').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        const cap = btn.parentElement.querySelector('.video-caption span:last-child');
+        track('Videó lejátszás', { video: cap ? cap.textContent.replace('Sejtszerviz.hu · ','') : 'ismeretlen' });
+      });
+    });
+
+    // e) Eljutott-e egyáltalán a foglalási szekcióig (tölcsér-lépés)
+    const consult = document.getElementById('konzultacio');
+    if (consult && 'IntersectionObserver' in window) {
+      const o = new IntersectionObserver(function(entries){
+        entries.forEach(function(en){
+          if (en.isIntersecting) { o.disconnect(); track('Elérte: Konzultációs szekció'); }
+        });
+      }, { threshold: 0.25 });
+      o.observe(consult);
+    }
+
+    // f) Cal.com: sikeres időpontfoglalás (a tényleges konverzió)
+    window.addEventListener('message', function(ev){
+      try {
+        if (!/(^|\.)cal\.com$/.test(new URL(ev.origin).hostname)) return;
+        const d = ev.data;
+        const t = (d && (d.type || d.event || (d.data && d.data.type))) || '';
+        if (typeof t === 'string' && /bookingSuccessful|__routeChanged.*success/i.test(t)) {
+          track('KONVERZIÓ: Időpont lefoglalva');
+        }
+      } catch(e){}
+    }, false);
+  })();
 
   // --- SÜTIKEZELÉS ÉS HOZZÁJÁRULÁS-KEZELÉS ---
   const COOKIE_CONSENT_KEY = 'sejtszerviz_cookie_consent';
@@ -1913,6 +1981,7 @@
         });
         if (!res.ok) throw new Error('Sikertelen feliratkozás');
         newsletterMsg.textContent = 'Sikeres feliratkozás! Nézd meg a postaládád (és a spam mappát is) a megerősítésért.';
+        track('KONVERZIÓ: Hírlevél feliratkozás');
         newsletterMsg.className = 'newsletter-msg success';
         newsletterForm.reset();
       } catch (err) {
