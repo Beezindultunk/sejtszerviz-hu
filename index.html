@@ -374,6 +374,13 @@
   .cert-badge span{ font-size:0.72rem; color:var(--navy-deep); text-align:center; line-height:1.25; font-weight:700; }
   .cert-badge .cert-desc{ font-size:0.72rem; color:var(--ink-soft); text-align:center; line-height:1.4; font-weight:400; }
 
+  /* Tanúsítványok: mobilon 2 hasáb, az utolsó (páratlan) elem középre */
+  @media (max-width:600px){
+    .cert-strip{ gap:12px; justify-content:center; }
+    .cert-badge{ width:calc(50% - 6px); padding:16px 10px; gap:6px; }
+    .cert-badge img{ height:32px; }
+  }
+
   /* KONZULTÁCIÓ */
   .consult{ background:var(--paper-warm); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
   .consult-grid{ display:grid; grid-template-columns:0.85fr 1.15fr; gap:52px; align-items:start; }
