@@ -59,6 +59,15 @@ exports.handler = async (event) => {
       };
     }
 
+    // Üdvözlő e-mail sorozat 1. emailje azonnal
+    try {
+      const { sendWelcomeEmail } = require('./welcome-series');
+      await sendWelcomeEmail(email, firstName, RESEND_API_KEY);
+    } catch(e) {
+      console.error('Üdvözlő email hiba:', e);
+      // Nem blokkoló — a feliratkozás sikerét nem befolyásolja
+    }
+
     return {
       statusCode: 200,
       body: JSON.stringify({ success: true })
