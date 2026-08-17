@@ -16,3 +16,9 @@
 [[scheduled-functions]]
   name = "daily-sheets"
   cron = "50 21 * * *"
+
+# Leiratkozás átirányítás a function-re
+[[redirects]]
+  from = "/leiratkozas"
+  to   = "/.netlify/functions/unsubscribe"
+  status = 200

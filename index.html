@@ -1810,6 +1810,22 @@
     applyConsent(consent);
   }
 
+  // Google Tag (Google Ads remarketing + konverzió)
+  // Consent-alapú: csak analytics kategória elfogadásakor töltődik be
+  function loadGoogleTag() {
+    const AW_ID = window.__GOOGLE_AW_ID || '';
+    if (!AW_ID || document.getElementById('gtag-script')) return;
+    const s = document.createElement('script');
+    s.id = 'gtag-script';
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + AW_ID;
+    document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function(){ window.dataLayer.push(arguments); };
+    window.gtag('js', new Date());
+    window.gtag('config', AW_ID);
+  }
+
   function applyConsent(consent) {
     if (consent && consent.embeds) {
       loadMetaPixel();
