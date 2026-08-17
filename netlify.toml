@@ -2,12 +2,12 @@
   functions = "netlify/functions"
   publish = "."
 
-# Heti riport — minden hétfő 07:00 UTC (= 09:00 Budapest nyáron)
+# Heti riport — minden csütörtök 07:00 UTC = 09:00 Budapest
 [[scheduled-functions]]
   name = "weekly-report"
-  cron = "0 7 * * 1"
+  cron = "0 7 * * 4"
 
-# Napi Sheets export — minden nap 21:50 UTC (= 23:50 Budapest)
+# Napi Sheets export — minden nap 21:50 UTC = 23:50 Budapest
 [[scheduled-functions]]
   name = "daily-sheets"
   cron = "50 21 * * *"
