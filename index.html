@@ -1476,6 +1476,7 @@
 
     <h3>2. Beágyazott tartalmak (csak hozzájárulás esetén)</h3>
     <ul>
+      <li><strong>Meta Pixel (Facebook)</strong> — látogatóközönség-építés és remarketing céljából. Szolgáltató: Meta Platforms Ireland Ltd. Pixel-azonosító: 1550230462626031. A Meta saját adatkezelési tájékoztatója: <a href="https://www.facebook.com/privacy/policy" target="_blank" rel="noopener" style="color:var(--berry);">facebook.com/privacy/policy</a>.</li>
       <li><strong>Cal.com időpontfoglaló widget</strong> — a beágyazott naptár működéséhez szükséges munkamenet- és foglalásazonosító sütiket helyez el. Szolgáltató: Cal.com, Inc. Élettartam: a szolgáltató mindenkori szabályzata szerint.</li>
     </ul>
 
@@ -1811,6 +1812,7 @@
 
   function applyConsent(consent) {
     if (consent && consent.embeds) {
+      loadMetaPixel();
       loadCalCom();
       loadLazyVideos();
     } else {
@@ -1860,6 +1862,33 @@
     });
   }
   loadSelfVideos();
+
+  // Meta Pixel — remarketing és közönségépítés
+  // Csak akkor töltődik be, ha a látogató elfogadja a "beágyazások" kategóriát.
+  function loadMetaPixel() {
+    if (window.__metaPixelLoaded) return;
+    window.__metaPixelLoaded = true;
+    !function(f,b,e,v,n,t,s){
+      if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)
+    }(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1550230462626031');
+    fbq('track', 'PageView');
+    // Konverziós esemény küldése, ha korábban már volt tracking-hívás
+    track = function(name, props) {
+      try {
+        window.plausible(name, props ? { props: props } : undefined);
+        if (window.fbq) {
+          if (name.startsWith('KONVERZIÓ')) fbq('track', 'Lead');
+          else fbq('trackCustom', name, props || {});
+        }
+      } catch(e){}
+    };
+  }
 
   loadPlausible(); // cookie-mentes mérés — nem igényel hozzájárulást, mindig fut
 
