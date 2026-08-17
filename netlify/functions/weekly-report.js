@@ -40,6 +40,21 @@ exports.handler = async () => {
   const changeSign = change === null ? '' : change >= 0 ? `▲ ${change}%` : `▼ ${Math.abs(change)}%`;
   const changeColor = (change ?? 0) >= 0 ? '#16a34a' : '#dc2626';
 
+  // Resend email statisztika (heti)
+  let emailsSentWeek = 0;
+  try {
+    const resendR = await fetch('https://api.resend.com/emails?limit=100', {
+      headers: { Authorization: `Bearer ${RESEND_KEY}` }
+    });
+    if (resendR.ok) {
+      const resendData = await resendR.json();
+      const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+      emailsSentWeek = (resendData.data || []).filter(e =>
+        new Date(e.created_at) > weekAgo
+      ).length;
+    }
+  } catch(e) { /* silent */ }
+
   // Cél-konverziók
   const goalResults = goals?.results || [];
   const getGoal = n => goalResults.find(g => g['event:name'] === n)?.visitors ?? 0;
@@ -232,6 +247,21 @@ exports.handler = async () => {
         <div class="conv-icon">🛒</div>
         <div class="conv-num" style="color:#8b2234">${packageClick}</div>
         <div class="conv-name">Csomag CTA kattintás</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EMAIL STATISZTIKA -->
+  <div style="padding:0 28px 20px">
+    <div style="font-size:12px;font-weight:700;color:#6a7a7b;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px">📬 Email statisztika — ezen a héten</div>
+    <div style="display:flex;gap:10px">
+      <div style="flex:1;background:#f5f0e8;border-radius:10px;padding:14px 16px;text-align:center">
+        <div style="font-size:24px;font-weight:900;color:#0b2425">${emailsSentWeek}</div>
+        <div style="font-size:11px;color:#8a9a9b;margin-top:3px">Email elküldve</div>
+      </div>
+      <div style="flex:2;background:#f5f0e8;border-radius:10px;padding:14px 16px;font-size:12px;color:#6a7a7b;line-height:1.5">
+        Üdvözlő sorozat + hírlevél együtt.<br>
+        <span style="color:#b0a090;font-size:11px">Resend API alapján · utolsó 7 nap</span>
       </div>
     </div>
   </div>
