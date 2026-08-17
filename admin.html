@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard · Széplábi Éva</title>
+<style>
+:root {
+  /* Közös */
+  --bg: #f5f0e8; --card: #fff; --border: #e8e0d5;
+  --ink: #0d1117; --ink2: #4b5563; --ink3: #9ca3af;
+  --green: #16a34a; --green-soft: #f0fdf4;
+  --r: 12px; --sh: 0 1px 3px rgba(0,0,0,.06),0 4px 16px rgba(0,0,0,.05);
+
+  /* Sejtszerviz */
+  --s-dark: #0b2425; --s-red: #8b2234; --s-red-soft: #fdf2f4;
+  --s-gold: #c9a96e; --s-gold-soft: #fdf8f0;
+
+  /* Érthetőbb */
+  --e-dark: #00344d; --e-blue: #004460; --e-blue-soft: #e8f4fa;
+  --e-teal: #0891b2; --e-teal-soft: #ecfeff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;font-size:14px}
+
+/* ── CÉGVÁLTÓ FEJLÉC ── */
+.company-switcher{background:#0d1117;display:flex;align-items:center;padding:0;height:48px;border-bottom:1px solid rgba(255,255,255,.08)}
+.cs-logo{padding:0 20px;color:#fff;font-size:13px;font-weight:800;opacity:.5;letter-spacing:-.01em;white-space:nowrap}
+.cs-tabs{display:flex;height:100%;flex:1}
+.cs-tab{display:flex;align-items:center;gap:8px;padding:0 20px;cursor:pointer;font-size:13px;font-weight:600;color:rgba(255,255,255,.45);border:none;background:none;border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap}
+.cs-tab:hover{color:rgba(255,255,255,.75)}
+.cs-tab.active-sejt{color:#fff;border-bottom-color:var(--s-red);background:rgba(139,34,52,.12)}
+.cs-tab.active-ert{color:#fff;border-bottom-color:var(--e-teal);background:rgba(8,145,178,.1)}
+.cs-dot{width:8px;height:8px;border-radius:50%}
+.dot-sejt{background:var(--s-red)}
+.dot-ert{background:var(--e-teal)}
+.cs-right{padding:0 16px;display:flex;align-items:center;gap:6px}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+.live-text{font-size:11px;color:rgba(255,255,255,.4)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* ── LAYOUT ── */
+.layout{display:flex;min-height:calc(100vh - 48px)}
+.sidebar{width:210px;flex-shrink:0;display:flex;flex-direction:column;position:sticky;top:48px;height:calc(100vh - 48px);transition:background .25s}
+.sidebar.sejt-mode{background:var(--s-dark)}
+.sidebar.ert-mode{background:var(--e-dark)}
+.sb-brand{padding:18px 20px;border-bottom:1px solid rgba(255,255,255,.08)}
+.sb-name{color:#fff;font-size:14px;font-weight:800;line-height:1.25}
+.sb-url{font-size:11px;margin-top:3px;opacity:.45}
+.sb-nav{padding:10px 8px;flex:1}
+.sb-sec{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.25);padding:8px 12px 4px}
+.sb-item{display:flex;align-items:center;gap:9px;padding:8px 12px;border-radius:8px;cursor:pointer;color:rgba(255,255,255,.5);font-size:13px;font-weight:500;border:none;background:none;width:100%;text-align:left;transition:all .15s}
+.sb-item:hover{background:rgba(255,255,255,.07);color:#fff}
+.sb-item.active{background:rgba(255,255,255,.12);color:#fff}
+.sb-icon{font-size:15px;width:18px;text-align:center}
+
+/* ── MAIN ── */
+.main{flex:1;overflow:hidden}
+.topbar{background:var(--card);border-bottom:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:48px;z-index:9}
+.tb-title{font-size:15px;font-weight:800}
+.tb-right{display:flex;align-items:center;gap:8px}
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px}
+.badge-live{background:var(--green-soft);color:var(--green);border:1px solid #bbf7d0}
+.btn{padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:none;display:inline-flex;align-items:center;gap:5px;text-decoration:none;color:var(--ink)}
+.btn:hover{background:var(--bg)}
+.btn-s{background:var(--s-red);color:#fff;border-color:var(--s-red)}
+.btn-e{background:var(--e-blue);color:#fff;border-color:var(--e-blue)}
+
+/* ── CONTENT SECTIONS ── */
+.content{padding:24px;display:none}
+.content.active{display:block}
+
+/* ── KPI ROW ── */
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:15px 16px;box-shadow:var(--sh)}
+.kpi-val{font-size:26px;font-weight:900;line-height:1;color:var(--ink)}
+.kpi-lbl{font-size:10px;color:var(--ink3);margin-top:5px;text-transform:uppercase;letter-spacing:.05em}
+.kpi-chg{font-size:11px;font-weight:700;margin-top:3px}
+
+/* ── CHART ── */
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--sh);margin-bottom:18px;overflow:hidden}
+.card-hdr{padding:14px 18px;border-bottom:1px solid var(--border);font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.card-body{padding:18px}
+
+/* ── PIPELINE SOURCE CARDS ── */
+.src-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px}
+.src-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px;position:relative;overflow:hidden;box-shadow:var(--sh)}
+.src-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.src-sejt::before{background:var(--s-red)}
+.src-ert::before{background:var(--e-teal)}
+.src-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px;margin-bottom:10px}
+.badge-sejt{background:var(--s-red-soft);color:var(--s-red)}
+.badge-ert{background:var(--e-teal-soft);color:var(--e-teal)}
+.src-url{font-size:10px;color:var(--ink3);font-family:monospace;margin-bottom:14px}
+.src-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.sstat{background:var(--bg);border-radius:8px;padding:10px;text-align:center}
+.sstat-val{font-size:20px;font-weight:900;color:var(--ink);display:block;line-height:1}
+.sstat-lbl{font-size:10px;color:var(--ink3);margin-top:3px;display:block;text-transform:uppercase}
+
+/* ── FUNNEL ── */
+.funnel-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border)}
+.funnel-row:last-child{border-bottom:none;padding-bottom:0}
+.fnum{width:20px;font-size:10px;font-weight:700;color:var(--ink3)}
+.flbl{flex:1;font-size:13px;font-weight:600}
+.fbar-wrap{flex:2;display:flex;align-items:center;gap:8px}
+.fbar-outer{flex:1;height:7px;background:var(--bg);border-radius:999px;overflow:hidden}
+.fbar-inner{height:100%;border-radius:999px;transition:width .9s ease}
+.fval{font-size:12px;font-weight:700;width:28px;text-align:right}
+
+/* ── PIXELEK ── */
+.px-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.px-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px;box-shadow:var(--sh)}
+
+/* ── UTM GENERÁTOR ── */
+.utm-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.utm-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ink3);display:block;margin-bottom:4px}
+.utm-input{width:100%;padding:7px 10px;border:1px solid var(--border);border-radius:7px;font-size:13px;background:#fff;color:var(--ink)}
+.utm-out{background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:9px 12px;font-family:monospace;font-size:11px;color:var(--ink2);margin-bottom:10px;word-break:break-all}
+.utm-btn{padding:8px 16px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;color:#fff}
+
+/* ── SKELETON ── */
+.sk{background:linear-gradient(90deg,#f3f4f6 25%,#e5e7eb 50%,#f3f4f6 75%);background-size:200%;animation:shimmer 1.2s infinite;border-radius:6px;display:inline-block}
+@keyframes shimmer{0%{background-position:200%}100%{background-position:-200%}}
+</style>
+</head>
+<body>
+
+<!-- ══ CÉGVÁLTÓ FEJLÉC ══ -->
+<div class="company-switcher">
+  <div class="cs-logo">Széplábi Éva</div>
+  <div class="cs-tabs">
+    <button class="cs-tab active-sejt" id="tab-sejt" onclick="switchSite('sejt')">
+      <span class="cs-dot dot-sejt"></span>Sejtszerviz.hu
+    </button>
+    <button class="cs-tab" id="tab-ert" onclick="switchSite('ert')">
+      <span class="cs-dot dot-ert"></span>Érthetőbb Egészség
+    </button>
+  </div>
+  <div class="cs-right">
+    <span class="live-dot"></span>
+    <span class="live-text" id="global-live">tölt…</span>
+  </div>
+</div>
+
+<!-- ══ LAYOUT ══ -->
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar sejt-mode" id="sidebar">
+    <div class="sb-brand">
+      <div class="sb-name" id="sb-name">Sejtszerviz.hu</div>
+      <div class="sb-url" id="sb-url" style="color:var(--s-gold)">sejtszerviz.hu</div>
+    </div>
+    <nav class="sb-nav">
+      <div class="sb-sec">Áttekintés</div>
+      <button class="sb-item active" onclick="showTab('pipeline',this)"><span class="sb-icon">🔀</span>Pipeline & Forrás</button>
+      <button class="sb-item" onclick="showTab('dashboard',this)"><span class="sb-icon">📊</span>Dashboard</button>
+      <div class="sb-sec" style="margin-top:10px">Marketing</div>
+      <button class="sb-item" onclick="showTab('pixels',this)"><span class="sb-icon">🎯</span>Pixelek</button>
+      <button class="sb-item" onclick="showTab('links',this)"><span class="sb-icon">🔗</span>Hirdetési linkek</button>
+      <div class="sb-sec" style="margin-top:10px">Hivatkozások</div>
+      <button class="sb-item" id="sb-web" onclick="window.open(SITES[currentSite].url,'_blank')"><span class="sb-icon">🌐</span>Weboldal</button>
+      <button class="sb-item" onclick="window.open('https://app.cal.com/bookings/upcoming','_blank')"><span class="sb-icon">📅</span>Cal.com foglalások</button>
+      <button class="sb-item" id="sb-plausible" onclick="window.open(SITES[currentSite].plausibleUrl,'_blank')"><span class="sb-icon">📈</span>Plausible</button>
+    </nav>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="topbar">
+      <div class="tb-title" id="page-title">Pipeline & Forrás</div>
+      <div class="tb-right">
+        <div class="badge badge-live"><span class="live-dot"></span><span id="live-now">–</span> most</div>
+        <a id="tb-cal" href="https://app.cal.com/bookings/upcoming" target="_blank" class="btn">📅 Foglalások</a>
+        <a id="tb-web" href="#" target="_blank" class="btn btn-s">🌐 Weboldal</a>
+      </div>
+    </div>
+
+    <!-- ═══ PIPELINE ═══ -->
+    <section class="content active" id="tab-pipeline">
+
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+        <div>
+          <div style="font-size:18px;font-weight:800">Foglalások — honnan jöttek?</div>
+          <div style="font-size:12px;color:var(--ink3);margin-top:3px">Utolsó 30 nap · Cal.com eseménytípus alapú szétválasztás</div>
+        </div>
+        <select id="period-sel" onchange="loadData()" style="padding:6px 10px;border-radius:7px;border:1px solid var(--border);font-size:12px;background:#fff">
+          <option value="7d">7 nap</option>
+          <option value="30d" selected>30 nap</option>
+          <option value="month">Ez a hónap</option>
+        </select>
+      </div>
+
+      <div class="src-grid">
+        <div class="src-card src-sejt">
+          <div class="src-badge badge-sejt">🔬 Sejtszerviz.hu</div>
+          <div class="src-url">cal.com/…/sejtszerviz-konzultacio</div>
+          <div class="src-stats">
+            <div class="sstat"><span class="sstat-val" id="p-sejt-book">–</span><span class="sstat-lbl">Foglalás</span></div>
+            <div class="sstat"><span class="sstat-val" id="p-sejt-cta">–</span><span class="sstat-lbl">CTA klikk</span></div>
+            <div class="sstat"><span class="sstat-val" id="p-sejt-vis">–</span><span class="sstat-lbl">Látogató</span></div>
+          </div>
+        </div>
+        <div class="src-card src-ert">
+          <div class="src-badge badge-ert">💚 Érthetőbb Egészség</div>
+          <div class="src-url">cal.com/…/erthetobb-konzultacio</div>
+          <div class="src-stats">
+            <div class="sstat"><span class="sstat-val" id="p-ert-book">–</span><span class="sstat-lbl">Foglalás</span></div>
+            <div class="sstat"><span class="sstat-val" id="p-ert-cta">–</span><span class="sstat-lbl">CTA klikk</span></div>
+            <div class="sstat"><span class="sstat-val" id="p-ert-vis">–</span><span class="sstat-lbl">Látogató</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-hdr">🔀 Konverziós tölcsér</div>
+        <div class="card-body" id="funnel-body">
+          <div class="funnel-row"><div class="fnum">1</div><div class="flbl">Látogatók</div><div class="fbar-wrap"><div class="fbar-outer"><div class="fbar-inner" id="f1" style="width:100%;background:var(--s-red)"></div></div><div class="fval" id="f1v"><span class="sk" style="width:28px;height:14px"></span></div></div></div>
+          <div class="funnel-row"><div class="fnum">2</div><div class="flbl">Konzultációs szekció</div><div class="fbar-wrap"><div class="fbar-outer"><div class="fbar-inner" id="f2" style="width:0%"></div></div><div class="fval" id="f2v">–</div></div></div>
+          <div class="funnel-row"><div class="fnum">3</div><div class="flbl">CTA kattintás</div><div class="fbar-wrap"><div class="fbar-outer"><div class="fbar-inner" id="f3" style="width:0%;background:#f97316"></div></div><div class="fval" id="f3v">–</div></div></div>
+          <div class="funnel-row"><div class="fnum">4</div><div class="flbl">⭐ Foglalás</div><div class="fbar-wrap"><div class="fbar-outer"><div class="fbar-inner" id="f4" style="width:0%;background:var(--green)"></div></div><div class="fval" id="f4v">–</div></div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-hdr">📡 Forgalomforrások</div>
+        <div style="overflow-x:auto">
+          <table style="width:100%;border-collapse:collapse">
+            <thead><tr style="background:var(--bg)">
+              <th style="padding:8px 14px;text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ink3)">Forrás</th>
+              <th style="padding:8px 14px;text-align:right;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ink3)">Látogató</th>
+              <th style="padding:8px 14px;text-align:right;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ink3)">Oldalmegt.</th>
+              <th style="padding:8px 14px;text-align:right;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ink3)">Visszaf.</th>
+            </tr></thead>
+            <tbody id="sources-body"><tr><td colspan="4" style="text-align:center;padding:24px;color:var(--ink3)">Betöltés…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ DASHBOARD ═══ -->
+    <section class="content" id="tab-dashboard">
+      <div class="kpi-row">
+        <div class="kpi"><div class="kpi-val" id="kv">–</div><div class="kpi-lbl">Látogató (7 nap)</div><div class="kpi-chg" id="kvc"></div></div>
+        <div class="kpi"><div class="kpi-val" id="kp">–</div><div class="kpi-lbl">Oldalmegtekintés</div></div>
+        <div class="kpi"><div class="kpi-val" id="kd">–</div><div class="kpi-lbl">Átlag idő</div></div>
+        <div class="kpi"><div class="kpi-val" id="kb">–</div><div class="kpi-lbl">Visszafordulás</div></div>
+      </div>
+      <div class="card">
+        <div class="card-hdr" id="chart-title">📈 Napi trend — utolsó 7 nap</div>
+        <div class="card-body"><svg id="chart-svg" viewBox="0 0 540 130" width="100%" style="display:block"></svg>
+          <div style="display:flex;gap:18px;margin-top:8px">
+            <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--ink3)"><div style="width:20px;height:2.5px;border-radius:2px;background:var(--s-red)"></div>Látogatók</div>
+            <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--ink3)"><div style="width:20px;height:2px;border-radius:2px;background:var(--s-gold);opacity:.7"></div>Oldalmegtekintések</div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-hdr">🏆 Konverziók — utolsó 7 nap</div>
+        <div class="card-body" style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div id="g-d1" style="background:#0b2425;border-radius:10px;padding:14px;text-align:center"><div style="font-size:26px;font-weight:900;color:var(--s-gold)" id="g-book">–</div><div style="font-size:10px;color:rgba(255,255,255,.5);margin-top:4px">Időpont lefoglalva</div></div>
+          <div id="g-d2" style="background:#0b2425;border-radius:10px;padding:14px;text-align:center"><div style="font-size:26px;font-weight:900;color:var(--s-gold)" id="g-news">–</div><div style="font-size:10px;color:rgba(255,255,255,.5);margin-top:4px">Hírlevél feliratkozás</div></div>
+          <div style="background:var(--bg);border-radius:10px;padding:14px;text-align:center"><div style="font-size:22px;font-weight:900;color:var(--s-red)" id="g-cta">–</div><div style="font-size:10px;color:var(--ink3);margin-top:4px">CTA kattintás</div></div>
+          <div style="background:var(--bg);border-radius:10px;padding:14px;text-align:center"><div style="font-size:22px;font-weight:900;color:var(--s-red)" id="g-pkg">–</div><div style="font-size:10px;color:var(--ink3);margin-top:4px">Csomag kattintás</div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-hdr">📬 Email statisztika — utolsó 7 nap</div>
+        <div class="card-body" style="display:flex;gap:12px">
+          <div style="flex:1;background:var(--bg);border-radius:10px;padding:14px;text-align:center"><div style="font-size:26px;font-weight:900;color:var(--ink)" id="e-sent">–</div><div style="font-size:10px;color:var(--ink3);margin-top:4px">Email elküldve</div></div>
+          <div style="flex:2;background:var(--bg);border-radius:10px;padding:14px;font-size:12px;color:var(--ink2);line-height:1.55">Üdvözlő sorozat + heti hírlevél.<br><span style="font-size:10px;color:var(--ink3)">Resend API · utolsó 7 nap</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ PIXELEK ═══ -->
+    <section class="content" id="tab-pixels">
+      <div class="px-grid" id="pixels-grid"><!-- JS tölti --></div>
+    </section>
+
+    <!-- ═══ HIRDETÉSI LINKEK ═══ -->
+    <section class="content" id="tab-links">
+      <div class="card" style="margin-bottom:16px">
+        <div class="card-hdr">🔗 UTM link generátor</div>
+        <div class="card-body">
+          <div class="utm-grid">
+            <div><label class="utm-label">Platform</label><select id="utm-src" oninput="genUTM()" class="utm-input"><option value="facebook">Facebook</option><option value="instagram">Instagram</option><option value="google">Google</option><option value="email">Email</option></select></div>
+            <div><label class="utm-label">Kampánynév</label><input id="utm-camp" type="text" placeholder="pl. omega3-teszt" oninput="genUTM()" class="utm-input"></div>
+          </div>
+          <div class="utm-out" id="utm-out">Tölt…</div>
+          <button id="utm-copy-btn" class="utm-btn btn-s" onclick="copyUTM()">📋 Másolás</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-hdr">⚡ Előkészített kampánylinkek</div>
+        <div class="card-body" id="preset-links"><!-- JS tölti --></div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+(function(){
+  const PASS = 'szeplabi2026';
+  const KEY  = 'admin_auth';
+  if (sessionStorage.getItem(KEY) !== PASS) {
+    const entered = prompt('Admin belépés — jelszó:');
+    if (entered !== PASS) {
+      document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;font-family:sans-serif;background:#f5f0e8"><div style="text-align:center"><div style="font-size:40px">🔒</div><p style="margin-top:12px;color:#6b7280">Érvénytelen jelszó.</p><a href="/admin" style="color:#8b2234;font-size:13px">Újrapróbálom</a></div></div>';
+      return;
+    }
+    sessionStorage.setItem(KEY, PASS);
+  }
+})();
+</script>
+<script>
+// ─── OLDALAK KONFIGURÁCIÓJA ──────────────────────────────────────────
+const SITES = {
+  sejt: {
+    name: 'Sejtszerviz.hu',
+    url: 'https://sejtszerviz.hu',
+    plausibleUrl: 'https://plausible.io/sejtszerviz.hu',
+    plausibleSite: 'sejtszerviz.hu',
+    plausibleKey: 'Y7PwEsVOnPrQHBxTFX9r5CRnBZUg2rQ0k4xrey_d_bFzLFn_juP2j3Vfi04OQ4L3',
+    resendKey: null, // csak olvasás, nincs benne
+    sidebarClass: 'sejt-mode',
+    accent: '#8b2234',
+    accentSoft: '#fdf2f4',
+    btnClass: 'btn-s',
+    urlColor: '#c9a96e',
+    goalBooking: 'KONVERZIÓ: Időpont lefoglalva',
+    goalNewsletter: 'KONVERZIÓ: Hírlevél feliratkozás',
+    goalCTA: 'CTA: Konzultáció',
+    goalPackage: 'CTA: Csomag megrendelése',
+    goalSection: 'Elérte: Konzultációs szekció',
+    pixels: [
+      { icon:'📊', name:'Plausible Analytics', status:'active', statusText:'Aktív · cookie-mentes', desc:'7 konverziós cél. GDPR-barát, mindig fut.', link:'https://plausible.io/sejtszerviz.hu' },
+      { icon:'📘', name:'Meta Pixel', status:'consent', statusText:'Consent-alapú', desc:'ID: 1550230462626031 · Remarketing fut', link:'https://eventsmanager.facebook.com' },
+      { icon:'🟡', name:'Google Tag', status:'pending', statusText:'AW-ID szükséges', desc:'Kód kész. Google Ads fiókból kell az AW-XXX azonosító.', link:'https://ads.google.com' },
+    ],
+    presets: [
+      { p:'meta', name:'Facebook Feed — konzultáció', url:'https://sejtszerviz.hu/?utm_source=facebook&utm_medium=paid_social&utm_campaign=konzultacio' },
+      { p:'meta', name:'Instagram Story — BalanceTest', url:'https://sejtszerviz.hu/?utm_source=instagram&utm_medium=story&utm_campaign=balancetest' },
+      { p:'meta', name:'Facebook Remarketing', url:'https://sejtszerviz.hu/?utm_source=facebook&utm_medium=remarketing&utm_campaign=remarketing' },
+      { p:'organic', name:'Hírlevél CTA link', url:'https://sejtszerviz.hu/?utm_source=email&utm_medium=newsletter&utm_campaign=heti-hirlevel' },
+    ]
+  },
+  ert: {
+    name: 'Érthetőbb Egészség',
+    url: 'https://erthetobbegeszseg.hu',
+    plausibleUrl: 'https://plausible.io/erthetobbegeszseg.hu',
+    plausibleSite: 'erthetobbegeszseg.hu',
+    plausibleKey: 'Y7PwEsVOnPrQHBxTFX9r5CRnBZUg2rQ0k4xrey_d_bFzLFn_juP2j3Vfi04OQ4L3',
+    sidebarClass: 'ert-mode',
+    accent: '#0891b2',
+    accentSoft: '#ecfeff',
+    btnClass: 'btn-e',
+    urlColor: '#67c7de',
+    goalBooking: 'KONVERZIÓ: Időpont lefoglalva',
+    goalNewsletter: 'KONVERZIÓ: Hírlevél feliratkozás',
+    goalCTA: 'CTA: Konzultáció',
+    goalPackage: 'CTA: Csomag',
+    goalSection: 'Elérte: Konzultációs szekció',
+    pixels: [
+      { icon:'📊', name:'Plausible Analytics', status:'active', statusText:'Aktív', desc:'Cookie-mentes látogatásmérés.', link:'https://plausible.io/erthetobbegeszseg.hu' },
+      { icon:'📘', name:'Meta Pixel', status:'pending', statusText:'Bekötés folyamatban', desc:'Az erthetobbegeszseg.hu oldalhoz szükséges.', link:'https://eventsmanager.facebook.com' },
+      { icon:'🏷️', name:'Google Tag Manager', status:'active', statusText:'Aktív (GTM-NBMFQFWB)', desc:'Google Tag Manager telepítve.', link:'https://tagmanager.google.com' },
+    ],
+    presets: [
+      { p:'meta', name:'Facebook — konzultáció', url:'https://erthetobbegeszseg.hu/?utm_source=facebook&utm_medium=paid_social&utm_campaign=konzultacio' },
+      { p:'meta', name:'Instagram Story', url:'https://erthetobbegeszseg.hu/?utm_source=instagram&utm_medium=story&utm_campaign=babavallalasas' },
+      { p:'organic', name:'Hírlevél link', url:'https://erthetobbegeszseg.hu/?utm_source=email&utm_medium=newsletter&utm_campaign=heti' },
+    ]
+  }
+};
+
+let currentSite = 'sejt';
+let currentTab = 'pipeline';
+
+// ─── CÉGVÁLTÁS ──────────────────────────────────────────────────────
+function switchSite(site) {
+  currentSite = site;
+  const s = SITES[site];
+
+  // Tab gombok
+  document.getElementById('tab-sejt').className = 'cs-tab' + (site === 'sejt' ? ' active-sejt' : '');
+  document.getElementById('tab-ert').className  = 'cs-tab' + (site === 'ert'  ? ' active-ert'  : '');
+
+  // Sidebar
+  const sb = document.getElementById('sidebar');
+  sb.className = 'sidebar ' + s.sidebarClass;
+  document.getElementById('sb-name').textContent = s.name;
+  document.getElementById('sb-url').textContent  = s.url.replace('https://','');
+  document.getElementById('sb-url').style.color  = s.urlColor;
+
+  // Topbar
+  const webBtn = document.getElementById('tb-web');
+  webBtn.href = s.url;
+  webBtn.className = 'btn ' + s.btnClass;
+
+  // Adatok nullázása
+  ['kv','kp','kd','kb','kvc','g-book','g-news','g-cta','g-pkg','e-sent',
+   'p-sejt-book','p-sejt-cta','p-sejt-vis','p-ert-book','p-ert-cta','p-ert-vis',
+   'f1v','f2v','f3v','f4v','live-now'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = '–';
+  });
+  document.getElementById('sources-body').innerHTML = '<tr><td colspan="4" style="text-align:center;padding:20px;color:var(--ink3)">Betöltés…</td></tr>';
+
+  buildPixels();
+  buildPresets();
+  genUTM();
+  loadData();
+}
+
+// ─── TAB VÁLTÁS ─────────────────────────────────────────────────────
+function showTab(tab, btn) {
+  document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('.sb-item').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  btn.classList.add('active');
+  currentTab = tab;
+  const titles = { pipeline:'Pipeline & Forrás', dashboard:'Dashboard', pixels:'Pixelek', links:'Hirdetési linkek' };
+  document.getElementById('page-title').textContent = titles[tab] || tab;
+}
+
+// ─── PLAUSIBLE ADATOK ────────────────────────────────────────────────
+async function pa(endpoint) {
+  const s = SITES[currentSite];
+  try {
+    const r = await fetch(`https://plausible.io/api/v1/stats/${endpoint}&site_id=${s.plausibleSite}`, {
+      headers: { Authorization: 'Bearer ' + s.plausibleKey }
+    });
+    if (!r.ok) return null;
+    return r.json();
+  } catch { return null; }
+}
+
+function goal(results, name) {
+  return results?.find(g => g['event:name'] === name)?.visitors ?? 0;
+}
+
+async function loadData() {
+  const period = document.getElementById('period-sel').value;
+
+  // Valós idejű
+  try {
+    const s = SITES[currentSite];
+    const rt = await fetch(`https://plausible.io/api/v1/stats/realtime/visitors?site_id=${s.plausibleSite}`, {
+      headers: { Authorization: 'Bearer ' + s.plausibleKey }
+    });
+    if (rt.ok) {
+      const v = await rt.json();
+      document.getElementById('live-now').textContent = v + ' látogató';
+      document.getElementById('global-live').textContent = v + ' látogató online';
+    }
+  } catch {}
+
+  const [agg7, prev7, goals30, sources, ts] = await Promise.all([
+    pa('aggregate?period=7d&metrics=visitors,pageviews,bounce_rate,visit_duration'),
+    pa('aggregate?period=7d&date=' + prevDate() + '&metrics=visitors'),
+    pa(`breakdown?period=${period}&property=event:name&limit=20`),
+    pa(`breakdown?period=${period}&property=visit:source&limit=8&metrics=visitors,pageviews,bounce_rate`),
+    pa('timeseries?period=7d&metrics=visitors,pageviews'),
+  ]);
+
+  const w = agg7?.results || {};
+  const vis = w.visitors?.value ?? 0;
+  const pv  = prev7?.results?.visitors?.value ?? 0;
+  const chg = pv > 0 ? Math.round(((vis-pv)/pv)*100) : null;
+
+  set('kv', vis); set('kp', w.pageviews?.value ?? 0);
+  set('kd', Math.round((w.visit_duration?.value ?? 0)/60) + 'p');
+  set('kb', (w.bounce_rate?.value ?? 0) + '%');
+  if (chg !== null) {
+    const el = document.getElementById('kvc');
+    el.textContent = (chg>=0?'▲ ':'▼ ') + Math.abs(chg) + '%';
+    el.style.color = chg >= 0 ? 'var(--green)' : '#dc2626';
+  }
+
+  const s = SITES[currentSite];
+  const gr = goals30?.results || [];
+  const bookings = goal(gr, s.goalBooking);
+  const newsletter = goal(gr, s.goalNewsletter);
+  const cta = goal(gr, s.goalCTA);
+  const pkg = goal(gr, s.goalPackage);
+  const section = goal(gr, s.goalSection);
+
+  set('g-book', bookings); set('g-news', newsletter);
+  set('g-cta', cta); set('g-pkg', pkg);
+
+  // Pipeline
+  set('p-sejt-book', bookings); set('p-sejt-cta', cta); set('p-sejt-vis', vis);
+  set('p-ert-book', '→ Cal'); set('p-ert-cta', '–'); set('p-ert-vis', '–');
+
+  // Tölcsér
+  const max = Math.max(vis, 1);
+  bar('f1', vis, max, vis);
+  bar('f2', section, max, section);
+  bar('f3', cta, max, cta);
+  bar('f4', bookings, max, bookings);
+
+  // Forrástábla
+  const rows = sources?.results || [];
+  document.getElementById('sources-body').innerHTML = rows.length === 0
+    ? '<tr><td colspan="4" style="text-align:center;padding:20px;color:var(--ink3)">Nincs adat</td></tr>'
+    : rows.map(r => {
+        const src = r['visit:source'] || 'Közvetlen';
+        const col = src.includes('google') ? '#f59e0b' : src.includes('facebook') || src.includes('instagram') ? '#3b82f6' : s.accent;
+        return `<tr>
+          <td style="padding:10px 14px;border-top:1px solid var(--border)"><span style="background:${col}18;color:${col};font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px">${src}</span></td>
+          <td style="padding:10px 14px;border-top:1px solid var(--border);text-align:right;font-weight:700">${r.visitors??'–'}</td>
+          <td style="padding:10px 14px;border-top:1px solid var(--border);text-align:right">${r.pageviews??'–'}</td>
+          <td style="padding:10px 14px;border-top:1px solid var(--border);text-align:right">${r.bounce_rate!=null?r.bounce_rate+'%':'–'}</td>
+        </tr>`;
+      }).join('');
+
+  // SVG vonaldiagram
+  drawChart(ts?.results || []);
+}
+
+// ─── SVG DIAGRAM ─────────────────────────────────────────────────────
+function drawChart(days) {
+  const W=540,H=130,PL=32,PT=10,PR=10,PB=28;
+  const cW=W-PL-PR, cH=H-PT-PB, n=days.length;
+  if (n < 2) return;
+  const maxV = Math.max(...days.map(d=>d.visitors??0), 1);
+  const maxP = Math.max(...days.map(d=>d.pageviews??0), 1);
+  const chartMax = Math.max(maxV, maxP);
+  const x = i => PL + (i/(n-1))*cW;
+  const y = v => PT + cH - (v/chartMax)*cH;
+  const s = SITES[currentSite];
+  const days2 = ['V','H','K','Sz','Cs','P','Szo'];
+
+  const grid = [0,.5,1].map(f => {
+    const val = Math.round(f*chartMax), yy = y(val);
+    return `<line x1="${PL}" y1="${yy}" x2="${W-PR}" y2="${yy}" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="4,3"/>
+            <text x="${PL-4}" y="${yy+4}" text-anchor="end" font-size="9" fill="#9ca3af">${val}</text>`;
+  }).join('');
+
+  const pPath = days.map((d,i) => `${i?'L':'M'}${x(i)},${y(d.pageviews??0)}`).join(' ');
+  const pArea = pPath + ` L${x(n-1)},${PT+cH} L${x(0)},${PT+cH} Z`;
+  const vPath = days.map((d,i) => `${i?'L':'M'}${x(i)},${y(d.visitors??0)}`).join(' ');
+  const xLbls = days.map((d,i) => {
+    const dt = new Date(d.date);
+    return `<text x="${x(i)}" y="${H-4}" text-anchor="middle" font-size="9" fill="#9ca3af">${days2[dt.getDay()]} ${dt.getDate()}</text>`;
+  }).join('');
+  const dots = days.map((d,i) =>
+    `<circle cx="${x(i)}" cy="${y(d.visitors??0)}" r="3" fill="${s.accent}" stroke="#fff" stroke-width="1.5"/>`
+  ).join('');
+
+  document.getElementById('chart-svg').innerHTML = `
+    <defs><linearGradient id="pg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${s.accent}" stop-opacity=".12"/><stop offset="100%" stop-color="${s.accent}" stop-opacity="0"/></linearGradient></defs>
+    ${grid}
+    <path d="${pArea}" fill="url(#pg)"/>
+    <path d="${pPath}" fill="none" stroke="${s.accent}" stroke-width="1.5" stroke-dasharray="4,3" opacity=".5"/>
+    <path d="${vPath}" fill="none" stroke="${s.accent}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+    ${dots}${xLbls}`;
+}
+
+// ─── PIXELEK ÉPÍTÉSE ────────────────────────────────────────────────
+function buildPixels() {
+  const pixels = SITES[currentSite].pixels;
+  document.getElementById('pixels-grid').innerHTML = pixels.map(p => {
+    const statusStyle = p.status === 'active' ? 'background:var(--green-soft);color:var(--green);border:1px solid #bbf7d0' :
+                        p.status === 'consent' ? 'background:#fffbeb;color:#b45309;border:1px solid #fde68a' :
+                        'background:#f3f4f6;color:#6b7280;border:1px solid var(--border)';
+    const statusIcon = p.status === 'active' ? '●' : p.status === 'consent' ? '◐' : '⏳';
+    return `<div class="px-card">
+      <div style="font-size:22px;margin-bottom:8px">${p.icon}</div>
+      <div style="font-weight:700;font-size:14px;margin-bottom:5px">${p.name}</div>
+      <span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px;${statusStyle}">${statusIcon} ${p.statusText}</span>
+      <div style="font-size:12px;color:var(--ink2);margin-top:9px;line-height:1.55">${p.desc}</div>
+      ${p.link ? `<a href="${p.link}" target="_blank" style="display:inline-block;margin-top:9px;font-size:12px;font-weight:600;color:${SITES[currentSite].accent};text-decoration:none">Megnyitás →</a>` : ''}
+    </div>`;
+  }).join('');
+}
+
+// ─── ELŐKÉSZÍTETT LINKEK ─────────────────────────────────────────────
+function buildPresets() {
+  const presets = SITES[currentSite].presets;
+  const s = SITES[currentSite];
+  document.getElementById('preset-links').innerHTML = presets.map(p => {
+    const badgeCol = p.p === 'meta' ? '#3b82f6' : p.p === 'google' ? '#f59e0b' : s.accent;
+    return `<div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--border)">
+      <span style="font-size:10px;font-weight:700;background:${badgeCol}18;color:${badgeCol};padding:3px 8px;border-radius:6px;flex-shrink:0;width:60px;text-align:center">${p.p.toUpperCase()}</span>
+      <div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:600">${p.name}</div><div style="font-size:10px;color:var(--ink3);font-family:monospace;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:320px">${p.url}</div></div>
+      <button onclick="navigator.clipboard.writeText('${p.url}').then(()=>{this.textContent='✅';setTimeout(()=>this.textContent='Másolás',2000)})" style="background:var(--bg);border:1px solid var(--border);color:var(--ink2);padding:4px 10px;border-radius:6px;font-size:11px;cursor:pointer;flex-shrink:0">Másolás</button>
+    </div>`;
+  }).join('');
+}
+
+// ─── UTM GENERÁTOR ───────────────────────────────────────────────────
+function genUTM() {
+  const base = SITES[currentSite].url + '/';
+  const src  = document.getElementById('utm-src')?.value || 'facebook';
+  const camp = document.getElementById('utm-camp')?.value || 'kampany';
+  const med  = src === 'email' ? 'newsletter' : 'paid_social';
+  const url  = `${base}?utm_source=${src}&utm_medium=${med}&utm_campaign=${encodeURIComponent(camp)}`;
+  const el   = document.getElementById('utm-out');
+  if (el) el.textContent = url;
+}
+
+function copyUTM() {
+  navigator.clipboard.writeText(document.getElementById('utm-out').textContent)
+    .then(() => {
+      const btn = document.getElementById('utm-copy-btn');
+      btn.textContent = '✅ Másolva!'; setTimeout(() => btn.textContent = '📋 Másolás', 2000);
+    });
+}
+
+// ─── SEGÉDFÜGGVÉNYEK ─────────────────────────────────────────────────
+function set(id, val) { const el = document.getElementById(id); if (el) el.textContent = val ?? '–'; }
+function bar(id, val, max, labelVal) {
+  const b = document.getElementById(id), l = document.getElementById(id+'v');
+  const s = SITES[currentSite];
+  const colors = { f1: s.accent, f2: '#94a3b8', f3: '#f97316', f4: 'var(--green)' };
+  if (b) { b.style.width = Math.round((val/Math.max(max,1))*100)+'%'; b.style.background = colors[id] || s.accent; }
+  if (l) l.textContent = labelVal ?? '–';
+}
+function prevDate() {
+  const d = new Date(); d.setDate(d.getDate()-7); return d.toISOString().split('T')[0];
+}
+
+// ─── INIT ─────────────────────────────────────────────────────────────
+buildPixels();
+buildPresets();
+genUTM();
+loadData();
+setInterval(loadData, 60000);
+</script>
+</body>
+</html>

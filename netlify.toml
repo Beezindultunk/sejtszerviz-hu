@@ -22,3 +22,9 @@
   from = "/leiratkozas"
   to   = "/.netlify/functions/unsubscribe"
   status = 200
+
+# Admin dashboard
+[[redirects]]
+  from = "/admin"
+  to   = "/admin.html"
+  status = 200
