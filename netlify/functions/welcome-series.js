@@ -317,7 +317,7 @@ exports.handler = async (event) => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        from: 'Éva Széplábi · Sejtszerviz.hu <onboarding@resend.dev>',
+        from: 'Éva Széplábi · Sejtszerviz.hu <eva@erthetobbegeszseg.hu>',
         to: [email],
         subject: template.subject,
         html: template.body(firstName || '', email)
@@ -335,7 +335,7 @@ async function sendWelcomeEmail(email, firstName, resendKey) {
     method: 'POST',
     headers: { Authorization: `Bearer ${resendKey}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      from: 'Éva Széplábi · Sejtszerviz.hu <onboarding@resend.dev>',
+      from: 'Éva Széplábi · Sejtszerviz.hu <eva@erthetobbegeszseg.hu>',
       to: [email],
       subject: template.subject,
       html: template.body(firstName || '', email)

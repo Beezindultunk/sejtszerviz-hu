@@ -294,7 +294,7 @@ exports.handler = async () => {
     method: 'POST',
     headers: { Authorization: `Bearer ${RESEND_KEY}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      from: 'Sejtszerviz Admin <onboarding@resend.dev>',
+      from: 'Sejtszerviz.hu Riport <info@erthetobbegeszseg.hu>',
       to: [TO_EMAIL],
       subject: `📊 Heti riport · ${weekLabel} · ${visitors} látogató${bookings > 0 ? ` · ${bookings} foglalás` : ''}`,
       html
