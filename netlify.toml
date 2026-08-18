@@ -28,3 +28,14 @@
   from = "/admin"
   to   = "/admin.html"
   status = 200
+
+# Aloldalak
+[[redirects]]
+  from = "/tesztek"
+  to   = "/tesztek.html"
+  status = 200
+
+[[redirects]]
+  from = "/kollagen"
+  to   = "/kollagen.html"
+  status = 200

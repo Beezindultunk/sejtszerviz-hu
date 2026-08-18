@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sejtszerviz.hu — Collagen Boozt & Collagen Boozt Flex: kollagén belülről, 10 nap alatt</title>
+<link rel="canonical" href="https://www.sejtszerviz.hu/kollagen">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --plum-deep:#33222F; --plum:#4A3346; --plum-mid:#6B4B62;
+    --blush:#F7ECE6; --blush-warm:#F0DCD2;
+    --copper:#B8703F; --copper-deep:#93582F; --copper-soft:#EFD9C4;
+    --sage:#7C8C6B; --sage-deep:#5E6E4E; --sage-soft:#E4EADB;
+    --ink:#2A2024; --ink-soft:#6B5A61;
+    --line:rgba(74,51,70,0.14); --white:#FFFDFB;
+    --gold:#C6963E;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{ background:var(--blush); color:var(--ink); font-family:'Work Sans', sans-serif; line-height:1.55; -webkit-font-smoothing:antialiased; padding-bottom:46px; }
+  p, li, .faq-a{ text-align:justify; text-justify:inter-word; }
+  h1,h2,h3{ font-family:'Fraunces', serif; color:var(--plum-deep); line-height:1.1; letter-spacing:-0.01em; }
+  .mono{ font-family:'IBM Plex Mono', monospace; }
+  a{ color:inherit; }
+  img,svg{ display:block; max-width:100%; }
+  .wrap{ max-width:1120px; margin:0 auto; padding:0 28px; }
+  section{ scroll-margin-top:84px; padding:76px 0; }
+
+  header.nav{ position:sticky; top:0; z-index:50; background:rgba(247,236,230,0.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--line); }
+  .nav-inner{ max-width:1120px; margin:0 auto; padding:14px 28px; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+  .brand{ display:flex; align-items:center; gap:10px; font-family:'Fraunces', serif; font-weight:600; font-size:1.05rem; color:var(--plum-deep); }
+  .brand-mark{ width:24px; height:24px; border-radius:50%; background:conic-gradient(from 200deg, var(--copper), var(--gold), var(--plum)); flex-shrink:0; }
+  .nav-links{ display:flex; gap:20px; list-style:none; font-size:0.9rem; }
+  .nav-links a{ text-decoration:none; color:var(--ink-soft); transition:color .15s; }
+  .nav-links a:hover{ color:var(--plum-deep); }
+  .nav-cta{ background:rgba(184,112,63,0.55); color:var(--white); padding:10px 20px; border-radius:999px; font-size:0.85rem; font-weight:600; text-decoration:none; white-space:nowrap; transition:transform .15s, background .15s; border:1px solid rgba(255,255,255,0.35); }
+  .nav-cta:hover{ background:var(--copper-deep); transform:translateY(-1px); }
+
+  .eyebrow{ display:inline-flex; align-items:center; gap:8px; font-family:'IBM Plex Mono', monospace; font-size:0.75rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--copper-deep); margin-bottom:18px; }
+  .eyebrow::before{ content:''; width:7px; height:7px; border-radius:50%; background:var(--copper); }
+  .eyebrow.on-dark{ color:var(--gold); }
+  .eyebrow.on-dark::before{ background:var(--gold); }
+  .section-head{ max-width:640px; margin-bottom:44px; }
+  .section-head h2{ font-size:clamp(1.6rem, 3vw, 2.2rem); margin-bottom:14px; }
+  .section-head p{ color:var(--ink-soft); font-size:1rem; }
+
+  /* HERO */
+  .hero-wrap{
+    position:relative; overflow:hidden; background:var(--plum-deep);
+    background-image:url('https://cdn.cms.zinzino.com/globalassets/media/half-width/products/decorated/collagen-boozt/skin-first-line-of-defence.jpg');
+    background-size:cover; background-position:center;
+  }
+  .hero-wrap::before{ content:''; position:absolute; inset:0; z-index:1; background:linear-gradient(115deg, rgba(51,34,47,0.94) 0%, rgba(51,34,47,0.88) 42%, rgba(74,51,70,0.55) 75%, rgba(74,51,70,0.35) 100%); }
+  .hero{ position:relative; z-index:2; padding:72px 0 60px; display:grid; grid-template-columns:1.05fr 0.95fr; gap:52px; align-items:center; }
+
+  /* BEMUTATKOZÓ VIDEÓ */
+  .video-showcase{ background:var(--plum-deep); }
+  .video-showcase .section-head h2{ color:var(--white); }
+  .video-showcase .section-head p{ color:rgba(247,236,230,0.8); }
+  .video-player{ position:relative; max-width:940px; margin:0 auto; border-radius:22px; overflow:hidden; box-shadow:0 40px 80px -30px rgba(0,0,0,0.6); background:#000; aspect-ratio:16/9; }
+  .video-player video{ width:100%; height:100%; object-fit:cover; display:block; }
+  .video-play-overlay{
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    cursor:pointer; background:linear-gradient(180deg, rgba(51,34,47,0.05) 0%, rgba(51,34,47,0.45) 100%);
+    transition:opacity .35s ease; z-index:2;
+  }
+  .video-play-overlay.is-hidden{ opacity:0; pointer-events:none; }
+  .video-play-btn{
+    width:84px; height:84px; border-radius:50%; background:rgba(184,112,63,0.5); display:flex; align-items:center; justify-content:center;
+    box-shadow:0 18px 36px -10px rgba(0,0,0,0.55); transition:transform .2s ease, background .2s ease;
+    border:1.5px solid rgba(255,255,255,0.5);
+  }
+  .video-play-overlay:hover .video-play-btn{ transform:scale(1.08); background:rgba(147,88,47,0.6); }
+  .video-play-btn svg{ width:30px; height:30px; margin-left:4px; }
+  .video-play-caption{
+    position:absolute; left:0; right:0; bottom:0; z-index:1; padding:18px 24px;
+    background:linear-gradient(0deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.55) 65%, transparent 100%);
+    display:flex; align-items:center; gap:10px;
+  }
+  .video-play-caption .dot{ width:7px; height:7px; border-radius:50%; background:var(--gold); flex-shrink:0; }
+  .video-play-caption span{ font-family:'IBM Plex Mono', monospace; font-size:0.76rem; letter-spacing:0.04em; color:#ffffff; text-shadow:0 1px 3px rgba(0,0,0,0.6); }
+  .video-error-msg{
+    position:absolute; inset:0; z-index:3; display:none; align-items:center; justify-content:center;
+    background:rgba(51,34,47,0.9); padding:32px; text-align:center;
+  }
+  .video-error-msg.is-visible{ display:flex; }
+  .video-error-msg .inner{ max-width:420px; }
+  .video-error-msg h4{ color:var(--white); font-family:'Fraunces', serif; font-size:1.15rem; margin-bottom:10px; }
+  .video-error-msg p{ color:rgba(247,236,230,0.85); font-size:0.88rem; text-align:center; line-height:1.55; margin-bottom:14px; }
+  .video-error-msg a{ color:var(--gold); text-decoration:underline; }
+  .video-error-msg button{ background:rgba(184,112,63,0.6); color:var(--white); border:1px solid rgba(255,255,255,0.4); padding:10px 18px; border-radius:999px; font-weight:600; font-size:0.85rem; cursor:pointer; font-family:'Work Sans',sans-serif; }
+  .video-sound-note{ text-align:center; color:rgba(247,236,230,0.55); font-size:0.78rem; margin-top:16px; }
+
+  /* SZAKÉRTŐ */
+  .expert-section{ background:var(--blush-warm); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .expert-grid{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:44px; align-items:center; }
+  .expert-grid .video-player{ margin:0; max-width:none; }
+  .expert-card{ background:var(--white); border:1px solid var(--line); border-radius:20px; padding:32px; }
+  .expert-card .role{ font-family:'IBM Plex Mono', monospace; font-size:0.74rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--copper-deep); margin-bottom:6px; }
+  .expert-card h3{ font-size:1.4rem; margin-bottom:16px; }
+  .expert-card p{ color:var(--ink-soft); font-size:0.94rem; margin-bottom:16px; }
+  .expert-quote{ background:var(--blush-warm); border-left:3px solid var(--copper); border-radius:10px; padding:18px 20px; margin-top:6px; }
+  .expert-quote p{ font-family:'Fraunces', serif; font-style:normal; color:var(--plum-deep); font-size:1.05rem; margin-bottom:8px; text-align:left; }
+  .expert-quote span{ font-family:'IBM Plex Mono', monospace; font-size:0.7rem; color:var(--ink-soft); }
+  @media (max-width:860px){ .expert-grid{ grid-template-columns:1fr; } }
+  .hero h1{ font-size:clamp(2.1rem, 4vw, 3.1rem); color:var(--white); margin-bottom:18px; text-shadow:0 2px 12px rgba(0,0,0,0.35); }
+  .hero h1 em{ font-style:normal; color:var(--gold); }
+  .hero p.lead{ font-size:1.06rem; color:rgba(247,236,230,0.9); max-width:50ch; margin-bottom:26px; text-shadow:0 1px 6px rgba(0,0,0,0.3); }
+  .hero-ctas{ display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:26px; }
+  .btn-primary{ background:rgba(184,112,63,0.55); color:var(--white); padding:15px 26px; border-radius:999px; font-weight:600; font-size:0.97rem; text-decoration:none; display:inline-block; box-shadow:0 14px 28px -12px rgba(184,112,63,0.55); transition:transform .15s, background .15s; border:1px solid rgba(255,255,255,0.4); }
+  .btn-primary:hover{ background:rgba(147,88,47,0.68); transform:translateY(-2px); }
+  .btn-secondary{ padding:15px 24px; border-radius:999px; font-weight:600; font-size:0.95rem; text-decoration:none; border:1px solid rgba(247,236,230,0.4); color:var(--white); background:rgba(247,236,230,0.1); transition:transform .15s, background .15s; }
+  .btn-secondary:hover{ border-color:rgba(247,236,230,0.7); background:rgba(247,236,230,0.22); transform:translateY(-2px); }
+  .btn-dark{ background:rgba(51,34,47,0.6); color:var(--white); padding:15px 26px; border-radius:999px; font-weight:600; font-size:0.97rem; text-decoration:none; display:inline-block; transition:transform .15s, background .15s; border:1px solid rgba(255,255,255,0.22); }
+  .btn-dark:hover{ background:rgba(51,34,47,0.78); transform:translateY(-2px); }
+  .hero-badges{ display:flex; flex-wrap:wrap; gap:10px; }
+  .hero-badges span{ background:rgba(247,236,230,0.1); border:1px solid rgba(247,236,230,0.25); color:rgba(247,236,230,0.92); border-radius:999px; padding:7px 14px; font-size:0.78rem; font-weight:600; }
+  .hero-product-card{ background:var(--white); border-radius:22px; padding:26px; box-shadow:0 40px 70px -28px rgba(0,0,0,0.55); position:relative; }
+  .hero-product-card img{ width:100%; border-radius:14px; }
+  .hero-product-tag{ position:absolute; top:-14px; right:22px; background:var(--gold); color:var(--plum-deep); font-family:'IBM Plex Mono', monospace; font-size:0.72rem; font-weight:600; letter-spacing:0.04em; padding:8px 14px; border-radius:999px; box-shadow:0 8px 16px -6px rgba(0,0,0,0.4); }
+
+  .proof-strip{ background:var(--plum-deep); border-top:1px solid rgba(247,236,230,0.1); padding:20px 0; }
+  .proof-strip-inner{ display:flex; justify-content:center; align-items:center; flex-wrap:wrap; gap:18px 44px; }
+  .proof-item{ display:flex; flex-direction:column; align-items:center; text-align:center; min-width:130px; }
+  .proof-item b{ font-family:'Fraunces', serif; color:var(--gold); font-size:1.3rem; }
+  .proof-item span{ color:rgba(247,236,230,0.72); font-size:0.78rem; margin-top:2px; }
+
+  .marquee-band{
+    position:fixed; left:0; right:0; bottom:0; z-index:130;
+    background:rgba(240,220,210,0.55);
+    backdrop-filter:blur(18px) saturate(180%);
+    -webkit-backdrop-filter:blur(18px) saturate(180%);
+    border-top:1px solid rgba(255,255,255,0.4);
+    box-shadow:0 -8px 30px -12px rgba(51,34,47,0.25), inset 0 1px 0 rgba(255,255,255,0.5);
+    overflow:hidden; padding:12px 0;
+    pointer-events:none;
+  }
+  .marquee-track{ display:flex; width:max-content; animation:marquee-scroll 30s linear infinite; }
+  .marquee-band:hover .marquee-track{ animation-play-state:paused; }
+  .marquee-content{ display:flex; align-items:center; flex-shrink:0; }
+  .marquee-content span:not(.marquee-dot){ font-family:'IBM Plex Mono', monospace; font-size:0.76rem; letter-spacing:0.08em; color:var(--plum-deep); font-weight:600; white-space:nowrap; padding:0 18px; }
+  .marquee-dot{ color:var(--copper); font-size:0.9rem; }
+  @keyframes marquee-scroll{ 0%{ transform:translateX(0); } 100%{ transform:translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce){ .marquee-track{ animation:none; overflow-x:auto; } }
+
+  .recognition-grid{ display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center; margin-bottom:36px; }
+  .recognition-text h2{ font-size:clamp(1.6rem, 3vw, 2.1rem); margin-bottom:14px; }
+  .recognition-img{ border-radius:20px; overflow:hidden; box-shadow:0 30px 60px -30px rgba(51,34,47,0.35); }
+  .recognition-img img{ width:100%; height:100%; object-fit:cover; aspect-ratio:4/3.2; }
+  .symptom-list{ display:flex; flex-direction:column; gap:12px; margin-top:22px; }
+  .symptom-item{ display:flex; gap:14px; align-items:flex-start; background:var(--white); border:1px solid var(--line); border-radius:14px; padding:14px 18px; }
+  .symptom-icon{ color:var(--copper); font-size:0.6rem; margin-top:6px; flex-shrink:0; }
+  .symptom-item strong{ display:block; color:var(--plum-deep); font-size:0.96rem; margin-bottom:3px; }
+  .symptom-item p{ color:var(--ink-soft); font-size:0.86rem; }
+
+  /* KOLLAGÉN-BECSLŐ */
+  .estimator{ margin-top:40px; background:var(--white); border:1px solid var(--line); border-radius:22px; padding:36px 40px; box-shadow:0 30px 60px -34px rgba(51,34,47,0.22); }
+  .estimator-top{ display:flex; justify-content:space-between; align-items:flex-end; gap:24px; flex-wrap:wrap; margin-bottom:22px; }
+  .estimator-top h3{ font-size:1.25rem; max-width:34ch; }
+  .estimator-readout{ text-align:right; }
+  .estimator-readout .big{ font-family:'Fraunces', serif; font-weight:700; font-size:3.2rem; color:var(--copper); line-height:0.95; }
+  .estimator-readout .big span{ font-size:1.4rem; }
+  .estimator-readout .cap{ font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-soft); }
+  .collagen-bar-wrap{ position:relative; height:34px; border-radius:999px; background:var(--blush-warm); border:1px solid var(--line); overflow:hidden; margin-bottom:6px; }
+  .collagen-bar-fill{ position:absolute; inset:0; width:100%; background:linear-gradient(90deg, var(--copper-deep), var(--copper) 55%, var(--gold)); border-radius:999px; transform-origin:left center; transition:transform .5s cubic-bezier(.4,0,.2,1); }
+  .collagen-scale{ display:flex; justify-content:space-between; font-family:'IBM Plex Mono', monospace; font-size:0.7rem; color:var(--ink-soft); margin-bottom:22px; }
+  .estimator input[type="range"]{ width:100%; accent-color:var(--copper); margin-bottom:8px; }
+  .estimator-agelabel{ display:flex; justify-content:space-between; font-size:0.85rem; color:var(--ink-soft); margin-bottom:18px; }
+  .estimator-agelabel b{ color:var(--plum-deep); font-family:'Fraunces', serif; font-size:1.05rem; }
+  .estimator-note{ background:var(--blush-warm); border-left:3px solid var(--copper); border-radius:10px; padding:14px 18px; font-size:0.86rem; color:var(--ink-soft); }
+  .estimator-note strong{ color:var(--plum-deep); }
+  @media (max-width:640px){ .estimator{ padding:26px 22px; } .estimator-readout{ text-align:left; } }
+
+  /* 1 PERCES KVÍZ */
+  .quiz-section{ background:var(--sage-soft); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .quiz-panel{ background:var(--white); border-radius:24px; max-width:720px; margin:0 auto; padding:38px 42px; box-shadow:0 30px 60px -30px rgba(51,34,47,0.28); position:relative; overflow:hidden; }
+  .quiz-progress-wrap{ height:6px; border-radius:999px; background:var(--blush-warm); overflow:hidden; margin-bottom:26px; }
+  .quiz-progress-bar{ height:100%; width:0%; background:linear-gradient(90deg, var(--copper), var(--sage)); border-radius:999px; transition:width .35s ease; }
+  .quiz-step-label{ font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:10px; }
+  .quiz-q h3{ font-size:1.3rem; margin-bottom:22px; max-width:32ch; }
+  .quiz-options{ display:flex; flex-direction:column; gap:10px; }
+  .quiz-opt{ text-align:left; font-family:'Work Sans', sans-serif; font-weight:600; font-size:0.95rem; padding:15px 20px; border-radius:14px; border:1.5px solid rgba(74,51,70,0.16); background:rgba(247,236,230,0.55); color:var(--plum-deep); cursor:pointer; transition:background .15s, border-color .15s, transform .1s; backdrop-filter:blur(10px); }
+  .quiz-opt:hover{ background:rgba(184,112,63,0.22); border-color:var(--copper); transform:translateX(2px); }
+  .quiz-intro{ text-align:center; }
+  .quiz-intro p{ color:var(--ink-soft); max-width:44ch; margin:0 auto 26px; text-align:center; }
+  .quiz-start-btn{ background:rgba(184,112,63,0.55); color:var(--white); border:1px solid rgba(255,255,255,0.4); padding:16px 32px; border-radius:999px; font-weight:600; font-size:1rem; cursor:pointer; box-shadow:0 14px 28px -12px rgba(184,112,63,0.5); transition:transform .15s, background .15s; }
+  .quiz-start-btn:hover{ background:rgba(147,88,47,0.68); transform:translateY(-2px); }
+  .quiz-result{ text-align:center; }
+  .quiz-result-badge{ display:inline-block; padding:8px 18px; border-radius:999px; font-family:'IBM Plex Mono', monospace; font-size:0.75rem; letter-spacing:0.06em; text-transform:uppercase; font-weight:600; margin-bottom:18px; }
+  .quiz-result-badge.tier-good{ background:var(--sage-soft); color:var(--sage-deep); }
+  .quiz-result-badge.tier-mid{ background:var(--copper-soft); color:var(--copper-deep); }
+  .quiz-result-badge.tier-low{ background:#F3DADD; color:#8A3244; }
+  .quiz-result h3{ font-size:1.5rem; margin-bottom:14px; }
+  .quiz-result p{ color:var(--ink-soft); text-align:center; max-width:48ch; margin:0 auto 26px; }
+  .quiz-result-score{ font-family:'Fraunces', serif; font-weight:700; font-size:2.6rem; color:var(--copper); margin-bottom:6px; }
+  .quiz-result-actions{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+  .quiz-restart{ background:rgba(107,90,97,0.06); border:1px solid rgba(74,51,70,0.22); color:var(--ink-soft); padding:14px 22px; border-radius:999px; font-weight:600; cursor:pointer; font-family:'Work Sans',sans-serif; backdrop-filter:blur(8px); transition:background .15s, border-color .15s, color .15s; }
+  .quiz-restart:hover{ border-color:var(--copper); color:var(--copper-deep); background:rgba(184,112,63,0.12); }
+
+  /* LIQUID GLASS — hullámzó fényréteg minden kattintható gombon */
+  @keyframes liquid-shimmer{
+    0%, 100%{ background-position: 20% 30%, 80% 75%; }
+    50%{ background-position: 80% 20%, 20% 80%; }
+  }
+  .btn-primary, .btn-secondary, .btn-dark, .nav-cta, .quiz-start-btn, .quiz-opt, .quiz-restart, .video-play-btn{
+    position:relative; isolation:isolate; overflow:hidden;
+    backdrop-filter:blur(14px) saturate(180%);
+    -webkit-backdrop-filter:blur(14px) saturate(180%);
+  }
+  /* A felirat mindig teljesen olvasható marad a hullámzó fény alatt is (állandó szövegárnyék biztosítja) */
+  .btn-primary, .btn-secondary, .btn-dark, .nav-cta, .quiz-start-btn{
+    text-shadow:0 1px 3px rgba(0,0,0,0.4);
+  }
+  .btn-primary::before, .btn-secondary::before, .btn-dark::before, .nav-cta::before, .quiz-start-btn::before, .quiz-opt::before, .quiz-restart::before, .video-play-btn::before{
+    content:''; position:absolute; inset:0; z-index:-1; pointer-events:none; border-radius:inherit;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(255,255,255,0.32), transparent 55%),
+      radial-gradient(circle at 80% 75%, rgba(255,255,255,0.18), transparent 50%);
+    background-size:220% 220%;
+    animation: liquid-shimmer 6s ease-in-out infinite;
+    mix-blend-mode:soft-light;
+  }
+  .btn-primary::after, .btn-secondary::after, .btn-dark::after, .nav-cta::after, .quiz-start-btn::after, .quiz-opt::after, .quiz-restart::after, .video-play-btn::after{
+    content:''; position:absolute; inset:0; z-index:-1; pointer-events:none; border-radius:inherit;
+    box-shadow: inset 0 1px 1px rgba(255,255,255,0.55), inset 0 -8px 14px rgba(0,0,0,0.1);
+  }
+  .btn-primary:hover::before, .btn-secondary:hover::before, .btn-dark:hover::before, .nav-cta:hover::before, .quiz-start-btn:hover::before, .quiz-opt:hover::before, .quiz-restart:hover::before, .video-play-overlay:hover .video-play-btn::before{
+    animation-duration:2.4s;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .btn-primary::before, .btn-secondary::before, .btn-dark::before, .nav-cta::before, .quiz-start-btn::before, .quiz-opt::before, .quiz-restart::before, .video-play-btn::before{ animation:none; }
+  }
+  .hidden{ display:none !important; }
+  @media (max-width:640px){ .quiz-panel{ padding:28px 22px; } }
+
+  /* ELŐNYÖK */
+  .elonyok{ background:var(--blush-warm); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .elonyok-top{ display:grid; grid-template-columns:1.2fr 0.8fr; gap:40px; align-items:center; margin-bottom:44px; }
+  .elonyok-product-img{ width:100%; max-width:300px; margin:0 auto; filter:drop-shadow(0 24px 40px rgba(51,34,47,0.25)); }
+  .trust-badges{ display:flex; flex-wrap:wrap; gap:10px; margin-top:22px; }
+  .trust-badges span{ background:var(--white); border:1px solid var(--line); border-radius:999px; padding:7px 14px; font-size:0.78rem; color:var(--plum-deep); font-weight:600; }
+  .benefit-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+  .benefit-card{ background:var(--white); border-radius:16px; padding:26px; border:1px solid var(--line); }
+  .benefit-icon{ width:44px; height:44px; border-radius:12px; margin-bottom:16px; background:var(--blush-warm); color:var(--copper); display:flex; align-items:center; justify-content:center; }
+  .benefit-icon svg{ width:22px; height:22px; }
+  .benefit-card h3{ font-size:1.05rem; margin-bottom:10px; }
+  .benefit-card p{ color:var(--ink-soft); font-size:0.92rem; }
+  .benefit-card sup{ font-size:0.65em; color:var(--copper); }
+  .benefit-photo{ margin-top:36px; border-radius:20px; overflow:hidden; box-shadow:0 30px 60px -30px rgba(51,34,47,0.3); }
+  .benefit-photo img{ width:100%; max-height:340px; object-fit:cover; }
+
+  /* HOGYAN */
+  .step-list{ display:flex; flex-direction:column; counter-reset:step; }
+  .step{ display:grid; grid-template-columns:60px 1fr; gap:22px; padding:24px 0; border-top:1px solid var(--line); }
+  .step:last-child{ border-bottom:1px solid var(--line); }
+  .step-num{ counter-increment:step; font-family:'Fraunces', serif; font-weight:600; font-size:1.25rem; color:var(--copper); }
+  .step-num::before{ content: counter(step, decimal-leading-zero); }
+  .step h3{ font-size:1.1rem; margin-bottom:6px; }
+  .step p{ color:var(--ink-soft); font-size:0.94rem; max-width:60ch; }
+  .target-strip{ margin-top:36px; background:var(--plum-deep); border-radius:16px; padding:28px 32px; display:flex; align-items:center; gap:22px; color:var(--blush); }
+  .target-strip .big{ font-family:'Fraunces', serif; font-size:2.2rem; color:var(--gold); flex-shrink:0; }
+  .target-strip p{ color:rgba(247,236,230,0.82); font-size:0.92rem; max-width:56ch; }
+
+  /* ÖSSZETEVŐK */
+  .ingredients{ background:var(--plum-deep); border-radius:24px; position:relative; overflow:hidden; }
+  .ingredients-inner{ max-width:1120px; margin:0 auto; padding:60px 32px; position:relative; z-index:2; }
+  .ingredients-photo{ position:absolute; top:0; right:0; width:38%; height:100%; object-fit:cover; opacity:0.22; }
+  .ingredients-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:36px; }
+  .ing-card{ background:rgba(247,236,230,0.07); border:1px solid rgba(247,236,230,0.16); border-radius:14px; padding:22px; }
+  .ing-card b{ color:var(--gold); font-family:'IBM Plex Mono', monospace; font-size:0.78rem; letter-spacing:0.04em; display:block; margin-bottom:6px; }
+  .ing-card h3{ color:var(--white); font-size:1.02rem; margin-bottom:8px; }
+  .ing-card p{ color:rgba(247,236,230,0.78); font-size:0.88rem; }
+  .nrv-table{ margin-top:40px; background:rgba(247,236,230,0.05); border:1px solid rgba(247,236,230,0.14); border-radius:14px; padding:8px 0; overflow-x:auto; }
+  .nrv-table table{ width:100%; border-collapse:collapse; min-width:520px; }
+  .nrv-table th, .nrv-table td{ padding:12px 20px; text-align:left; font-size:0.86rem; color:rgba(247,236,230,0.85); }
+  .nrv-table th{ font-family:'IBM Plex Mono', monospace; font-size:0.7rem; letter-spacing:0.06em; text-transform:uppercase; color:rgba(247,236,230,0.55); border-bottom:1px solid rgba(247,236,230,0.16); }
+  .nrv-table tr:not(:last-child) td{ border-bottom:1px solid rgba(247,236,230,0.08); }
+  .nrv-table td:last-child, .nrv-table th:last-child{ color:var(--gold); font-weight:600; }
+
+  /* KUTATÁS */
+  .research-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-bottom:36px; }
+  .research-card{ background:var(--white); border:1px solid var(--line); border-radius:16px; padding:24px; }
+  .research-card .stat{ font-family:'Fraunces', serif; font-weight:700; font-size:1.8rem; color:var(--copper); margin-bottom:8px; }
+  .research-card h3{ font-size:0.98rem; margin-bottom:8px; }
+  .research-card p{ color:var(--ink-soft); font-size:0.85rem; }
+  .research-card span.src{ display:block; margin-top:10px; font-family:'IBM Plex Mono', monospace; font-size:0.7rem; color:var(--copper-deep); font-weight:600; }
+
+  .science-grid{ display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center; }
+  .science-list{ list-style:none; display:flex; flex-direction:column; gap:14px; }
+  .science-list li{ display:flex; gap:12px; color:var(--ink-soft); font-size:0.96rem; }
+  .science-list li::before{ content:'—'; color:var(--copper); flex-shrink:0; }
+  .refs{ margin-top:28px; font-size:0.76rem; color:var(--ink-soft); max-width:70ch; }
+  .refs summary{ cursor:pointer; font-weight:600; color:var(--plum-deep); margin-bottom:8px; }
+  .refs ol{ padding-left:20px; display:flex; flex-direction:column; gap:4px; }
+
+  /* VÉLEMÉNYEK */
+  .testimonial-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+  .testimonial-card{ background:var(--white); border:1px solid var(--line); border-radius:16px; padding:28px; display:flex; flex-direction:column; }
+  .testimonial-card .stars{ color:var(--gold); font-size:0.9rem; margin-bottom:14px; letter-spacing:2px; }
+  .testimonial-card p{ font-family:'Fraunces', serif; font-size:1.05rem; color:var(--plum-deep); margin-bottom:16px; flex-grow:1; }
+  .testimonial-card .who{ font-size:0.82rem; color:var(--ink-soft); }
+  .testimonial-card .who b{ color:var(--plum-deep); display:block; font-family:'Work Sans',sans-serif; }
+  .testimonial-card .src-tag{ display:inline-block; margin-top:8px; font-family:'IBM Plex Mono', monospace; font-size:0.66rem; letter-spacing:0.04em; text-transform:uppercase; color:var(--copper-deep); background:var(--copper-soft); padding:3px 9px; border-radius:999px; }
+
+  /* MINŐSÉG */
+  .quality{ background:var(--plum); color:var(--white); }
+  .quality .section-head h2{ color:var(--white); }
+  .quality .section-head p{ color:rgba(247,236,230,0.82); }
+  .cert-strip{ display:flex; flex-wrap:wrap; gap:18px; margin-bottom:36px; }
+  .cert-badge{ background:var(--white); border-radius:14px; padding:18px 16px; display:flex; flex-direction:column; align-items:center; gap:8px; width:190px; box-shadow:0 8px 20px -8px rgba(0,0,0,0.25); }
+  .cert-badge img{ height:36px; width:auto; max-width:90px; object-fit:contain; }
+  .cert-badge span{ font-size:0.72rem; color:var(--plum-deep); text-align:center; line-height:1.25; font-weight:700; }
+  .cert-badge .cert-desc{ font-size:0.72rem; color:var(--ink-soft); text-align:center; line-height:1.4; font-weight:400; }
+  .quality-quote{ background:rgba(247,236,230,0.1); border-radius:16px; padding:30px; border:1px solid rgba(247,236,230,0.18); max-width:760px; }
+  .quality-quote p{ font-family:'Fraunces', serif; font-size:1.15rem; margin-bottom:10px; }
+  .quality-quote span{ color:rgba(247,236,230,0.7); font-size:0.85rem; }
+
+  /* ÖSSZEHASONLÍTÁS */
+  .compare-table{ width:100%; border-collapse:collapse; background:var(--white); border-radius:16px; overflow:hidden; border:1px solid var(--line); }
+  .compare-table th, .compare-table td{ padding:16px 20px; text-align:left; font-size:0.92rem; border-bottom:1px solid var(--line); }
+  .compare-table th{ font-family:'Fraunces', serif; font-size:1.02rem; color:var(--plum-deep); background:var(--blush-warm); }
+  .compare-table td{ color:var(--ink-soft); }
+  .compare-table tr:last-child td{ border-bottom:none; }
+  .compare-highlight{ background:var(--copper-soft); font-weight:600; color:var(--plum-deep) !important; }
+
+  /* FAQ */
+  .faq-list{ display:flex; flex-direction:column; gap:0; max-width:780px; }
+  .faq-item{ border-top:1px solid var(--line); }
+  .faq-item:last-child{ border-bottom:1px solid var(--line); }
+  .faq-item summary{ cursor:pointer; padding:20px 4px; font-weight:600; font-family:'Fraunces', serif; font-size:1.05rem; color:var(--plum-deep); display:flex; justify-content:space-between; align-items:center; list-style:none; }
+  .faq-item summary::-webkit-details-marker{ display:none; }
+  .faq-item summary::after{ content:'+'; font-family:'Work Sans', sans-serif; font-weight:400; font-size:1.3rem; color:var(--copper); transition:transform .2s; }
+  .faq-item[open] summary::after{ transform:rotate(45deg); }
+  .faq-item .faq-a{ padding:0 4px 22px; color:var(--ink-soft); font-size:0.95rem; max-width:66ch; }
+
+  /* FINAL CTA */
+  .final-cta{ background:var(--blush-warm); border-radius:24px; overflow:hidden; }
+  .final-cta-split{ display:grid; grid-template-columns:1.1fr 0.9fr; align-items:stretch; }
+  .final-cta-text{ padding:64px 52px; display:flex; flex-direction:column; justify-content:center; }
+  .final-cta-text h2{ font-size:clamp(1.7rem,3.2vw,2.3rem); margin-bottom:16px; }
+  .final-cta-text p{ color:var(--ink-soft); max-width:440px; margin-bottom:24px; }
+  .final-cta-img{ width:100%; height:100%; min-height:320px; object-fit:cover; }
+  .final-cta-list{ list-style:none; display:flex; flex-direction:column; gap:8px; margin-bottom:26px; }
+  .final-cta-list li{ display:flex; gap:10px; align-items:flex-start; font-size:0.9rem; color:var(--ink-soft); }
+  .final-cta-list li::before{ content:'✓'; color:var(--sage-deep); font-weight:700; flex-shrink:0; }
+
+  footer{ border-top:1px solid var(--line); padding:36px 0 40px; color:var(--ink-soft); font-size:0.82rem; text-align:center; }
+  footer .disclaimer{ max-width:760px; margin:0 auto 16px; text-align:justify; }
+  footer .foot-links{ display:flex; gap:18px; list-style:none; margin-top:14px; flex-wrap:wrap; justify-content:center; }
+  footer .foot-links a{ text-decoration:none; color:var(--ink-soft); }
+  footer .foot-links a:hover{ color:var(--plum-deep); }
+
+  @media (max-width:860px){
+    .hero{ grid-template-columns:1fr; padding-top:48px; }
+    .nav-links{ display:none; }
+    .benefit-grid{ grid-template-columns:1fr; }
+    .elonyok-top{ grid-template-columns:1fr; text-align:center; }
+    .trust-badges{ justify-content:center; }
+    .science-grid{ grid-template-columns:1fr; }
+    .research-grid{ grid-template-columns:1fr; }
+    .testimonial-grid{ grid-template-columns:1fr; }
+    .target-strip{ flex-direction:column; text-align:center; }
+    .proof-strip-inner{ justify-content:center; text-align:center; }
+    .final-cta-split{ grid-template-columns:1fr; }
+    .final-cta-text{ padding:44px 28px; text-align:center; align-items:center; }
+    .final-cta-list{ text-align:left; }
+    .final-cta-img{ min-height:220px; order:-1; }
+    .ingredients-grid{ grid-template-columns:1fr; }
+    .ingredients-photo{ display:none; }
+    .estimator-top{ flex-direction:column; align-items:flex-start; }
+    .estimator-readout{ text-align:left; }
+    .cert-strip{ justify-content:center; }
+    .recognition-grid{ grid-template-columns:1fr; }
+    .recognition-img{ order:-1; }
+    .compare-table{ font-size:0.82rem; }
+  }
+</style>
+</head>
+<body><!-- Sejtszerviz aloldal nav -->
+<div style="background:#0b2425;padding:0;position:sticky;top:0;z-index:200;border-bottom:1px solid rgba(255,255,255,.08)">
+  <div style="max-width:1160px;margin:0 auto;padding:0 28px;display:flex;align-items:center;gap:0;height:44px">
+    <a href="/" style="color:#c9a96e;font-family:'Fraunces',serif;font-weight:700;font-size:13px;text-decoration:none;margin-right:28px;white-space:nowrap">← Sejtszerviz.hu</a>
+    <div style="display:flex;gap:2px;flex:1">
+      <a href="/" style="font-size:12px;font-weight:600;color:rgba(255,255,255,.45);padding:0 12px;height:44px;display:flex;align-items:center;text-decoration:none;border-bottom:2px solid transparent;transition:all .15s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.45)'">Főoldal</a>
+      <a href="/tesztek" id="nav-tesztek" style="font-size:12px;font-weight:600;color:rgba(255,255,255,.45);padding:0 12px;height:44px;display:flex;align-items:center;text-decoration:none;border-bottom:2px solid transparent;transition:all .15s">Egészségtesztek</a>
+      <a href="/kollagen" id="nav-kollagen" style="font-size:12px;font-weight:600;color:rgba(255,255,255,.45);padding:0 12px;height:44px;display:flex;align-items:center;text-decoration:none;border-bottom:2px solid transparent;transition:all .15s">Collagen Boozt Flex</a>
+    </div>
+    <a href="/#konzultacio" style="background:#8b2234;color:#fff;padding:7px 16px;border-radius:999px;font-size:12px;font-weight:600;text-decoration:none;white-space:nowrap">Konzultáció →</a>
+  </div>
+</div>
+<script>
+(function(){
+  var p = window.location.pathname;
+  var id = p.includes('tesztek') ? 'nav-tesztek' : p.includes('kollagen') ? 'nav-kollagen' : null;
+  if(id){var el=document.getElementById(id);if(el){el.style.color='#fff';el.style.borderBottomColor='#c9a96e';}}
+})();
+</script>
+
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="brand">
+      <span class="brand-mark"></span>
+      <span>Sejtszerviz<span style="color:var(--copper);">.hu</span></span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#kviz">1 perces kvíz</a></li>
+      <li><a href="#elonyok">Előnyök</a></li>
+      <li><a href="#hogyan">Hogyan használd</a></li>
+      <li><a href="#kutatas">Kutatás</a></li>
+      <li><a href="#szakerto">Szakértő</a></li>
+      <li><a href="#velemenyek">Vélemények</a></li>
+      <li><a href="#gyik">GYIK</a></li>
+    </ul>
+    <a class="nav-cta" href="#rendeles">Termékek</a>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO — AIDA: ATTENTION -->
+  <div class="hero-wrap">
+    <div class="wrap">
+      <section class="hero">
+        <div>
+          <div class="eyebrow on-dark">Sejtszerviz.hu · Zinzino Norwegian Skin Nutrition</div>
+          <h1>Bőr, ízület, izom — 80%-uk ugyanabból az egy fehérjéből épül fel. <em>Neked mennyi maradt belőle?</em></h1>
+          <p class="lead">A kollagén nem "női téma" — ez a bőröd, az ízületeid és az izomzatod egyik legfontosabb építőköve, férfiaknak és nőknek egyaránt. A Zinzino két formában kínálja a tengeri eredetű kollagént: azonnal iható <strong>Collagen Boozt</strong> gélben, vagy vízben oldható <strong>Collagen Boozt Flex</strong> porban — mindkettő 8000 mg kollagént és 120 mg hialuronsavat ad naponta.</p>
+          <div class="hero-ctas">
+            <a class="btn-primary" href="#rendeles">Megnézem mindkét terméket</a>
+            <a class="btn-secondary" href="#bemutato-video">▶ Megnézem a bemutató videót</a>
+          </div>
+          <div class="hero-badges">
+            <span>Tengeri eredetű, Norvégiából</span>
+            <span>Gluténmentes</span>
+            <span>Informed Sport tanúsítvány</span>
+            <span>Gél vagy por — te választasz</span>
+          </div>
+        </div>
+
+        <div class="hero-product-card">
+          <div class="hero-product-tag">2 formátum, 1 forrás</div>
+          <img src="https://cdn.cms.zinzino.com/globalassets/media/full-width/products/skin-nutrition/collagen-boozt-flex-rounded.png" alt="Zinzino Collagen Boozt Flex doboz és tasak" loading="lazy">
+          <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:18px; text-align:center;">
+            <div><div style="font-family:'Fraunces',serif; font-weight:700; font-size:1.3rem; color:var(--plum-deep);">8000mg</div><div style="font-size:0.72rem; color:var(--ink-soft);">tengeri kollagén / adag</div></div>
+            <div><div style="font-family:'Fraunces',serif; font-weight:700; font-size:1.3rem; color:var(--plum-deep);">120mg</div><div style="font-size:0.72rem; color:var(--ink-soft);">hialuronsav / adag</div></div>
+            <div><div style="font-family:'Fraunces',serif; font-weight:700; font-size:1.3rem; color:var(--plum-deep);">Gél / Por</div><div style="font-size:0.72rem; color:var(--ink-soft);">Boozt vagy Boozt Flex</div></div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="proof-strip">
+    <div class="wrap proof-strip-inner">
+      <div class="proof-item"><b>3000 Da</b><span>átlagos molekulatömegű, könnyen felszívódó kollagén</span></div>
+      <div class="proof-item"><b>151%</b><span>a napi C-vitamin-referenciaérték egy adagban</span></div>
+      <div class="proof-item"><b>I. és III.</b><span>típusú kollagén, szinergikusan a bőrért</span></div>
+      <div class="proof-item"><b>10 nap</b><span>a javasolt kúra hossza</span></div>
+    </div>
+  </div>
+
+  <div class="marquee-band">
+    <div class="marquee-track">
+      <div class="marquee-content">
+        <span>TENGERI EREDETŰ KOLLAGÉN</span><span class="marquee-dot">•</span>
+        <span>HIALURONSAV</span><span class="marquee-dot">•</span>
+        <span>PLENIBIOTIC™ POSZTBIOTIKUM</span><span class="marquee-dot">•</span>
+        <span>GLUTÉNMENTES</span><span class="marquee-dot">•</span>
+        <span>INFORMED SPORT TANÚSÍTVÁNY</span><span class="marquee-dot">•</span>
+        <span>NORVÉG BŐRTÁPLÁLÁS</span><span class="marquee-dot">•</span>
+      </div>
+      <div class="marquee-content" aria-hidden="true">
+        <span>TENGERI EREDETŰ KOLLAGÉN</span><span class="marquee-dot">•</span>
+        <span>HIALURONSAV</span><span class="marquee-dot">•</span>
+        <span>PLENIBIOTIC™ POSZTBIOTIKUM</span><span class="marquee-dot">•</span>
+        <span>GLUTÉNMENTES</span><span class="marquee-dot">•</span>
+        <span>INFORMED SPORT TANÚSÍTVÁNY</span><span class="marquee-dot">•</span>
+        <span>NORVÉG BŐRTÁPLÁLÁS</span><span class="marquee-dot">•</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEMUTATKOZÓ VIDEÓ -->
+  <section id="bemutato-video" class="video-showcase">
+    <div class="wrap">
+      <div class="section-head" style="margin-left:auto; margin-right:auto; text-align:center; max-width:620px;">
+        <div class="eyebrow on-dark" style="justify-content:center;">Bemutatkozik</div>
+        <h2>Ismerd meg a Collagen Boozt és a Collagen Boozt Flex világát</h2>
+        <p>Kevesebb, mint másfél perc — miért fontos a tengeri kollagén, és melyik formátum illik a te napodhoz.</p>
+      </div>
+      <div class="video-player">
+        <video id="introVideo" poster="collagen-video-poster.jpg" preload="metadata" playsinline controls>
+          <source src="collagen-boozt-flex-bemutato.mp4" type="video/mp4">
+        </video>
+        <div class="video-play-caption"><span class="dot"></span><span>Sejtszerviz.hu · Collagen Boozt & Collagen Boozt Flex bemutató</span></div>
+        <div class="video-play-overlay" id="videoPlayOverlay">
+          <div class="video-play-btn">
+            <svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+        </div>
+      </div>
+      <p class="video-sound-note">Koppints a lejátszásra — a videó hanggal indul.</p>
+    </div>
+  </section>
+
+
+  <section id="felismeres">
+    <div class="wrap">
+      <div class="recognition-grid">
+        <div class="recognition-text">
+          <div class="eyebrow">Ismerős?</div>
+          <h2>A tested nem hazudik — csak lassan halkul el</h2>
+          <p style="color:var(--ink-soft);">A kollagén a szervezet legbővebb fehérjéje: a bőr 80%-át, de az ízületek, inak, porcok és izmok szerkezetét is ez adja. A baj az, hogy a szervezet saját kollagéntermelése <strong>az életkor előrehaladtával fokozatosan csökken</strong> — 50 éves korra akár egyharmada is elveszhet belőle. Ez nemcsak a bőr rugalmasságán látszik meg, hanem az edzés utáni regeneráción, az ízületek mozgékonyságán is.</p>
+          <div class="symptom-list">
+            <div class="symptom-item"><span class="symptom-icon">●</span><div><strong>A bőr veszít a feszességéből</strong><p>Már nem pattan vissza úgy, ahogy pár éve — nemtől függetlenül.</p></div></div>
+            <div class="symptom-item"><span class="symptom-icon">●</span><div><strong>Az ízületek merevebbnek érződnek</strong><p>Edzés vagy hosszabb ülés után lassabban "olajozódnak be".</p></div></div>
+            <div class="symptom-item"><span class="symptom-icon">●</span><div><strong>Törékenyebb haj és köröm</strong><p>Ugyanaz az építőelem hiányzik mindhárom szövetből.</p></div></div>
+          </div>
+        </div>
+        <div class="recognition-img">
+          <img src="https://cdn.cms.zinzino.com/contentassets/8f4125962ea841f79c4e24a5c6945adc/eye-wrinkles.jpg" alt="A bőr rugalmassága az életkor előrehaladtával csökken" loading="lazy">
+        </div>
+      </div>
+
+      <!-- KOLLAGÉN-BECSLŐ -->
+      <div class="estimator" id="kalkulator">
+        <div class="estimator-top">
+          <div>
+            <div class="eyebrow" style="margin-bottom:8px;">Illusztratív becslés</div>
+            <h3>Húzd a csúszkát az életkorodra — nézd meg, mennyi kollagén maradhatott</h3>
+          </div>
+          <div class="estimator-readout">
+            <div class="big" id="collagenPct">100<span>%</span></div>
+            <div class="cap">becsült relatív kollagénszint</div>
+          </div>
+        </div>
+        <div class="collagen-bar-wrap"><div class="collagen-bar-fill" id="collagenBarFill"></div></div>
+        <div class="collagen-scale"><span>20 év</span><span>35 év</span><span>50 év</span><span>65 év+</span></div>
+        <input type="range" id="ageSlider" min="20" max="70" value="20" step="1">
+        <div class="estimator-agelabel"><span>Életkor</span><b id="ageLabel">20 év</b></div>
+        <div class="estimator-note"><strong>Miért csökken?</strong> A bőr saját kollagéntermelése kb. 25 éves kor után évi kb. 1%-kal lassul, 50 év körül pedig ez a folyamat felgyorsulhat — ez a becslés szemléltető jellegű, nem orvosi mérés. A tengeri eredetű kollagén és a C-vitamin ezen a ponton segíthet visszapótolni, amit a szervezet egyre kevésbé termel meg magától.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 1 PERCES KVÍZ -->
+  <section id="kviz" class="quiz-section">
+    <div class="wrap">
+      <div class="section-head" style="margin-left:auto; margin-right:auto; text-align:center; max-width:600px;">
+        <div class="eyebrow" style="justify-content:center;">1 perces önteszt · férfiaknak és nőknek egyaránt</div>
+        <h2>Milyen állapotban van most a kollagénszinted?</h2>
+        <p>Válaszolj 7 rövid kérdésre — a végén azonnal megmutatjuk, melyik zónában vagy, és konkrétan megmondjuk, a Collagen Boozt gél vagy a Collagen Boozt Flex por illik-e jobban hozzád.</p>
+      </div>
+
+      <div class="quiz-panel">
+        <div class="quiz-progress-wrap"><div class="quiz-progress-bar" id="quizProgress"></div></div>
+
+        <div id="quizIntro" class="quiz-intro">
+          <h3 style="font-size:1.3rem; margin-bottom:12px;">Készen állsz?</h3>
+          <p>7 kérdés, kb. 70 másodperc. Csak koppints a hozzád leginkább illő válaszra — automatikusan lép tovább, a végén pedig egy konkrét terméket ajánlunk.</p>
+          <button class="quiz-start-btn" id="quizStartBtn">Indítom a kvízt</button>
+        </div>
+
+        <div id="quizQuestions" class="hidden"></div>
+
+        <div id="quizResult" class="quiz-result hidden"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ELŐNYÖK — AIDA: DESIRE -->
+  <section id="elonyok" class="elonyok">
+    <div class="wrap">
+      <div class="elonyok-top">
+        <div>
+          <div class="eyebrow">Előnyök</div>
+          <h2>Mit ad a szervezetednek a napi adag</h2>
+          <p style="color:var(--ink-soft); max-width:54ch;">Akár a Collagen Boozt gélt, akár a Collagen Boozt Flex port választod, egy napi adag 8 gramm tengeri eredetű, hidrolizált I. és III. típusú kollagén-peptidet, 120 mg hialuronsavat, valamint C-vitamint, cinket, rezet és biotint juttat a szervezetedbe — mindezt posztbiotikumokkal kiegészítve.</p>
+          <div class="trust-badges">
+            <span>Friend of the Sea tanúsított hal</span>
+            <span>Gluténmentes</span>
+            <span>Édesítőszerrel, cukor nélkül</span>
+            <span>10 napos kúrára tervezve</span>
+          </div>
+        </div>
+        <img class="elonyok-product-img" src="https://cdn.cms.zinzino.com/globalassets/media/full-width/products/skin-nutrition/collagen-boozt-flex-rounded.png" alt="Collagen Boozt Flex tasak és doboz" loading="lazy">
+      </div>
+
+      <div class="benefit-grid">
+        <div class="benefit-card">
+          <div class="benefit-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7.5-4.6-10-9.3C.5 8.2 2.4 5 6 5c2 0 3.5 1.1 4.5 2.4C11.5 6.1 13 5 15 5c3.6 0 5.5 3.2 4 6.7C19.5 16.4 12 21 12 21z"/></svg></div>
+          <h3>Támogatja a normál kollagénképződést</h3><p>A C-vitamin hozzájárul a megfelelő kollagénképződéshez, és ezen keresztül a bőr normál állapotának, működésének fenntartásához.<sup>4</sup></p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2c3 4 6 7.4 6 11.5a6 6 0 0 1-12 0C6 9.4 9 6 12 2Z"/></svg></div>
+          <h3>Segít fenntartani a bőr hidratáltságát</h3><p>A hialuronsav arról ismert, hogy magához vonzza és megköti a vizet, így támogatja a puha, hidratált megjelenésű bőrt.<sup>3,8</sup></p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12c2-4 5-6 8-6s6 2 8 6c-2 4-5 6-8 6s-6-2-8-6Z"/><circle cx="12" cy="12" r="2.4"/></svg></div>
+          <h3>Támogatja a bőr rugalmasságát és szerkezetét</h3><p>A tengeri eredetű kollagén-peptidek olyan aminosavakat biztosítanak, amelyek hozzájárulnak a bőr szerkezetének megőrzéséhez és rugalmasságához.<sup>2</sup></p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9.5 3a3.5 3.5 0 0 0-3.5 3.5v.6A3 3 0 0 0 4 9.9v1.2a3 3 0 0 0-.5 5.6 3 3 0 0 0 3 3.3h1v-16A2 2 0 0 1 9.5 3Z"/><path d="M14.5 3A3.5 3.5 0 0 1 18 6.5v.6A3 3 0 0 1 20 9.9v1.2a3 3 0 0 1 .5 5.6 3 3 0 0 1-3 3.3h-1v-16A2 2 0 0 0 14.5 3Z"/></svg></div>
+          <h3>Bél-bőr támogatás belülről</h3><p>A Plenibiotic™ posztbiotikumok támogatják a bélflóra egyensúlyát és a bőr hidratáltságát — ez a bél-bőr tengely elmélet gyakorlatban.<sup>10</sup></p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2 4 5v6c0 5 3.4 8.7 8 11 4.6-2.3 8-6 8-11V5l-8-3Z"/></svg></div>
+          <h3>Megvédi a sejteket az oxidatív stressztől</h3><p>A C-vitamin, a cink és a réz hozzájárul a sejtek oxidatív stresszel szembeni védelméhez, ami a bőr természetes védőszerepét is támogatja.<sup>9</sup></p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v18M5 8l-3 5a3 3 0 0 0 6 0l-3-5Zm14 0l-3 5a3 3 0 0 0 6 0l-3-5ZM5 8h14M8 21h8"/></svg></div>
+          <h3>Haj, köröm és bőr — egy forrásból</h3><p>A biotin és a cink hozzájárul a bőr normál állapotának fenntartásához, a réz pedig a bőr normál pigmentációjához.<sup>5,6,7</sup></p>
+        </div>
+      </div>
+
+      <div class="benefit-photo">
+        <img src="https://cdn.cms.zinzino.com/globalassets/media/half-width/products/decorated/collagen-boozt/boost-collagen-levels.jpg" alt="Támogasd a kollagénszintedet tengeri eredetű kollagénnel és hialuronsavval" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- HOGYAN HASZNÁLD -->
+  <section id="hogyan">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Hogyan használd</div>
+        <h2>Egy tasak, 500 ml víz, 10 nap — ennyi az egész</h2>
+        <p>A Collagen Boozt Flex por formában, kúraszerű, 10 napos rutinra lett kifejlesztve. Nincs mérlegelés, nincs bonyolult adagolás — csak keverd el, és igyad meg.</p>
+      </div>
+      <div class="step-list">
+        <div class="step"><div class="step-num"></div><div><h3>Válaszd ki a napszakot</h3><p>Reggel, étkezés előtt vagy után — a lényeg, hogy olyan időpontot válassz, amit könnyű minden nap betartani.</p></div></div>
+        <div class="step"><div class="step-num"></div><div><h3>Oldd fel 500 ml vízben</h3><p>Egy tasak (12,8 g) tartalmát keverd el alaposan 500 ml vízben, vagy csempészd bele a reggeli turmixodba, joghurtodba.</p></div></div>
+        <div class="step"><div class="step-num"></div><div><h3>Igyad meg — naponta egyszer</h3><p>Ne lépd túl az ajánlott napi adagot. Az erdeigyümölcs íz miatt önmagában is jól fogyasztható.</p></div></div>
+        <div class="step"><div class="step-num"></div><div><h3>Tartsd 10 napon át, majd folytasd, ha szeretnéd</h3><p>A kutatások szerint már 10 nap alatt is megfigyelhető változás — utána is folytatható a napi szedés.</p></div></div>
+      </div>
+      <div class="target-strip">
+        <div class="big">10×12,8g</div>
+        <p>Egy doboz pontosan egy 10 napos kúrára elegendő mennyiséget tartalmaz — utána újrarendelheted, vagy előfizetéssel automatizálhatod.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ÖSSZETEVŐK -->
+  <div class="wrap">
+    <section style="padding-top:0;">
+      <div class="ingredients">
+        <img class="ingredients-photo" src="https://cdn.cms.zinzino.com/globalassets/media/half-width/products/decorated/collagen-boozt/skin-first-line-of-defence.jpg" alt="" loading="lazy" aria-hidden="true">
+        <div class="ingredients-inner">
+          <div class="eyebrow on-dark">Mi van pontosan a tasakban</div>
+          <h2 style="color:var(--white); max-width:26ch;">Nem csak kollagén — egy teljes bőrtápláló formula</h2>
+          <p style="max-width:70ch; color:rgba(247,236,230,0.82);">A Collagen Boozt Flex a tengeri kollagén és a hialuronsav mellett posztbiotikumokat, aminosavakat és antioxidánsokat is tartalmaz — ezek szinergikusan együttműködve támogatják a bőr természetes funkcióit és megjelenését.</p>
+
+          <div class="ingredients-grid">
+            <div class="ing-card"><b>01 · ALAP</b><h3>Hidrolizált tengeri kollagén</h3><p>8000 mg, I. és III. típusú, Friend of the Sea tanúsított halakból (tőkehal, foltos és sárga tőkehal), kisebb molekulákra bontva a jobb felszívódásért.</p></div>
+            <div class="ing-card"><b>02 · HIDRATÁLÁS</b><h3>Hialuronsav</h3><p>120 mg — a bőrben, kötőszövetekben természetesen jelen lévő poliszacharid, kiemelkedő víz megkötő képességgel.</p></div>
+            <div class="ing-card"><b>03 · BÉL-BŐR</b><h3>Plenibiotic™ (L. casei 327)</h3><p>Fermentációból származó posztbiotikus összetevő, amely a bélmikrobiom egyensúlyát és ezen keresztül a bőrápolást is támogatja.</p></div>
+            <div class="ing-card"><b>04 · AMINOSAVAK</b><h3>L-arginin és glicin</h3><p>A glicin a kollagén egyik alapvető építőköve, az arginin az általános anyagcsere-folyamatokat támogatja.</p></div>
+            <div class="ing-card"><b>05 · ANTIOXIDÁNS</b><h3>C-vitamin, acerola kivonat, L-glutation</h3><p>Hozzájárulnak a normál kollagénképződéshez és a sejtek oxidatív stresszel szembeni védelméhez.</p></div>
+            <div class="ing-card"><b>06 · BŐRVÉDELEM</b><h3>Rizskorpa-ceramidok, fekete áfonya kivonat</h3><p>Természetes lipidek és antioxidáns vegyületek, amelyek a bőr nedvességtartalmát és érzékszervi élményét is javítják.</p></div>
+          </div>
+
+          <div class="nrv-table">
+            <table>
+              <thead><tr><th>Hatóanyag</th><th>Napi adag (12,8 g)</th><th>Napi beviteli ref.</th></tr></thead>
+              <tbody>
+                <tr><td>Hidrolizált tengeri kollagén</td><td>8000 mg</td><td>—</td></tr>
+                <tr><td>Hialuronsav</td><td>120 mg</td><td>—</td></tr>
+                <tr><td>C-vitamin</td><td>120,8 mg</td><td>151%</td></tr>
+                <tr><td>Biotin (B7-vitamin)</td><td>0,035 mg</td><td>70%</td></tr>
+                <tr><td>Cink</td><td>3 mg</td><td>30%</td></tr>
+                <tr><td>Magnézium</td><td>56,3 mg</td><td>15%</td></tr>
+                <tr><td>Réz</td><td>0,15 mg</td><td>15%</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="margin-top:16px; font-size:0.78rem; color:rgba(247,236,230,0.55);">Forrás: Collagen Boozt Flex hivatalos termékismertető, Zinzino (hu-HU, 2026-04-09). Tartalmaz édesítőszert (szteviából származó szteviol-glikozidok). A kollagén hal eredetű — halallergia esetén a termék nem fogyasztható.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- KUTATÁS -->
+  <section id="kutatas" class="elonyok">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Kutatási eredmények</div>
+        <h2>Nem ígéret — publikált, ellenőrizhető kutatás áll mögötte</h2>
+        <p>A Collagen Boozt Flex kulcsösszetevőit független, lektorált tudományos folyóiratokban publikált vizsgálatok alapozzák meg. Az alábbiak a közzétett tanulmányok fő megállapításai, saját megfogalmazásban.</p>
+      </div>
+
+      <div class="research-grid">
+        <div class="research-card">
+          <div class="stat">Sűrűbb kollagénhálózat</div>
+          <h3>Orális kollagén-peptid vizsgálat</h3>
+          <p>Placebo-kontrollált klinikai vizsgálatokban a napi orális kollagén-peptid bevitel a bőr kötőszöveti (dermális) kollagénhálózatának sűrűségét és a bőr hidratáltságát is kedvezően befolyásolta, ultrahangos és korneometriás méréssel igazolva.</p>
+          <span class="src">Forrás: Asserin et al., J Cosmet Dermatol, 2015</span>
+        </div>
+        <div class="research-card">
+          <div class="stat">Javuló bőrállapot</div>
+          <h3>Orális hialuronsav-vizsgálat</h3>
+          <p>Egy randomizált, kettős vak vizsgálatban a szájon át szedett hialuronsav összefüggésben állt a résztvevők bőrállapotának mérhető javulásával.</p>
+          <span class="src">Forrás: Gao et al., Skin Res Technol, 2023</span>
+        </div>
+        <div class="research-card">
+          <div class="stat">Mérhető változás</div>
+          <h3>Halpikkely-eredetű kollagén-peptidek</h3>
+          <p>Egy randomizált, placebo-kontrollált, kettős vak vizsgálat mérhető változást talált a bőr paramétereiben és állapotában a placebóhoz képest.</p>
+          <span class="src">Forrás: Koizumi et al., Int J Pept Res Ther, 2018</span>
+        </div>
+      </div>
+
+      <div class="quality-quote" style="background:var(--white); border:1px solid var(--line); color:var(--ink);">
+        <p style="color:var(--plum-deep);">A belülről táplált szépségápolás (beauty-from-within) a globális étrend-kiegészítő piac egyik leggyorsabban növekvő szegmense — ez motiválta a Collagen Boozt Flex 2026-os piaci bevezetését is.</p>
+        <span style="color:var(--ink-soft);">Forrás: Euromonitor International, Consumer Trend Report 2026 — idézi a Zinzino sajtóközleménye, 2026. június</span>
+      </div>
+
+      <details class="refs" style="margin-top:32px;">
+        <summary>Tudományos hivatkozások és EU egészségre vonatkozó állítások</summary>
+        <ol>
+          <li>Furtado, M. et al. (2022). Development of fish collagen in tissue regeneration and drug delivery. Engineered Regeneration, 3(3), 217-231.</li>
+          <li>Asserin, J. et al. (2015). The effect of oral collagen peptide supplementation on skin moisture and the dermal collagen network. Journal of Cosmetic Dermatology, 14(4), 291-301.</li>
+          <li>Gao, Y. R. et al. (2023). Oral administration of hyaluronic acid to improve skin conditions via a randomized double-blind clinical test. Skin Research and Technology, 29(11), e13531.</li>
+          <li>A C-vitamin hozzájárul a megfelelő kollagénképződéshez és ezen keresztül a bőr normál állapotának, működésének fenntartásához (EU egészségre vonatkozó állítás).</li>
+          <li>A biotin hozzájárul a bőr normál állapotának fenntartásához (EU egészségre vonatkozó állítás).</li>
+          <li>A cink hozzájárul a bőr normál állapotának fenntartásához (EU egészségre vonatkozó állítás).</li>
+          <li>A réz hozzájárul a bőr normál pigmentációjához (EU egészségre vonatkozó állítás).</li>
+          <li>Koizumi, S. et al. (2018). Effects of dietary supplementation with fish scales-derived collagen peptides on skin parameters and condition. International Journal of Peptide Research and Therapeutics, 24(1), 397-402.</li>
+          <li>A C-vitamin, a cink és a réz hozzájárul a sejtek oxidatív stresszel szembeni védelméhez (EU egészségre vonatkozó állítás).</li>
+          <li>Shigemura, H., & Matsumoto, K. (2025). A posztbiotikumok és a bél-bőr tengely: új bizonyítékok. Biomedicines, 13(3), 791.</li>
+        </ol>
+      </details>
+    </div>
+  </section>
+
+  <!-- SZAKÉRTŐ -->
+  <section id="szakerto" class="expert-section">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Szakértői betekintés</div>
+        <h2>Dr. Colin Robertson a Collagen Boozt formuláról</h2>
+        <p>A Zinzino termékfejlesztését Dr. Colin Robertson, a cég termékigazgatója (Chief Product Officer) vezeti — testmozgás-élettanból szerzett PhD-vel, okleveles táplálkozási szakértőként.</p>
+      </div>
+      <div class="expert-grid">
+        <div class="video-player">
+          <video id="expertVideo" poster="colin-robertson-poster.jpg" preload="metadata" playsinline controls>
+            <source src="collagen-boozt-expert-insights.mp4" type="video/mp4">
+          </video>
+          <div class="video-play-caption"><span class="dot"></span><span>Sejtszerviz.hu · Dr. Colin Robertson a kollagénről</span></div>
+          <div class="video-play-overlay" id="expertVideoOverlay">
+            <div class="video-play-btn">
+              <svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="expert-card">
+          <div class="role">Chief Product Officer, Zinzino</div>
+          <h3>Dr. Colin Robertson</h3>
+          <p>Colin Robertson évtizedek óta alakítja sportolók és egészségtudatos emberek táplálkozási stratégiáit — dolgozott csúcssportolókkal, expedíciós csapatokkal, és korábban olyan szervezeteknek is, mint a brit Nemzeti Egészségügyi Szolgálat (NHS). Ő vezeti a Zinzino teljes termékfejlesztését, így a Collagen Boozt és a Collagen Boozt Flex receptúráját is.</p>
+          <div class="expert-quote">
+            <p>A bőr a szervezet legnagyobb szerve, és szoros kölcsönhatásban áll a test szinte minden rendszerével — ezért épült a Collagen Boozt egy sokrétű, komplex megközelítésre: ha belülről tápláljuk a szervezetet, a bőr magától is virágzásnak indul.</p>
+            <span>— Dr. Colin Robertson, Zinzino hivatalos sajtóanyaga alapján, saját megfogalmazásban</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section id="velemenyek">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Vélemények</div>
+        <h2>Amit szakértők és vásárlók mondanak</h2>
+        <p>Nem gyártott idézetek — publikus, ellenőrizhető forrásokból származó vélemények, saját szavainkkal összefoglalva.</p>
+      </div>
+      <div class="testimonial-grid">
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>„Még soha nem találkoztam ilyen komplett kollagénkészítménnyel.”</p>
+          <div class="who"><b>Rich McWatt</b>vezető termékfejlesztési szakértő, Nutrition Works, Egyesült Királyság</div>
+          <span class="src-tag">Zinzino hivatalos anyag</span>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>Egy vásárló arról számolt be, hogy a Zinzino Balance Oil mellé bevezetett kollagén-kiegészítő szedése óta láthatóan szebb lett a bőre.</p>
+          <div class="who"><b>Zinzino vásárló</b>Trustpilot-értékelés, német piac</div>
+          <span class="src-tag">Valós vásárlói értékelés, összefoglalva</span>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>A Zinzino szerint a Collagen Boozt Flex azért született, hogy a tengeri kollagént, a hialuronsavat, a posztbiotikumokat és a válogatott tápanyagokat egy könnyen beilleszthető, napi rutinba foglalja.</p>
+          <div class="who"><b>Gabriele Helmer</b>marketingigazgató, Zinzino</div>
+          <span class="src-tag">Zinzino sajtóközlemény, 2026. június</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MINŐSÉG -->
+  <section id="minoseg" class="quality">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow on-dark">Minőség</div>
+        <h2>Nem a Zinzino mondja magáról — mások igazolják</h2>
+        <p>Független, nemzetközi szervezetek tanúsítványai állnak a Collagen Boozt Flex mögött, nem csak a gyártó saját állítása.</p>
+      </div>
+      <div class="cert-strip">
+        <div class="cert-badge">
+          <img src="https://cdn.cms.zinzino.com/globalassets/media/illustrations/credentials/gluten.png" alt="Gluténmentes tanúsítvány" loading="lazy">
+          <span>Gluténmentes</span>
+          <p class="cert-desc">A termék nem tartalmaz glutént, így gluténérzékenyek is fogyaszthatják.</p>
+        </div>
+        <div class="cert-badge">
+          <img src="https://cdn.cms.zinzino.com/globalassets/media/illustrations/credentials/informed-sport-logo-125px.png" alt="Informed Sport tanúsítvány" loading="lazy">
+          <span>Informed Sport</span>
+          <p class="cert-desc">Minden gyártási tétel tiltott, doppinglistás anyagokra vizsgálva — versenysportolók is bátran szedhetik.</p>
+        </div>
+        <div class="cert-badge">
+          <img src="https://cdn.cms.zinzino.com/globalassets/media/illustrations/credentials/certificate-informed-choice-logo.png" alt="Informed Choice tanúsítvány" loading="lazy">
+          <span>Informed Choice</span>
+          <p class="cert-desc">Rendszeres, független vizsgálat garantálja a termék tisztaságát és biztonságát.</p>
+        </div>
+      </div>
+      <div class="quality-quote">
+        <p>Az Északi-sarkvidék vadon fogott halaiból nyert, FOS-tanúsítvánnyal rendelkező tőkehal a kollagén forrása — Norvégia kristálytiszta vizeiből.</p>
+        <span>Zinzino Norwegian Skin Nutrition</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ÖSSZEHASONLÍTÁS / TERMÉKVÁLASZTÓ -->
+  <section id="osszehasonlitas">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Melyiket válaszd?</div>
+        <h2>Collagen Boozt vagy Collagen Boozt Flex?</h2>
+        <p>Ugyanaz a bevált kollagén-alap mindkét termékben — a különbség a kiszerelésben és a napi rutinba illesztésben van. Mindkettő önállóan is megrendelhető.</p>
+      </div>
+
+      <div class="benefit-grid" style="grid-template-columns:1fr 1fr; margin-bottom:44px;">
+        <div class="benefit-card" style="border:1.5px solid var(--copper); background:var(--white);">
+          <div style="display:flex; gap:16px; align-items:flex-start;">
+            <img src="https://cdn.cms.zinzino.com/globalassets/media/full-width/products/skin-nutrition/collagen-boozt-rounded.png" alt="Zinzino Collagen Boozt gél" loading="lazy" style="width:90px; flex-shrink:0;">
+            <div>
+              <div class="eyebrow" style="margin-bottom:6px;">Azonnal iható</div>
+              <h3 style="font-size:1.15rem; margin-bottom:8px;">Collagen Boozt</h3>
+              <p style="margin-bottom:14px;">Cseresznye ízű, folyékony kollagén gél, 10×46 ml — nincs keverés, nincs várakozás, útközben is bedobható.</p>
+              <a class="btn-primary" style="padding:12px 20px; font-size:0.9rem;" href="https://www.zinzino.com/shop/2004358267/hu/hu-hu/products/shop/skin-nutrition/302800" target="_blank" rel="noopener">Collagen Boozt megrendelése</a>
+            </div>
+          </div>
+        </div>
+        <div class="benefit-card" style="border:1.5px solid var(--copper); background:var(--white);">
+          <div style="display:flex; gap:16px; align-items:flex-start;">
+            <img src="https://cdn.cms.zinzino.com/globalassets/media/full-width/products/skin-nutrition/collagen-boozt-flex-rounded.png" alt="Zinzino Collagen Boozt Flex por" loading="lazy" style="width:90px; flex-shrink:0;">
+            <div>
+              <div class="eyebrow" style="margin-bottom:6px;">Rugalmasan oldható</div>
+              <h3 style="font-size:1.15rem; margin-bottom:8px;">Collagen Boozt Flex</h3>
+              <p style="margin-bottom:14px;">Erdeigyümölcs ízű por, 10×12,8 g tasak — vízben, turmixban, joghurtban is elkeverhető, illik a reggeli rutinba.</p>
+              <a class="btn-primary" style="padding:12px 20px; font-size:0.9rem;" href="https://www.zinzino.com/shop/2004358267/hu/hu-hu/products/shop/skin-nutrition/302830" target="_blank" rel="noopener">Collagen Boozt Flex megrendelése</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="overflow-x:auto;">
+        <table class="compare-table">
+          <thead><tr><th>Szempont</th><th class="compare-highlight">Collagen Boozt</th><th>Collagen Boozt Flex</th></tr></thead>
+          <tbody>
+            <tr><td>Kiszerelés</td><td class="compare-highlight">Azonnal fogyasztható gél, 10×46 ml</td><td>Por, 10×12,8 g tasak</td></tr>
+            <tr><td>Íz</td><td class="compare-highlight">Cseresznye</td><td>Erdeigyümölcs</td></tr>
+            <tr><td>Előkészítés</td><td class="compare-highlight">Nem igényel előkészületet</td><td>Vízben, turmixban, joghurtban oldható</td></tr>
+            <tr><td>Kollagén / adag</td><td class="compare-highlight">8000 mg</td><td>8000 mg</td></tr>
+            <tr><td>Hialuronsav / adag</td><td class="compare-highlight">120 mg</td><td>120 mg</td></tr>
+            <tr><td>Extra összetevő</td><td class="compare-highlight">Inulin (prebiotikus rost cikóriagyökérből)</td><td>L-glutation, magasabb C-vitamin (151% NRV)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:20px; font-size:0.85rem; color:var(--ink-soft); max-width:70ch;">A magas hatóanyag-koncentráció miatt a két terméket — illetve más kollagén- és hialuronsav-tartalmú készítményt — nem ajánlott ugyanazon a napon együtt szedni.</p>
+    </div>
+  </section>
+
+  <!-- GYIK -->
+  <section id="gyik">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">GYIK</div>
+        <h2>Amit a legtöbben kérdeznek</h2>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item" open>
+          <summary>Mennyi idő alatt látok eredményt?</summary>
+          <div class="faq-a">A Collagen Boozt Flexet napi rendszerességgel, körülbelül 10 napon át javasolt szedni — egyes tudományos vizsgálatok már ennyi idő alatt is megfigyeltek változást. Utána is folytatható a napi szedés.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Hogyan kell elkészíteni?</summary>
+          <div class="faq-a">Egy tasak (12,8 g) tartalmát keverd el alaposan 500 ml vízben, vagy csempészd egy turmixba, joghurtba — a lényeg, hogy naponta egyszer, következetesen fogyaszd.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Fogyaszthatják halallergiában szenvedők?</summary>
+          <div class="faq-a">Nem. A Collagen Boozt Flexben használt kollagén tőkehalból, foltos és sárga tőkehalból származik, ezért halallergia esetén a termék nem fogyasztható.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Terhesség vagy szoptatás alatt szedhető?</summary>
+          <div class="faq-a">Terhesség vagy szoptatás ideje alatt a termék használata előtt mindenképp konzultálj kezelőorvosoddal.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Szedhetem a Collagen Boozt Flexet és a Collagen Boozt-ot együtt?</summary>
+          <div class="faq-a">Nem javasolt: a kulcsfontosságú hatóanyagok magas koncentrációja miatt a két terméket, illetve más kollagén- és hialuronsav-tartalmú készítményeket sem ajánlott ugyanazon a napon szedni.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Hány éves kortól ajánlott a használata?</summary>
+          <div class="faq-a">A Collagen Boozt Flex felnőtteknek készült. Nem helyettesíti a kiegyensúlyozott, változatos étrendet, és nem szolgál betegségek kezelésére vagy megelőzésére.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Hogyan indíthatok előfizetést vagy rendelhetek egyszeri vásárlással?</summary>
+          <div class="faq-a">A rendelési oldalon mindkét lehetőség elérhető: az előfizetéses rendelés kedvezményes Premier áron, automatikus utánpótlással jár, de egyszeri vásárlással is megrendelhető a termék.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA — AIDA: ACTION -->
+  <div class="wrap">
+    <section id="rendeles">
+      <div class="final-cta final-cta-split">
+        <div class="final-cta-text">
+          <h2>Adj a testednek belülről is esélyt</h2>
+          <p>10 napos kúra, napi egy adag — kezdd el most, gél vagy por formában, és nézd meg, mit tud a tengeri eredetű kollagén és a hialuronsav duója.</p>
+          <ul class="final-cta-list">
+            <li>8000 mg tengeri kollagén + 120 mg hialuronsav naponta</li>
+            <li>Két formátum: azonnal iható gél vagy oldható por</li>
+            <li>Gluténmentes, Informed Sport tanúsítvánnyal</li>
+          </ul>
+          <div class="hero-ctas" style="flex-direction:column; align-items:stretch; max-width:340px;">
+            <a class="btn-primary" href="https://www.zinzino.com/shop/2004358267/hu/hu-hu/products/premier-kits/910697" target="_blank" rel="noopener">Collagen Boozt Kit</a>
+            <a class="btn-primary" href="https://www.zinzino.com/shop/2004358267/hu/hu-hu/products/premier-kits/911175" target="_blank" rel="noopener">Collagen Boozt Flex Kit</a>
+          </div>
+          <p style="color:var(--ink-soft); font-size:0.8rem; margin-top:14px;">Az aktuális ár, kiszerelés és csomagtartalom a hivatalos Zinzino rendelési oldalon tekinthető meg. A megrendelés a Zinzino biztonságos felületén történik.</p>
+        </div>
+        <img class="final-cta-img" src="https://cdn.cms.zinzino.com/globalassets/media/full-width/people/sachet-in-pocket-1000x1225.png" alt="Collagen Boozt Flex tasak, útközben is fogyasztható" loading="lazy">
+      </div>
+    </section>
+  </div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="disclaimer">A Sejtszerviz.hu független Zinzino Partneri oldal. A megrendelés a Zinzino hivatalos, biztonságos felületén történik. Az étrend-kiegészítők nem helyettesítik a kiegyensúlyozott étrendet és az egészséges életmódot; a tartalom tájékoztató jellegű, nem minősül orvosi javaslatnak vagy diagnózisnak. A kollagénszint-becslő és az 1 perces kvíz kizárólag illusztrációs, önreflexiós célt szolgál, nem orvosi mérőeszköz vagy diagnosztikai teszt.</p>
+    <p style="text-align:center;">© <span id="year"></span> Sejtszerviz.hu · Független Zinzino Partner</p>
+    <ul class="foot-links">
+      <li><a href="#kviz">1 perces kvíz</a></li>
+      <li><a href="#elonyok">Előnyök</a></li>
+      <li><a href="#hogyan">Hogyan használd</a></li>
+      <li><a href="#kutatas">Kutatás</a></li>
+      <li><a href="#szakerto">Szakértő</a></li>
+      <li><a href="#velemenyek">Vélemények</a></li>
+      <li><a href="#gyik">GYIK</a></li>
+      <li><a href="https://zinzinowebstorage.blob.core.windows.net/product-sheets/CollagenBooztFlex-hu-HU.pdf" target="_blank" rel="noopener">Termékismertető (PDF)</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Videólejátszók: hanggal indulnak, kattintásra
+  document.querySelectorAll('.video-player').forEach(player => {
+    const video = player.querySelector('video');
+    const overlay = player.querySelector('.video-play-overlay');
+    if (!video || !overlay) return;
+
+    // Diagnosztikai hibaüzenet dinamikus létrehozása (ha a videó nem tud betölteni/lejátszani)
+    const errBox = document.createElement('div');
+    errBox.className = 'video-error-msg';
+    errBox.innerHTML = '<div class="inner"><h4>A videó most nem indul el</h4>' +
+      '<p>Ez általában azért fordul elő, mert a HTML fájlt közvetlenül (böngészőbe húzva / dupla kattintással) nyitottad meg a gépeden — helyi fájlból sok böngésző nem játssza le a videót. ' +
+      'Ellenőrizd, hogy a videó- és képfájlok ugyanabban a mappában vannak-e, mint a HTML, és ha lehet, próbáld meg egy éles weboldalról (pl. feltöltve a sejtszerviz.hu-ra) megnyitni — ott garantáltan működik.</p>' +
+      '<button type="button">Újrapróbálom</button></div>';
+    player.appendChild(errBox);
+    const retryBtn = errBox.querySelector('button');
+
+    function showError(){
+      errBox.classList.add('is-visible');
+      overlay.classList.add('is-hidden');
+    }
+    function hideError(){
+      errBox.classList.remove('is-visible');
+    }
+
+    let stallTimer = null;
+
+    overlay.addEventListener('click', () => {
+      hideError();
+      video.muted = false;
+      const playPromise = video.play();
+      overlay.classList.add('is-hidden');
+      if (playPromise && playPromise.catch){
+        playPromise.catch(() => { showError(); });
+      }
+      clearTimeout(stallTimer);
+      stallTimer = setTimeout(() => {
+        if (video.readyState === 0 && video.currentTime === 0){ showError(); }
+      }, 3000);
+    });
+
+    retryBtn.addEventListener('click', () => {
+      hideError();
+      video.load();
+      video.muted = false;
+      video.play().catch(() => { showError(); });
+    });
+
+    video.addEventListener('error', showError);
+    video.addEventListener('playing', () => { clearTimeout(stallTimer); hideError(); });
+    video.addEventListener('pause', () => { if (!video.ended) overlay.classList.remove('is-hidden'); });
+    video.addEventListener('play', () => { overlay.classList.add('is-hidden'); });
+    video.addEventListener('ended', () => { overlay.classList.remove('is-hidden'); video.currentTime = 0; });
+  });
+
+
+  // Kollagén-becslő csúszka
+  const ageSlider = document.getElementById('ageSlider');
+  const ageLabel = document.getElementById('ageLabel');
+  const collagenPct = document.getElementById('collagenPct');
+  const collagenBarFill = document.getElementById('collagenBarFill');
+
+  function estimateCollagen(age){
+    if (age <= 25) return 100;
+    let pct = 100 - (age - 25) * 1.0;
+    if (age > 50) pct -= (age - 50) * 0.6;
+    return Math.max(38, Math.round(pct));
+  }
+  function updateEstimator(){
+    const age = parseInt(ageSlider.value, 10);
+    const pct = estimateCollagen(age);
+    ageLabel.textContent = age + ' év';
+    collagenPct.innerHTML = pct + '<span>%</span>';
+    collagenBarFill.style.transform = 'scaleX(' + (pct/100) + ')';
+  }
+  ageSlider.addEventListener('input', updateEstimator);
+  updateEstimator();
+
+  // 1 perces kvíz
+  const quizData = [
+    { q: "Hány éves vagy?", opts: [
+      { t: "20 alatt", v: 0 }, { t: "20–35 év", v: 1 }, { t: "36–50 év", v: 2 }, { t: "50 év felett", v: 3 }
+    ]},
+    { q: "Milyennek érzed a bőröd rugalmasságát reggel?", opts: [
+      { t: "Feszes és rugalmas", v: 0 }, { t: "Változó, néha fáradtnak tűnik", v: 1 }, { t: "Petyhüdtebbnek, fáradtnak érzem", v: 2 }
+    ]},
+    { q: "Van-e már finom vonal a szemed vagy szád körül?", opts: [
+      { t: "Nincs, vagy alig", v: 0 }, { t: "Igen, néhány finom vonal", v: 1 }, { t: "Igen, egyértelműen látszik", v: 2 }
+    ]},
+    { q: "Mennyi vizet iszol átlagosan naponta?", opts: [
+      { t: "2 liter vagy több", v: 0 }, { t: "1–2 liter", v: 1 }, { t: "1 liter alatt", v: 2 }
+    ]},
+    { q: "Fogyasztasz rendszeresen kollagén-forrást (hal, csontleves, kiegészítő)?", opts: [
+      { t: "Igen, rendszeresen", v: 0 }, { t: "Ritkán", v: 1 }, { t: "Szinte soha", v: 2 }
+    ]},
+    { q: "Milyen az ízületeid és a hajad/körmöd állapota mostanában?", opts: [
+      { t: "Mozgékony ízületek, erős haj/köröm", v: 0 }, { t: "Átlagos, esetenként merevebb", v: 1 }, { t: "Ropognak az ízületek, törékeny haj/köröm", v: 2 }
+    ]},
+    { q: "Mi illik jobban a napi rutinodhoz?", isProductQuestion: true, opts: [
+      { t: "Azonnal bedobható, útközben is — nincs időm keverni", v: 0, product: "boozt" },
+      { t: "Szeretem reggel bekeverni vízbe vagy turmixba", v: 0, product: "flex" },
+      { t: "Mindegy, te válaszd ki, ami jobban illik hozzám", v: 0, product: "auto" }
+    ]}
+  ];
+
+  let productChoice = null;
+
+  let quizIndex = 0;
+  let quizScore = 0;
+  const quizIntro = document.getElementById('quizIntro');
+  const quizQuestionsEl = document.getElementById('quizQuestions');
+  const quizResultEl = document.getElementById('quizResult');
+  const quizProgress = document.getElementById('quizProgress');
+  const quizStartBtn = document.getElementById('quizStartBtn');
+
+  quizStartBtn.addEventListener('click', () => {
+    quizIndex = 0; quizScore = 0; productChoice = null;
+    quizIntro.classList.add('hidden');
+    quizResultEl.classList.add('hidden');
+    quizQuestionsEl.classList.remove('hidden');
+    renderQuizQuestion();
+  });
+
+  function renderQuizQuestion(){
+    const item = quizData[quizIndex];
+    quizProgress.style.width = Math.round((quizIndex / quizData.length) * 100) + '%';
+    let html = '<div class="quiz-q">';
+    html += '<div class="quiz-step-label">' + (quizIndex+1) + ' / ' + quizData.length + '. kérdés</div>';
+    html += '<h3>' + item.q + '</h3>';
+    html += '<div class="quiz-options">';
+    item.opts.forEach((opt, i) => {
+      const productAttr = opt.product ? ' data-product="' + opt.product + '"' : '';
+      html += '<button type="button" class="quiz-opt" data-value="' + opt.v + '"' + productAttr + '>' + opt.t + '</button>';
+    });
+    html += '</div></div>';
+    quizQuestionsEl.innerHTML = html;
+
+    quizQuestionsEl.querySelectorAll('.quiz-opt').forEach(btn => {
+      btn.addEventListener('click', () => {
+        quizScore += parseInt(btn.dataset.value, 10);
+        if (btn.dataset.product) productChoice = btn.dataset.product;
+        quizIndex++;
+        if (quizIndex < quizData.length){
+          renderQuizQuestion();
+        } else {
+          quizProgress.style.width = '100%';
+          showQuizResult();
+        }
+      });
+    });
+  }
+
+  function showQuizResult(){
+    quizQuestionsEl.classList.add('hidden');
+    quizResultEl.classList.remove('hidden');
+
+    const maxScore = 13;
+    let tier, badgeClass, tierText;
+    if (quizScore <= 4){
+      tier = 'Stabil zóna'; badgeClass = 'tier-good';
+      tierText = 'A válaszaid alapján a bőröd, az ízületeid és a napi szokásaid egyelőre jól tartják a formát — ezen a ponton megelőző jelleggel érdemes kollagént pótolnod.';
+    } else if (quizScore <= 8){
+      tier = 'Figyelmeztető zóna'; badgeClass = 'tier-mid';
+      tierText = 'A válaszaid alapján érdemes elkezdened tudatosan táplálni a szervezetedet belülről is: a bőr rugalmassága, az ízületek mozgékonysága vagy a haj-köröm állapota már mutat elhasználódási jeleket.';
+    } else {
+      tier = 'Aktív pótlásra van szükség'; badgeClass = 'tier-low';
+      tierText = 'A válaszaid több olyan jelet is mutatnak, amelyek arra utalnak, hogy a szervezeted saját kollagéntermelése már jelentősen lassulhatott — érdemes minél előbb belevágni egy 10 napos kúrába.';
+    }
+
+    // Konkrét termékajánlás: a rutin-preferencia dönt, "mindegy" válasznál a súlyosság dönt tovább
+    let recommendedProduct = productChoice;
+    if (recommendedProduct === 'auto'){
+      recommendedProduct = (quizScore >= 9) ? 'boozt' : 'flex';
+    }
+    const isBoozt = recommendedProduct === 'boozt';
+    const productName = isBoozt ? 'Collagen Boozt' : 'Collagen Boozt Flex';
+    const productUrl = isBoozt
+      ? 'https://www.zinzino.com/shop/2004358267/hu/hu-hu/products/premier-kits/910697'
+      : 'https://www.zinzino.com/shop/2004358267/hu/hu-hu/products/premier-kits/911175';
+    const productReason = isBoozt
+      ? 'Mivel az azonnal fogyasztható formátumot preferálod, neked a <strong>Collagen Boozt</strong> folyékony gél a jobb választás — nincs keverés, útközben is bedobható, ugyanaz a 8000 mg tengeri kollagén és 120 mg hialuronsav egy adagban.'
+      : 'Mivel szívesen beépíted a napi rutinodba, neked a <strong>Collagen Boozt Flex</strong> por a jobb választás — vízben, turmixban vagy joghurtban is elkeverhető, ugyanaz a 8000 mg tengeri kollagén és 120 mg hialuronsav egy adagban.';
+
+    let html = '';
+    html += '<div class="quiz-result-badge ' + badgeClass + '">' + tier + '</div>';
+    html += '<div class="quiz-result-score">' + quizScore + ' / ' + maxScore + '</div>';
+    html += '<h3>Neked ezt javasoljuk: ' + productName + '</h3>';
+    html += '<p>' + tierText + '</p>';
+    html += '<p>' + productReason + '</p>';
+    html += '<div class="quiz-result-actions">';
+    html += '<a class="btn-primary" href="' + productUrl + '" target="_blank" rel="noopener">' + productName + ' Kit megrendelése</a>';
+    html += '<button type="button" class="quiz-restart" id="quizRestartBtn">Újra kitöltöm</button>';
+    html += '</div>';
+    quizResultEl.innerHTML = html;
+
+    document.getElementById('quizRestartBtn').addEventListener('click', () => {
+      quizResultEl.classList.add('hidden');
+      quizIntro.classList.remove('hidden');
+      quizProgress.style.width = '0%';
+    });
+  }
+</script>
+
+</body>
+</html>
